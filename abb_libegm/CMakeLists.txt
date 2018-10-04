@@ -4,7 +4,7 @@ project(abb_libegm)
 find_package(catkin REQUIRED)
 
 find_package(Boost REQUIRED COMPONENTS system thread)
-
+add_compile_options(-std=c++11)
 #############################
 ## Google Protocol Buffers ##
 #############################

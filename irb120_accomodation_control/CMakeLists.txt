@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(irb120_accomodation_control)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -149,6 +149,7 @@ add_executable(subscribe_test src/subscribe_test.cpp)
 add_executable(everything_test src/everything_test.cpp)
 add_executable(transform_test src/transform_test.cpp)
 add_executable(libegm_test src/libegm_test.cpp)
+add_executable(networktest src/networktest.cpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -161,6 +162,12 @@ add_executable(libegm_test src/libegm_test.cpp)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(publish_test 
+   ${catkin_LIBRARIES}
+	irb120_accomodation_control
+  irb120_fk_ik
+ )
+
+target_link_libraries(networktest 
    ${catkin_LIBRARIES}
 	irb120_accomodation_control
   irb120_fk_ik

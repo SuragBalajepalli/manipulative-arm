@@ -6,114 +6,103 @@
 #include <algorithm>
 
 #include <google/protobuf/stubs/common.h>
-#include <google/protobuf/stubs/port.h>
-#include <google/protobuf/stubs/once.h>
 #include <google/protobuf/io/coded_stream.h>
+#include <google/protobuf/extension_set.h>
 #include <google/protobuf/wire_format_lite_inl.h>
 #include <google/protobuf/descriptor.h>
 #include <google/protobuf/generated_message_reflection.h>
 #include <google/protobuf/reflection_ops.h>
 #include <google/protobuf/wire_format.h>
-// This is a temporary google only hack
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-#include "third_party/protobuf/version.h"
-#endif
 // @@protoc_insertion_point(includes)
+#include <google/protobuf/port_def.inc>
+
+extern PROTOBUF_INTERNAL_EXPORT_egm_5fwrapper_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_Cartesian_egm_5fwrapper_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_egm_5fwrapper_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_Euler_egm_5fwrapper_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_egm_5fwrapper_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_Header_egm_5fwrapper_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_egm_5fwrapper_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_Joints_egm_5fwrapper_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_egm_5fwrapper_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_Quaternion_egm_5fwrapper_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_egm_5fwrapper_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_Status_egm_5fwrapper_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_egm_5fwrapper_2eproto ::google::protobuf::internal::SCCInfo<1> scc_info_External_egm_5fwrapper_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_egm_5fwrapper_2eproto ::google::protobuf::internal::SCCInfo<1> scc_info_JointSpace_egm_5fwrapper_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_egm_5fwrapper_2eproto ::google::protobuf::internal::SCCInfo<2> scc_info_CartesianSpace_egm_5fwrapper_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_egm_5fwrapper_2eproto ::google::protobuf::internal::SCCInfo<2> scc_info_CartesianVelocity_egm_5fwrapper_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_egm_5fwrapper_2eproto ::google::protobuf::internal::SCCInfo<2> scc_info_Feedback_egm_5fwrapper_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_egm_5fwrapper_2eproto ::google::protobuf::internal::SCCInfo<2> scc_info_Planned_egm_5fwrapper_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_egm_5fwrapper_2eproto ::google::protobuf::internal::SCCInfo<2> scc_info_Robot_egm_5fwrapper_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_egm_5fwrapper_2eproto ::google::protobuf::internal::SCCInfo<3> scc_info_CartesianPose_egm_5fwrapper_2eproto;
 namespace abb {
 namespace egm {
 namespace wrapper {
 class HeaderDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<Header>
-      _instance;
+  ::google::protobuf::internal::ExplicitlyConstructed<Header> _instance;
 } _Header_default_instance_;
 class StatusDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<Status>
-      _instance;
+  ::google::protobuf::internal::ExplicitlyConstructed<Status> _instance;
 } _Status_default_instance_;
 class JointsDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<Joints>
-      _instance;
+  ::google::protobuf::internal::ExplicitlyConstructed<Joints> _instance;
 } _Joints_default_instance_;
 class JointSpaceDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<JointSpace>
-      _instance;
+  ::google::protobuf::internal::ExplicitlyConstructed<JointSpace> _instance;
 } _JointSpace_default_instance_;
 class CartesianDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<Cartesian>
-      _instance;
+  ::google::protobuf::internal::ExplicitlyConstructed<Cartesian> _instance;
 } _Cartesian_default_instance_;
 class EulerDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<Euler>
-      _instance;
+  ::google::protobuf::internal::ExplicitlyConstructed<Euler> _instance;
 } _Euler_default_instance_;
 class QuaternionDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<Quaternion>
-      _instance;
+  ::google::protobuf::internal::ExplicitlyConstructed<Quaternion> _instance;
 } _Quaternion_default_instance_;
 class CartesianPoseDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<CartesianPose>
-      _instance;
+  ::google::protobuf::internal::ExplicitlyConstructed<CartesianPose> _instance;
 } _CartesianPose_default_instance_;
 class CartesianVelocityDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<CartesianVelocity>
-      _instance;
+  ::google::protobuf::internal::ExplicitlyConstructed<CartesianVelocity> _instance;
 } _CartesianVelocity_default_instance_;
 class CartesianSpaceDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<CartesianSpace>
-      _instance;
+  ::google::protobuf::internal::ExplicitlyConstructed<CartesianSpace> _instance;
 } _CartesianSpace_default_instance_;
 class RobotDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<Robot>
-      _instance;
+  ::google::protobuf::internal::ExplicitlyConstructed<Robot> _instance;
 } _Robot_default_instance_;
 class ExternalDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<External>
-      _instance;
+  ::google::protobuf::internal::ExplicitlyConstructed<External> _instance;
 } _External_default_instance_;
 class FeedbackDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<Feedback>
-      _instance;
+  ::google::protobuf::internal::ExplicitlyConstructed<Feedback> _instance;
 } _Feedback_default_instance_;
 class PlannedDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<Planned>
-      _instance;
+  ::google::protobuf::internal::ExplicitlyConstructed<Planned> _instance;
 } _Planned_default_instance_;
 class InputDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<Input>
-      _instance;
+  ::google::protobuf::internal::ExplicitlyConstructed<Input> _instance;
 } _Input_default_instance_;
 class OutputDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<Output>
-      _instance;
+  ::google::protobuf::internal::ExplicitlyConstructed<Output> _instance;
 } _Output_default_instance_;
 }  // namespace wrapper
 }  // namespace egm
 }  // namespace abb
-namespace protobuf_egm_5fwrapper_2eproto {
-void InitDefaultsHeaderImpl() {
+static void InitDefaultsHeader_egm_5fwrapper_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
-#else
-  ::google::protobuf::internal::InitProtobufDefaults();
-#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
   {
     void* ptr = &::abb::egm::wrapper::_Header_default_instance_;
     new (ptr) ::abb::egm::wrapper::Header();
@@ -122,19 +111,12 @@ void InitDefaultsHeaderImpl() {
   ::abb::egm::wrapper::Header::InitAsDefaultInstance();
 }
 
-void InitDefaultsHeader() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsHeaderImpl);
-}
+::google::protobuf::internal::SCCInfo<0> scc_info_Header_egm_5fwrapper_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsHeader_egm_5fwrapper_2eproto}, {}};
 
-void InitDefaultsStatusImpl() {
+static void InitDefaultsStatus_egm_5fwrapper_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
-#else
-  ::google::protobuf::internal::InitProtobufDefaults();
-#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
   {
     void* ptr = &::abb::egm::wrapper::_Status_default_instance_;
     new (ptr) ::abb::egm::wrapper::Status();
@@ -143,19 +125,12 @@ void InitDefaultsStatusImpl() {
   ::abb::egm::wrapper::Status::InitAsDefaultInstance();
 }
 
-void InitDefaultsStatus() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsStatusImpl);
-}
+::google::protobuf::internal::SCCInfo<0> scc_info_Status_egm_5fwrapper_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsStatus_egm_5fwrapper_2eproto}, {}};
 
-void InitDefaultsJointsImpl() {
+static void InitDefaultsJoints_egm_5fwrapper_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
-#else
-  ::google::protobuf::internal::InitProtobufDefaults();
-#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
   {
     void* ptr = &::abb::egm::wrapper::_Joints_default_instance_;
     new (ptr) ::abb::egm::wrapper::Joints();
@@ -164,20 +139,12 @@ void InitDefaultsJointsImpl() {
   ::abb::egm::wrapper::Joints::InitAsDefaultInstance();
 }
 
-void InitDefaultsJoints() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsJointsImpl);
-}
+::google::protobuf::internal::SCCInfo<0> scc_info_Joints_egm_5fwrapper_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsJoints_egm_5fwrapper_2eproto}, {}};
 
-void InitDefaultsJointSpaceImpl() {
+static void InitDefaultsJointSpace_egm_5fwrapper_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
-#else
-  ::google::protobuf::internal::InitProtobufDefaults();
-#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  protobuf_egm_5fwrapper_2eproto::InitDefaultsJoints();
   {
     void* ptr = &::abb::egm::wrapper::_JointSpace_default_instance_;
     new (ptr) ::abb::egm::wrapper::JointSpace();
@@ -186,19 +153,13 @@ void InitDefaultsJointSpaceImpl() {
   ::abb::egm::wrapper::JointSpace::InitAsDefaultInstance();
 }
 
-void InitDefaultsJointSpace() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsJointSpaceImpl);
-}
+::google::protobuf::internal::SCCInfo<1> scc_info_JointSpace_egm_5fwrapper_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsJointSpace_egm_5fwrapper_2eproto}, {
+      &scc_info_Joints_egm_5fwrapper_2eproto.base,}};
 
-void InitDefaultsCartesianImpl() {
+static void InitDefaultsCartesian_egm_5fwrapper_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
-#else
-  ::google::protobuf::internal::InitProtobufDefaults();
-#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
   {
     void* ptr = &::abb::egm::wrapper::_Cartesian_default_instance_;
     new (ptr) ::abb::egm::wrapper::Cartesian();
@@ -207,19 +168,12 @@ void InitDefaultsCartesianImpl() {
   ::abb::egm::wrapper::Cartesian::InitAsDefaultInstance();
 }
 
-void InitDefaultsCartesian() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsCartesianImpl);
-}
+::google::protobuf::internal::SCCInfo<0> scc_info_Cartesian_egm_5fwrapper_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsCartesian_egm_5fwrapper_2eproto}, {}};
 
-void InitDefaultsEulerImpl() {
+static void InitDefaultsEuler_egm_5fwrapper_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
-#else
-  ::google::protobuf::internal::InitProtobufDefaults();
-#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
   {
     void* ptr = &::abb::egm::wrapper::_Euler_default_instance_;
     new (ptr) ::abb::egm::wrapper::Euler();
@@ -228,19 +182,12 @@ void InitDefaultsEulerImpl() {
   ::abb::egm::wrapper::Euler::InitAsDefaultInstance();
 }
 
-void InitDefaultsEuler() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsEulerImpl);
-}
+::google::protobuf::internal::SCCInfo<0> scc_info_Euler_egm_5fwrapper_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsEuler_egm_5fwrapper_2eproto}, {}};
 
-void InitDefaultsQuaternionImpl() {
+static void InitDefaultsQuaternion_egm_5fwrapper_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
-#else
-  ::google::protobuf::internal::InitProtobufDefaults();
-#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
   {
     void* ptr = &::abb::egm::wrapper::_Quaternion_default_instance_;
     new (ptr) ::abb::egm::wrapper::Quaternion();
@@ -249,22 +196,12 @@ void InitDefaultsQuaternionImpl() {
   ::abb::egm::wrapper::Quaternion::InitAsDefaultInstance();
 }
 
-void InitDefaultsQuaternion() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsQuaternionImpl);
-}
+::google::protobuf::internal::SCCInfo<0> scc_info_Quaternion_egm_5fwrapper_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsQuaternion_egm_5fwrapper_2eproto}, {}};
 
-void InitDefaultsCartesianPoseImpl() {
+static void InitDefaultsCartesianPose_egm_5fwrapper_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
-#else
-  ::google::protobuf::internal::InitProtobufDefaults();
-#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  protobuf_egm_5fwrapper_2eproto::InitDefaultsCartesian();
-  protobuf_egm_5fwrapper_2eproto::InitDefaultsEuler();
-  protobuf_egm_5fwrapper_2eproto::InitDefaultsQuaternion();
   {
     void* ptr = &::abb::egm::wrapper::_CartesianPose_default_instance_;
     new (ptr) ::abb::egm::wrapper::CartesianPose();
@@ -273,21 +210,15 @@ void InitDefaultsCartesianPoseImpl() {
   ::abb::egm::wrapper::CartesianPose::InitAsDefaultInstance();
 }
 
-void InitDefaultsCartesianPose() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsCartesianPoseImpl);
-}
+::google::protobuf::internal::SCCInfo<3> scc_info_CartesianPose_egm_5fwrapper_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 3, InitDefaultsCartesianPose_egm_5fwrapper_2eproto}, {
+      &scc_info_Cartesian_egm_5fwrapper_2eproto.base,
+      &scc_info_Euler_egm_5fwrapper_2eproto.base,
+      &scc_info_Quaternion_egm_5fwrapper_2eproto.base,}};
 
-void InitDefaultsCartesianVelocityImpl() {
+static void InitDefaultsCartesianVelocity_egm_5fwrapper_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
-#else
-  ::google::protobuf::internal::InitProtobufDefaults();
-#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  protobuf_egm_5fwrapper_2eproto::InitDefaultsCartesian();
-  protobuf_egm_5fwrapper_2eproto::InitDefaultsEuler();
   {
     void* ptr = &::abb::egm::wrapper::_CartesianVelocity_default_instance_;
     new (ptr) ::abb::egm::wrapper::CartesianVelocity();
@@ -296,21 +227,14 @@ void InitDefaultsCartesianVelocityImpl() {
   ::abb::egm::wrapper::CartesianVelocity::InitAsDefaultInstance();
 }
 
-void InitDefaultsCartesianVelocity() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsCartesianVelocityImpl);
-}
+::google::protobuf::internal::SCCInfo<2> scc_info_CartesianVelocity_egm_5fwrapper_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 2, InitDefaultsCartesianVelocity_egm_5fwrapper_2eproto}, {
+      &scc_info_Cartesian_egm_5fwrapper_2eproto.base,
+      &scc_info_Euler_egm_5fwrapper_2eproto.base,}};
 
-void InitDefaultsCartesianSpaceImpl() {
+static void InitDefaultsCartesianSpace_egm_5fwrapper_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
-#else
-  ::google::protobuf::internal::InitProtobufDefaults();
-#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  protobuf_egm_5fwrapper_2eproto::InitDefaultsCartesianPose();
-  protobuf_egm_5fwrapper_2eproto::InitDefaultsCartesianVelocity();
   {
     void* ptr = &::abb::egm::wrapper::_CartesianSpace_default_instance_;
     new (ptr) ::abb::egm::wrapper::CartesianSpace();
@@ -319,21 +243,14 @@ void InitDefaultsCartesianSpaceImpl() {
   ::abb::egm::wrapper::CartesianSpace::InitAsDefaultInstance();
 }
 
-void InitDefaultsCartesianSpace() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsCartesianSpaceImpl);
-}
+::google::protobuf::internal::SCCInfo<2> scc_info_CartesianSpace_egm_5fwrapper_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 2, InitDefaultsCartesianSpace_egm_5fwrapper_2eproto}, {
+      &scc_info_CartesianPose_egm_5fwrapper_2eproto.base,
+      &scc_info_CartesianVelocity_egm_5fwrapper_2eproto.base,}};
 
-void InitDefaultsRobotImpl() {
+static void InitDefaultsRobot_egm_5fwrapper_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
-#else
-  ::google::protobuf::internal::InitProtobufDefaults();
-#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  protobuf_egm_5fwrapper_2eproto::InitDefaultsJointSpace();
-  protobuf_egm_5fwrapper_2eproto::InitDefaultsCartesianSpace();
   {
     void* ptr = &::abb::egm::wrapper::_Robot_default_instance_;
     new (ptr) ::abb::egm::wrapper::Robot();
@@ -342,20 +259,14 @@ void InitDefaultsRobotImpl() {
   ::abb::egm::wrapper::Robot::InitAsDefaultInstance();
 }
 
-void InitDefaultsRobot() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsRobotImpl);
-}
+::google::protobuf::internal::SCCInfo<2> scc_info_Robot_egm_5fwrapper_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 2, InitDefaultsRobot_egm_5fwrapper_2eproto}, {
+      &scc_info_JointSpace_egm_5fwrapper_2eproto.base,
+      &scc_info_CartesianSpace_egm_5fwrapper_2eproto.base,}};
 
-void InitDefaultsExternalImpl() {
+static void InitDefaultsExternal_egm_5fwrapper_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
-#else
-  ::google::protobuf::internal::InitProtobufDefaults();
-#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  protobuf_egm_5fwrapper_2eproto::InitDefaultsJointSpace();
   {
     void* ptr = &::abb::egm::wrapper::_External_default_instance_;
     new (ptr) ::abb::egm::wrapper::External();
@@ -364,21 +275,13 @@ void InitDefaultsExternalImpl() {
   ::abb::egm::wrapper::External::InitAsDefaultInstance();
 }
 
-void InitDefaultsExternal() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsExternalImpl);
-}
+::google::protobuf::internal::SCCInfo<1> scc_info_External_egm_5fwrapper_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsExternal_egm_5fwrapper_2eproto}, {
+      &scc_info_JointSpace_egm_5fwrapper_2eproto.base,}};
 
-void InitDefaultsFeedbackImpl() {
+static void InitDefaultsFeedback_egm_5fwrapper_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
-#else
-  ::google::protobuf::internal::InitProtobufDefaults();
-#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  protobuf_egm_5fwrapper_2eproto::InitDefaultsRobot();
-  protobuf_egm_5fwrapper_2eproto::InitDefaultsExternal();
   {
     void* ptr = &::abb::egm::wrapper::_Feedback_default_instance_;
     new (ptr) ::abb::egm::wrapper::Feedback();
@@ -387,21 +290,14 @@ void InitDefaultsFeedbackImpl() {
   ::abb::egm::wrapper::Feedback::InitAsDefaultInstance();
 }
 
-void InitDefaultsFeedback() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsFeedbackImpl);
-}
+::google::protobuf::internal::SCCInfo<2> scc_info_Feedback_egm_5fwrapper_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 2, InitDefaultsFeedback_egm_5fwrapper_2eproto}, {
+      &scc_info_Robot_egm_5fwrapper_2eproto.base,
+      &scc_info_External_egm_5fwrapper_2eproto.base,}};
 
-void InitDefaultsPlannedImpl() {
+static void InitDefaultsPlanned_egm_5fwrapper_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
-#else
-  ::google::protobuf::internal::InitProtobufDefaults();
-#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  protobuf_egm_5fwrapper_2eproto::InitDefaultsRobot();
-  protobuf_egm_5fwrapper_2eproto::InitDefaultsExternal();
   {
     void* ptr = &::abb::egm::wrapper::_Planned_default_instance_;
     new (ptr) ::abb::egm::wrapper::Planned();
@@ -410,23 +306,14 @@ void InitDefaultsPlannedImpl() {
   ::abb::egm::wrapper::Planned::InitAsDefaultInstance();
 }
 
-void InitDefaultsPlanned() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsPlannedImpl);
-}
+::google::protobuf::internal::SCCInfo<2> scc_info_Planned_egm_5fwrapper_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 2, InitDefaultsPlanned_egm_5fwrapper_2eproto}, {
+      &scc_info_Robot_egm_5fwrapper_2eproto.base,
+      &scc_info_External_egm_5fwrapper_2eproto.base,}};
 
-void InitDefaultsInputImpl() {
+static void InitDefaultsInput_egm_5fwrapper_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
-#else
-  ::google::protobuf::internal::InitProtobufDefaults();
-#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  protobuf_egm_5fwrapper_2eproto::InitDefaultsHeader();
-  protobuf_egm_5fwrapper_2eproto::InitDefaultsFeedback();
-  protobuf_egm_5fwrapper_2eproto::InitDefaultsPlanned();
-  protobuf_egm_5fwrapper_2eproto::InitDefaultsStatus();
   {
     void* ptr = &::abb::egm::wrapper::_Input_default_instance_;
     new (ptr) ::abb::egm::wrapper::Input();
@@ -435,21 +322,16 @@ void InitDefaultsInputImpl() {
   ::abb::egm::wrapper::Input::InitAsDefaultInstance();
 }
 
-void InitDefaultsInput() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsInputImpl);
-}
+::google::protobuf::internal::SCCInfo<4> scc_info_Input_egm_5fwrapper_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 4, InitDefaultsInput_egm_5fwrapper_2eproto}, {
+      &scc_info_Header_egm_5fwrapper_2eproto.base,
+      &scc_info_Feedback_egm_5fwrapper_2eproto.base,
+      &scc_info_Planned_egm_5fwrapper_2eproto.base,
+      &scc_info_Status_egm_5fwrapper_2eproto.base,}};
 
-void InitDefaultsOutputImpl() {
+static void InitDefaultsOutput_egm_5fwrapper_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
-#else
-  ::google::protobuf::internal::InitProtobufDefaults();
-#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  protobuf_egm_5fwrapper_2eproto::InitDefaultsRobot();
-  protobuf_egm_5fwrapper_2eproto::InitDefaultsExternal();
   {
     void* ptr = &::abb::egm::wrapper::_Output_default_instance_;
     new (ptr) ::abb::egm::wrapper::Output();
@@ -458,177 +340,197 @@ void InitDefaultsOutputImpl() {
   ::abb::egm::wrapper::Output::InitAsDefaultInstance();
 }
 
-void InitDefaultsOutput() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsOutputImpl);
+::google::protobuf::internal::SCCInfo<2> scc_info_Output_egm_5fwrapper_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 2, InitDefaultsOutput_egm_5fwrapper_2eproto}, {
+      &scc_info_Robot_egm_5fwrapper_2eproto.base,
+      &scc_info_External_egm_5fwrapper_2eproto.base,}};
+
+void InitDefaults_egm_5fwrapper_2eproto() {
+  ::google::protobuf::internal::InitSCC(&scc_info_Header_egm_5fwrapper_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_Status_egm_5fwrapper_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_Joints_egm_5fwrapper_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_JointSpace_egm_5fwrapper_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_Cartesian_egm_5fwrapper_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_Euler_egm_5fwrapper_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_Quaternion_egm_5fwrapper_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_CartesianPose_egm_5fwrapper_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_CartesianVelocity_egm_5fwrapper_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_CartesianSpace_egm_5fwrapper_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_Robot_egm_5fwrapper_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_External_egm_5fwrapper_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_Feedback_egm_5fwrapper_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_Planned_egm_5fwrapper_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_Input_egm_5fwrapper_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_Output_egm_5fwrapper_2eproto.base);
 }
 
-::google::protobuf::Metadata file_level_metadata[16];
-const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[4];
+::google::protobuf::Metadata file_level_metadata_egm_5fwrapper_2eproto[16];
+const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors_egm_5fwrapper_2eproto[4];
+constexpr ::google::protobuf::ServiceDescriptor const** file_level_service_descriptors_egm_5fwrapper_2eproto = nullptr;
 
-const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Header, _has_bits_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Header, _internal_metadata_),
+const ::google::protobuf::uint32 TableStruct_egm_5fwrapper_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Header, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Header, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Header, sequance_number_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Header, time_stamp_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Header, message_type_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Header, sequance_number_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Header, time_stamp_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Header, message_type_),
   0,
   1,
   2,
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Status, _has_bits_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Status, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Status, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Status, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Status, egm_convergence_met_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Status, egm_state_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Status, motor_state_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Status, rapid_execution_state_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Status, egm_convergence_met_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Status, egm_state_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Status, motor_state_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Status, rapid_execution_state_),
   0,
   1,
   2,
   3,
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Joints, _has_bits_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Joints, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Joints, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Joints, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Joints, values_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Joints, values_),
   ~0u,
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::JointSpace, _has_bits_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::JointSpace, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::JointSpace, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::JointSpace, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::JointSpace, position_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::JointSpace, velocity_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::JointSpace, position_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::JointSpace, velocity_),
   0,
   1,
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Cartesian, _has_bits_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Cartesian, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Cartesian, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Cartesian, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Cartesian, x_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Cartesian, y_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Cartesian, z_),
-  0,
-  1,
-  2,
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Euler, _has_bits_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Euler, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Euler, x_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Euler, y_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Euler, z_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Cartesian, x_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Cartesian, y_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Cartesian, z_),
   0,
   1,
   2,
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Quaternion, _has_bits_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Quaternion, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Euler, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Euler, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Quaternion, u0_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Quaternion, u1_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Quaternion, u2_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Quaternion, u3_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Euler, x_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Euler, y_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Euler, z_),
   0,
   1,
   2,
-  3,
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::CartesianPose, _has_bits_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::CartesianPose, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Quaternion, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Quaternion, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::CartesianPose, position_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::CartesianPose, euler_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::CartesianPose, quaternion_),
-  0,
-  1,
-  2,
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::CartesianVelocity, _has_bits_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::CartesianVelocity, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::CartesianVelocity, linear_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::CartesianVelocity, angular_),
-  0,
-  1,
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::CartesianSpace, _has_bits_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::CartesianSpace, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::CartesianSpace, pose_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::CartesianSpace, velocity_),
-  0,
-  1,
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Robot, _has_bits_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Robot, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Robot, joints_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Robot, cartesian_),
-  0,
-  1,
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::External, _has_bits_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::External, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::External, joints_),
-  0,
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Feedback, _has_bits_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Feedback, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Feedback, robot_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Feedback, external_),
-  0,
-  1,
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Planned, _has_bits_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Planned, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Planned, robot_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Planned, external_),
-  0,
-  1,
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Input, _has_bits_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Input, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Input, header_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Input, feedback_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Input, planned_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Input, status_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Quaternion, u0_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Quaternion, u1_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Quaternion, u2_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Quaternion, u3_),
   0,
   1,
   2,
   3,
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Output, _has_bits_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Output, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::CartesianPose, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::CartesianPose, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Output, robot_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::abb::egm::wrapper::Output, external_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::CartesianPose, position_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::CartesianPose, euler_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::CartesianPose, quaternion_),
+  0,
+  1,
+  2,
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::CartesianVelocity, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::CartesianVelocity, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::CartesianVelocity, linear_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::CartesianVelocity, angular_),
+  0,
+  1,
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::CartesianSpace, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::CartesianSpace, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::CartesianSpace, pose_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::CartesianSpace, velocity_),
+  0,
+  1,
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Robot, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Robot, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Robot, joints_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Robot, cartesian_),
+  0,
+  1,
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::External, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::External, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::External, joints_),
+  0,
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Feedback, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Feedback, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Feedback, robot_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Feedback, external_),
+  0,
+  1,
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Planned, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Planned, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Planned, robot_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Planned, external_),
+  0,
+  1,
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Input, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Input, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Input, header_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Input, feedback_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Input, planned_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Input, status_),
+  0,
+  1,
+  2,
+  3,
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Output, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Output, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Output, robot_),
+  PROTOBUF_FIELD_OFFSET(::abb::egm::wrapper::Output, external_),
   0,
   1,
 };
-static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
+static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, 8, sizeof(::abb::egm::wrapper::Header)},
   { 11, 20, sizeof(::abb::egm::wrapper::Status)},
   { 24, 30, sizeof(::abb::egm::wrapper::Joints)},
@@ -666,102 +568,83 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::abb::egm::wrapper::_Output_default_instance_),
 };
 
-void protobuf_AssignDescriptors() {
-  AddDescriptors();
-  ::google::protobuf::MessageFactory* factory = NULL;
-  AssignDescriptors(
-      "egm_wrapper.proto", schemas, file_default_instances, TableStruct::offsets, factory,
-      file_level_metadata, file_level_enum_descriptors, NULL);
-}
+::google::protobuf::internal::AssignDescriptorsTable assign_descriptors_table_egm_5fwrapper_2eproto = {
+  {}, AddDescriptors_egm_5fwrapper_2eproto, "egm_wrapper.proto", schemas,
+  file_default_instances, TableStruct_egm_5fwrapper_2eproto::offsets,
+  file_level_metadata_egm_5fwrapper_2eproto, 16, file_level_enum_descriptors_egm_5fwrapper_2eproto, file_level_service_descriptors_egm_5fwrapper_2eproto,
+};
 
-void protobuf_AssignDescriptorsOnce() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &protobuf_AssignDescriptors);
-}
+::google::protobuf::internal::DescriptorTable descriptor_table_egm_5fwrapper_2eproto = {
+  false, InitDefaults_egm_5fwrapper_2eproto, 
+  "\n\021egm_wrapper.proto\022\017abb.egm.wrapper\"\243\001\n"
+  "\006Header\022\027\n\017sequance_number\030\001 \001(\r\022\022\n\ntime"
+  "_stamp\030\002 \001(\r\022D\n\014message_type\030\003 \001(\0162#.abb"
+  ".egm.wrapper.Header.MessageType:\tUNDEFIN"
+  "ED\"&\n\013MessageType\022\r\n\tUNDEFINED\020\000\022\010\n\004DATA"
+  "\020\001\"\366\003\n\006Status\022\033\n\023egm_convergence_met\030\001 \001"
+  "(\010\022B\n\tegm_state\030\002 \001(\0162 .abb.egm.wrapper."
+  "Status.EGMState:\rEGM_UNDEFINED\022I\n\013motor_"
+  "state\030\003 \001(\0162\".abb.egm.wrapper.Status.Mot"
+  "orState:\020MOTORS_UNDEFINED\022[\n\025rapid_execu"
+  "tion_state\030\004 \001(\0162+.abb.egm.wrapper.Statu"
+  "s.RAPIDExecutionState:\017RAPID_UNDEFINED\"N"
+  "\n\010EGMState\022\021\n\rEGM_UNDEFINED\020\000\022\r\n\tEGM_ERR"
+  "OR\020\001\022\017\n\013EGM_STOPPED\020\002\022\017\n\013EGM_RUNNING\020\003\"A"
+  "\n\nMotorState\022\024\n\020MOTORS_UNDEFINED\020\000\022\r\n\tMO"
+  "TORS_ON\020\001\022\016\n\nMOTORS_OFF\020\002\"P\n\023RAPIDExecut"
+  "ionState\022\023\n\017RAPID_UNDEFINED\020\000\022\021\n\rRAPID_S"
+  "TOPPED\020\001\022\021\n\rRAPID_RUNNING\020\002\"\030\n\006Joints\022\016\n"
+  "\006values\030\001 \003(\001\"b\n\nJointSpace\022)\n\010position\030"
+  "\001 \001(\0132\027.abb.egm.wrapper.Joints\022)\n\010veloci"
+  "ty\030\002 \001(\0132\027.abb.egm.wrapper.Joints\",\n\tCar"
+  "tesian\022\t\n\001x\030\001 \001(\001\022\t\n\001y\030\002 \001(\001\022\t\n\001z\030\003 \001(\001\""
+  "(\n\005Euler\022\t\n\001x\030\001 \001(\001\022\t\n\001y\030\002 \001(\001\022\t\n\001z\030\003 \001("
+  "\001\"<\n\nQuaternion\022\n\n\002u0\030\001 \001(\001\022\n\n\002u1\030\002 \001(\001\022"
+  "\n\n\002u2\030\003 \001(\001\022\n\n\002u3\030\004 \001(\001\"\225\001\n\rCartesianPos"
+  "e\022,\n\010position\030\001 \001(\0132\032.abb.egm.wrapper.Ca"
+  "rtesian\022%\n\005euler\030\002 \001(\0132\026.abb.egm.wrapper"
+  ".Euler\022/\n\nquaternion\030\003 \001(\0132\033.abb.egm.wra"
+  "pper.Quaternion\"h\n\021CartesianVelocity\022*\n\006"
+  "linear\030\001 \001(\0132\032.abb.egm.wrapper.Cartesian"
+  "\022\'\n\007angular\030\002 \001(\0132\026.abb.egm.wrapper.Eule"
+  "r\"t\n\016CartesianSpace\022,\n\004pose\030\001 \001(\0132\036.abb."
+  "egm.wrapper.CartesianPose\0224\n\010velocity\030\002 "
+  "\001(\0132\".abb.egm.wrapper.CartesianVelocity\""
+  "h\n\005Robot\022+\n\006joints\030\001 \001(\0132\033.abb.egm.wrapp"
+  "er.JointSpace\0222\n\tcartesian\030\002 \001(\0132\037.abb.e"
+  "gm.wrapper.CartesianSpace\"7\n\010External\022+\n"
+  "\006joints\030\001 \001(\0132\033.abb.egm.wrapper.JointSpa"
+  "ce\"^\n\010Feedback\022%\n\005robot\030\001 \001(\0132\026.abb.egm."
+  "wrapper.Robot\022+\n\010external\030\002 \001(\0132\031.abb.eg"
+  "m.wrapper.External\"]\n\007Planned\022%\n\005robot\030\001"
+  " \001(\0132\026.abb.egm.wrapper.Robot\022+\n\010external"
+  "\030\002 \001(\0132\031.abb.egm.wrapper.External\"\261\001\n\005In"
+  "put\022\'\n\006header\030\001 \001(\0132\027.abb.egm.wrapper.He"
+  "ader\022+\n\010feedback\030\002 \001(\0132\031.abb.egm.wrapper"
+  ".Feedback\022)\n\007planned\030\003 \001(\0132\030.abb.egm.wra"
+  "pper.Planned\022\'\n\006status\030\004 \001(\0132\027.abb.egm.w"
+  "rapper.Status\"\\\n\006Output\022%\n\005robot\030\001 \001(\0132\026"
+  ".abb.egm.wrapper.Robot\022+\n\010external\030\002 \001(\013"
+  "2\031.abb.egm.wrapper.External"
+,
+  "egm_wrapper.proto", &assign_descriptors_table_egm_5fwrapper_2eproto, 1987,
+};
 
-void protobuf_RegisterTypes(const ::std::string&) GOOGLE_PROTOBUF_ATTRIBUTE_COLD;
-void protobuf_RegisterTypes(const ::std::string&) {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 16);
-}
-
-void AddDescriptorsImpl() {
-  InitDefaults();
-  static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-      "\n\021egm_wrapper.proto\022\017abb.egm.wrapper\"\243\001\n"
-      "\006Header\022\027\n\017sequance_number\030\001 \001(\r\022\022\n\ntime"
-      "_stamp\030\002 \001(\r\022D\n\014message_type\030\003 \001(\0162#.abb"
-      ".egm.wrapper.Header.MessageType:\tUNDEFIN"
-      "ED\"&\n\013MessageType\022\r\n\tUNDEFINED\020\000\022\010\n\004DATA"
-      "\020\001\"\366\003\n\006Status\022\033\n\023egm_convergence_met\030\001 \001"
-      "(\010\022B\n\tegm_state\030\002 \001(\0162 .abb.egm.wrapper."
-      "Status.EGMState:\rEGM_UNDEFINED\022I\n\013motor_"
-      "state\030\003 \001(\0162\".abb.egm.wrapper.Status.Mot"
-      "orState:\020MOTORS_UNDEFINED\022[\n\025rapid_execu"
-      "tion_state\030\004 \001(\0162+.abb.egm.wrapper.Statu"
-      "s.RAPIDExecutionState:\017RAPID_UNDEFINED\"N"
-      "\n\010EGMState\022\021\n\rEGM_UNDEFINED\020\000\022\r\n\tEGM_ERR"
-      "OR\020\001\022\017\n\013EGM_STOPPED\020\002\022\017\n\013EGM_RUNNING\020\003\"A"
-      "\n\nMotorState\022\024\n\020MOTORS_UNDEFINED\020\000\022\r\n\tMO"
-      "TORS_ON\020\001\022\016\n\nMOTORS_OFF\020\002\"P\n\023RAPIDExecut"
-      "ionState\022\023\n\017RAPID_UNDEFINED\020\000\022\021\n\rRAPID_S"
-      "TOPPED\020\001\022\021\n\rRAPID_RUNNING\020\002\"\030\n\006Joints\022\016\n"
-      "\006values\030\001 \003(\001\"b\n\nJointSpace\022)\n\010position\030"
-      "\001 \001(\0132\027.abb.egm.wrapper.Joints\022)\n\010veloci"
-      "ty\030\002 \001(\0132\027.abb.egm.wrapper.Joints\",\n\tCar"
-      "tesian\022\t\n\001x\030\001 \001(\001\022\t\n\001y\030\002 \001(\001\022\t\n\001z\030\003 \001(\001\""
-      "(\n\005Euler\022\t\n\001x\030\001 \001(\001\022\t\n\001y\030\002 \001(\001\022\t\n\001z\030\003 \001("
-      "\001\"<\n\nQuaternion\022\n\n\002u0\030\001 \001(\001\022\n\n\002u1\030\002 \001(\001\022"
-      "\n\n\002u2\030\003 \001(\001\022\n\n\002u3\030\004 \001(\001\"\225\001\n\rCartesianPos"
-      "e\022,\n\010position\030\001 \001(\0132\032.abb.egm.wrapper.Ca"
-      "rtesian\022%\n\005euler\030\002 \001(\0132\026.abb.egm.wrapper"
-      ".Euler\022/\n\nquaternion\030\003 \001(\0132\033.abb.egm.wra"
-      "pper.Quaternion\"h\n\021CartesianVelocity\022*\n\006"
-      "linear\030\001 \001(\0132\032.abb.egm.wrapper.Cartesian"
-      "\022\'\n\007angular\030\002 \001(\0132\026.abb.egm.wrapper.Eule"
-      "r\"t\n\016CartesianSpace\022,\n\004pose\030\001 \001(\0132\036.abb."
-      "egm.wrapper.CartesianPose\0224\n\010velocity\030\002 "
-      "\001(\0132\".abb.egm.wrapper.CartesianVelocity\""
-      "h\n\005Robot\022+\n\006joints\030\001 \001(\0132\033.abb.egm.wrapp"
-      "er.JointSpace\0222\n\tcartesian\030\002 \001(\0132\037.abb.e"
-      "gm.wrapper.CartesianSpace\"7\n\010External\022+\n"
-      "\006joints\030\001 \001(\0132\033.abb.egm.wrapper.JointSpa"
-      "ce\"^\n\010Feedback\022%\n\005robot\030\001 \001(\0132\026.abb.egm."
-      "wrapper.Robot\022+\n\010external\030\002 \001(\0132\031.abb.eg"
-      "m.wrapper.External\"]\n\007Planned\022%\n\005robot\030\001"
-      " \001(\0132\026.abb.egm.wrapper.Robot\022+\n\010external"
-      "\030\002 \001(\0132\031.abb.egm.wrapper.External\"\261\001\n\005In"
-      "put\022\'\n\006header\030\001 \001(\0132\027.abb.egm.wrapper.He"
-      "ader\022+\n\010feedback\030\002 \001(\0132\031.abb.egm.wrapper"
-      ".Feedback\022)\n\007planned\030\003 \001(\0132\030.abb.egm.wra"
-      "pper.Planned\022\'\n\006status\030\004 \001(\0132\027.abb.egm.w"
-      "rapper.Status\"\\\n\006Output\022%\n\005robot\030\001 \001(\0132\026"
-      ".abb.egm.wrapper.Robot\022+\n\010external\030\002 \001(\013"
-      "2\031.abb.egm.wrapper.External"
+void AddDescriptors_egm_5fwrapper_2eproto() {
+  static constexpr ::google::protobuf::internal::InitFunc deps[1] =
+  {
   };
-  ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 1987);
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
-    "egm_wrapper.proto", &protobuf_RegisterTypes);
+ ::google::protobuf::internal::AddDescriptors(&descriptor_table_egm_5fwrapper_2eproto, deps, 0);
 }
 
-void AddDescriptors() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &AddDescriptorsImpl);
-}
-// Force AddDescriptors() to be called at dynamic initialization time.
-struct StaticDescriptorInitializer {
-  StaticDescriptorInitializer() {
-    AddDescriptors();
-  }
-} static_descriptor_initializer;
-}  // namespace protobuf_egm_5fwrapper_2eproto
+// Force running AddDescriptors() at dynamic initialization time.
+static bool dynamic_init_dummy_egm_5fwrapper_2eproto = []() { AddDescriptors_egm_5fwrapper_2eproto(); return true; }();
 namespace abb {
 namespace egm {
 namespace wrapper {
 const ::google::protobuf::EnumDescriptor* Header_MessageType_descriptor() {
-  protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_egm_5fwrapper_2eproto::file_level_enum_descriptors[0];
+  ::google::protobuf::internal::AssignDescriptors(&assign_descriptors_table_egm_5fwrapper_2eproto);
+  return file_level_enum_descriptors_egm_5fwrapper_2eproto[0];
 }
 bool Header_MessageType_IsValid(int value) {
   switch (value) {
@@ -781,8 +664,8 @@ const Header_MessageType Header::MessageType_MAX;
 const int Header::MessageType_ARRAYSIZE;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 const ::google::protobuf::EnumDescriptor* Status_EGMState_descriptor() {
-  protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_egm_5fwrapper_2eproto::file_level_enum_descriptors[1];
+  ::google::protobuf::internal::AssignDescriptors(&assign_descriptors_table_egm_5fwrapper_2eproto);
+  return file_level_enum_descriptors_egm_5fwrapper_2eproto[1];
 }
 bool Status_EGMState_IsValid(int value) {
   switch (value) {
@@ -806,8 +689,8 @@ const Status_EGMState Status::EGMState_MAX;
 const int Status::EGMState_ARRAYSIZE;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 const ::google::protobuf::EnumDescriptor* Status_MotorState_descriptor() {
-  protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_egm_5fwrapper_2eproto::file_level_enum_descriptors[2];
+  ::google::protobuf::internal::AssignDescriptors(&assign_descriptors_table_egm_5fwrapper_2eproto);
+  return file_level_enum_descriptors_egm_5fwrapper_2eproto[2];
 }
 bool Status_MotorState_IsValid(int value) {
   switch (value) {
@@ -829,8 +712,8 @@ const Status_MotorState Status::MotorState_MAX;
 const int Status::MotorState_ARRAYSIZE;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 const ::google::protobuf::EnumDescriptor* Status_RAPIDExecutionState_descriptor() {
-  protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_egm_5fwrapper_2eproto::file_level_enum_descriptors[3];
+  ::google::protobuf::internal::AssignDescriptors(&assign_descriptors_table_egm_5fwrapper_2eproto);
+  return file_level_enum_descriptors_egm_5fwrapper_2eproto[3];
 }
 bool Status_RAPIDExecutionState_IsValid(int value) {
   switch (value) {
@@ -856,6 +739,19 @@ const int Status::RAPIDExecutionState_ARRAYSIZE;
 
 void Header::InitAsDefaultInstance() {
 }
+class Header::HasBitSetters {
+ public:
+  static void set_has_sequance_number(Header* msg) {
+    msg->_has_bits_[0] |= 0x00000001u;
+  }
+  static void set_has_time_stamp(Header* msg) {
+    msg->_has_bits_[0] |= 0x00000002u;
+  }
+  static void set_has_message_type(Header* msg) {
+    msg->_has_bits_[0] |= 0x00000004u;
+  }
+};
+
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Header::kSequanceNumberFieldNumber;
 const int Header::kTimeStampFieldNumber;
@@ -864,17 +760,13 @@ const int Header::kMessageTypeFieldNumber;
 
 Header::Header()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    ::protobuf_egm_5fwrapper_2eproto::InitDefaultsHeader();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.wrapper.Header)
 }
 Header::Header(const Header& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_),
-      _cached_size_(0) {
+      _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::memcpy(&sequance_number_, &from.sequance_number_,
     static_cast<size_t>(reinterpret_cast<char*>(&message_type_) -
@@ -883,7 +775,6 @@ Header::Header(const Header& from)
 }
 
 void Header::SharedCtor() {
-  _cached_size_ = 0;
   ::memset(&sequance_number_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&message_type_) -
       reinterpret_cast<char*>(&sequance_number_)) + sizeof(message_type_));
@@ -898,27 +789,13 @@ void Header::SharedDtor() {
 }
 
 void Header::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  _cached_size_.Set(size);
 }
-const ::google::protobuf::Descriptor* Header::descriptor() {
-  ::protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
-}
-
 const Header& Header::default_instance() {
-  ::protobuf_egm_5fwrapper_2eproto::InitDefaultsHeader();
+  ::google::protobuf::internal::InitSCC(&::scc_info_Header_egm_5fwrapper_2eproto.base);
   return *internal_default_instance();
 }
 
-Header* Header::New(::google::protobuf::Arena* arena) const {
-  Header* n = new Header;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
 
 void Header::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.wrapper.Header)
@@ -927,7 +804,7 @@ void Header::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 7u) {
+  if (cached_has_bits & 0x00000007u) {
     ::memset(&sequance_number_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&message_type_) -
         reinterpret_cast<char*>(&sequance_number_)) + sizeof(message_type_));
@@ -936,21 +813,91 @@ void Header::Clear() {
   _internal_metadata_.Clear();
 }
 
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* Header::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<Header*>(object);
+  ::google::protobuf::uint32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ::google::protobuf::uint32 tag;
+    ptr = Varint::Parse32Inline(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // optional uint32 sequance_number = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 8) goto handle_unusual;
+        ::google::protobuf::uint64 val;
+        ptr = Varint::Parse64(ptr, &val);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ::google::protobuf::uint32 value = val;
+        msg->set_sequance_number(value);
+        break;
+      }
+      // optional uint32 time_stamp = 2;
+      case 2: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 16) goto handle_unusual;
+        ::google::protobuf::uint64 val;
+        ptr = Varint::Parse64(ptr, &val);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ::google::protobuf::uint32 value = val;
+        msg->set_time_stamp(value);
+        break;
+      }
+      // optional .abb.egm.wrapper.Header.MessageType message_type = 3 [default = UNDEFINED];
+      case 3: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 24) goto handle_unusual;
+        ::google::protobuf::uint64 val;
+        ptr = Varint::Parse64(ptr, &val);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        if (!::abb::egm::wrapper::Header_MessageType_IsValid(val)) {
+          ::google::protobuf::internal::WriteVarint(3, val, msg->mutable_unknown_fields());
+          break;
+        }
+        ::abb::egm::wrapper::Header_MessageType value = static_cast<::abb::egm::wrapper::Header_MessageType>(val);
+        msg->set_message_type(value);
+        break;
+      }
+      default: {
+      handle_unusual: (void)&&handle_unusual;
+        if ((tag & 7) == 4 || tag == 0) {
+          bool ok = ctx->ValidEndGroup(tag);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+len_delim_till_end: (void)&&len_delim_till_end;
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                                 {parser_till_end, object}, size);
+group_continues: (void)&&group_continues;
+  GOOGLE_DCHECK(ptr >= end);
+  ctx->StoreGroup({_InternalParse, msg}, {parser_till_end, object}, depth);
+  return ptr;
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 bool Header::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.wrapper.Header)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // optional uint32 sequance_number = 1;
       case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
-          set_has_sequance_number();
+        if (static_cast< ::google::protobuf::uint8>(tag) == (8 & 0xFF)) {
+          HasBitSetters::set_has_sequance_number(this);
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &sequance_number_)));
@@ -962,9 +909,8 @@ bool Header::MergePartialFromCodedStream(
 
       // optional uint32 time_stamp = 2;
       case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(16u /* 16 & 0xFF */)) {
-          set_has_time_stamp();
+        if (static_cast< ::google::protobuf::uint8>(tag) == (16 & 0xFF)) {
+          HasBitSetters::set_has_time_stamp(this);
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &time_stamp_)));
@@ -976,9 +922,8 @@ bool Header::MergePartialFromCodedStream(
 
       // optional .abb.egm.wrapper.Header.MessageType message_type = 3 [default = UNDEFINED];
       case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(24u /* 24 & 0xFF */)) {
-          int value;
+        if (static_cast< ::google::protobuf::uint8>(tag) == (24 & 0xFF)) {
+          int value = 0;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
@@ -986,7 +931,7 @@ bool Header::MergePartialFromCodedStream(
             set_message_type(static_cast< ::abb::egm::wrapper::Header_MessageType >(value));
           } else {
             mutable_unknown_fields()->AddVarint(
-                3, static_cast< ::google::protobuf::uint64>(value));
+                3, static_cast<::google::protobuf::uint64>(value));
           }
         } else {
           goto handle_unusual;
@@ -1013,6 +958,7 @@ failure:
   return false;
 #undef DO_
 }
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 
 void Header::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
@@ -1085,32 +1031,35 @@ size_t Header::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (_has_bits_[0 / 32] & 7u) {
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
     // optional uint32 sequance_number = 1;
-    if (has_sequance_number()) {
+    if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->sequance_number());
     }
 
     // optional uint32 time_stamp = 2;
-    if (has_time_stamp()) {
+    if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->time_stamp());
     }
 
     // optional .abb.egm.wrapper.Header.MessageType message_type = 3 [default = UNDEFINED];
-    if (has_message_type()) {
+    if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->message_type());
     }
 
   }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  SetCachedSize(cached_size);
   return total_size;
 }
 
@@ -1118,7 +1067,7 @@ void Header::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.wrapper.Header)
   GOOGLE_DCHECK_NE(&from, this);
   const Header* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const Header>(
+      ::google::protobuf::DynamicCastToGenerated<Header>(
           &from);
   if (source == NULL) {
   // @@protoc_insertion_point(generalized_merge_from_cast_fail:abb.egm.wrapper.Header)
@@ -1137,7 +1086,7 @@ void Header::MergeFrom(const Header& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 7u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       sequance_number_ = from.sequance_number_;
     }
@@ -1175,17 +1124,16 @@ void Header::Swap(Header* other) {
 }
 void Header::InternalSwap(Header* other) {
   using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   swap(sequance_number_, other->sequance_number_);
   swap(time_stamp_, other->time_stamp_);
   swap(message_type_, other->message_type_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata Header::GetMetadata() const {
-  protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages];
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_egm_5fwrapper_2eproto);
+  return ::file_level_metadata_egm_5fwrapper_2eproto[kIndexInFileMessages];
 }
 
 
@@ -1193,6 +1141,22 @@ void Header::InternalSwap(Header* other) {
 
 void Status::InitAsDefaultInstance() {
 }
+class Status::HasBitSetters {
+ public:
+  static void set_has_egm_convergence_met(Status* msg) {
+    msg->_has_bits_[0] |= 0x00000001u;
+  }
+  static void set_has_egm_state(Status* msg) {
+    msg->_has_bits_[0] |= 0x00000002u;
+  }
+  static void set_has_motor_state(Status* msg) {
+    msg->_has_bits_[0] |= 0x00000004u;
+  }
+  static void set_has_rapid_execution_state(Status* msg) {
+    msg->_has_bits_[0] |= 0x00000008u;
+  }
+};
+
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Status::kEgmConvergenceMetFieldNumber;
 const int Status::kEgmStateFieldNumber;
@@ -1202,17 +1166,13 @@ const int Status::kRapidExecutionStateFieldNumber;
 
 Status::Status()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    ::protobuf_egm_5fwrapper_2eproto::InitDefaultsStatus();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.wrapper.Status)
 }
 Status::Status(const Status& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_),
-      _cached_size_(0) {
+      _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::memcpy(&egm_convergence_met_, &from.egm_convergence_met_,
     static_cast<size_t>(reinterpret_cast<char*>(&rapid_execution_state_) -
@@ -1221,7 +1181,6 @@ Status::Status(const Status& from)
 }
 
 void Status::SharedCtor() {
-  _cached_size_ = 0;
   ::memset(&egm_convergence_met_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&rapid_execution_state_) -
       reinterpret_cast<char*>(&egm_convergence_met_)) + sizeof(rapid_execution_state_));
@@ -1236,27 +1195,13 @@ void Status::SharedDtor() {
 }
 
 void Status::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  _cached_size_.Set(size);
 }
-const ::google::protobuf::Descriptor* Status::descriptor() {
-  ::protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
-}
-
 const Status& Status::default_instance() {
-  ::protobuf_egm_5fwrapper_2eproto::InitDefaultsStatus();
+  ::google::protobuf::internal::InitSCC(&::scc_info_Status_egm_5fwrapper_2eproto.base);
   return *internal_default_instance();
 }
 
-Status* Status::New(::google::protobuf::Arena* arena) const {
-  Status* n = new Status;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
 
 void Status::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.wrapper.Status)
@@ -1265,7 +1210,7 @@ void Status::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 15u) {
+  if (cached_has_bits & 0x0000000fu) {
     ::memset(&egm_convergence_met_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&rapid_execution_state_) -
         reinterpret_cast<char*>(&egm_convergence_met_)) + sizeof(rapid_execution_state_));
@@ -1274,21 +1219,109 @@ void Status::Clear() {
   _internal_metadata_.Clear();
 }
 
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* Status::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<Status*>(object);
+  ::google::protobuf::uint32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ::google::protobuf::uint32 tag;
+    ptr = Varint::Parse32Inline(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // optional bool egm_convergence_met = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 8) goto handle_unusual;
+        ::google::protobuf::uint64 val;
+        ptr = Varint::Parse64(ptr, &val);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        bool value = val;
+        msg->set_egm_convergence_met(value);
+        break;
+      }
+      // optional .abb.egm.wrapper.Status.EGMState egm_state = 2 [default = EGM_UNDEFINED];
+      case 2: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 16) goto handle_unusual;
+        ::google::protobuf::uint64 val;
+        ptr = Varint::Parse64(ptr, &val);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        if (!::abb::egm::wrapper::Status_EGMState_IsValid(val)) {
+          ::google::protobuf::internal::WriteVarint(2, val, msg->mutable_unknown_fields());
+          break;
+        }
+        ::abb::egm::wrapper::Status_EGMState value = static_cast<::abb::egm::wrapper::Status_EGMState>(val);
+        msg->set_egm_state(value);
+        break;
+      }
+      // optional .abb.egm.wrapper.Status.MotorState motor_state = 3 [default = MOTORS_UNDEFINED];
+      case 3: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 24) goto handle_unusual;
+        ::google::protobuf::uint64 val;
+        ptr = Varint::Parse64(ptr, &val);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        if (!::abb::egm::wrapper::Status_MotorState_IsValid(val)) {
+          ::google::protobuf::internal::WriteVarint(3, val, msg->mutable_unknown_fields());
+          break;
+        }
+        ::abb::egm::wrapper::Status_MotorState value = static_cast<::abb::egm::wrapper::Status_MotorState>(val);
+        msg->set_motor_state(value);
+        break;
+      }
+      // optional .abb.egm.wrapper.Status.RAPIDExecutionState rapid_execution_state = 4 [default = RAPID_UNDEFINED];
+      case 4: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 32) goto handle_unusual;
+        ::google::protobuf::uint64 val;
+        ptr = Varint::Parse64(ptr, &val);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        if (!::abb::egm::wrapper::Status_RAPIDExecutionState_IsValid(val)) {
+          ::google::protobuf::internal::WriteVarint(4, val, msg->mutable_unknown_fields());
+          break;
+        }
+        ::abb::egm::wrapper::Status_RAPIDExecutionState value = static_cast<::abb::egm::wrapper::Status_RAPIDExecutionState>(val);
+        msg->set_rapid_execution_state(value);
+        break;
+      }
+      default: {
+      handle_unusual: (void)&&handle_unusual;
+        if ((tag & 7) == 4 || tag == 0) {
+          bool ok = ctx->ValidEndGroup(tag);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+len_delim_till_end: (void)&&len_delim_till_end;
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                                 {parser_till_end, object}, size);
+group_continues: (void)&&group_continues;
+  GOOGLE_DCHECK(ptr >= end);
+  ctx->StoreGroup({_InternalParse, msg}, {parser_till_end, object}, depth);
+  return ptr;
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 bool Status::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.wrapper.Status)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // optional bool egm_convergence_met = 1;
       case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
-          set_has_egm_convergence_met();
+        if (static_cast< ::google::protobuf::uint8>(tag) == (8 & 0xFF)) {
+          HasBitSetters::set_has_egm_convergence_met(this);
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
                  input, &egm_convergence_met_)));
@@ -1300,9 +1333,8 @@ bool Status::MergePartialFromCodedStream(
 
       // optional .abb.egm.wrapper.Status.EGMState egm_state = 2 [default = EGM_UNDEFINED];
       case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(16u /* 16 & 0xFF */)) {
-          int value;
+        if (static_cast< ::google::protobuf::uint8>(tag) == (16 & 0xFF)) {
+          int value = 0;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
@@ -1310,7 +1342,7 @@ bool Status::MergePartialFromCodedStream(
             set_egm_state(static_cast< ::abb::egm::wrapper::Status_EGMState >(value));
           } else {
             mutable_unknown_fields()->AddVarint(
-                2, static_cast< ::google::protobuf::uint64>(value));
+                2, static_cast<::google::protobuf::uint64>(value));
           }
         } else {
           goto handle_unusual;
@@ -1320,9 +1352,8 @@ bool Status::MergePartialFromCodedStream(
 
       // optional .abb.egm.wrapper.Status.MotorState motor_state = 3 [default = MOTORS_UNDEFINED];
       case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(24u /* 24 & 0xFF */)) {
-          int value;
+        if (static_cast< ::google::protobuf::uint8>(tag) == (24 & 0xFF)) {
+          int value = 0;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
@@ -1330,7 +1361,7 @@ bool Status::MergePartialFromCodedStream(
             set_motor_state(static_cast< ::abb::egm::wrapper::Status_MotorState >(value));
           } else {
             mutable_unknown_fields()->AddVarint(
-                3, static_cast< ::google::protobuf::uint64>(value));
+                3, static_cast<::google::protobuf::uint64>(value));
           }
         } else {
           goto handle_unusual;
@@ -1340,9 +1371,8 @@ bool Status::MergePartialFromCodedStream(
 
       // optional .abb.egm.wrapper.Status.RAPIDExecutionState rapid_execution_state = 4 [default = RAPID_UNDEFINED];
       case 4: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(32u /* 32 & 0xFF */)) {
-          int value;
+        if (static_cast< ::google::protobuf::uint8>(tag) == (32 & 0xFF)) {
+          int value = 0;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
@@ -1350,7 +1380,7 @@ bool Status::MergePartialFromCodedStream(
             set_rapid_execution_state(static_cast< ::abb::egm::wrapper::Status_RAPIDExecutionState >(value));
           } else {
             mutable_unknown_fields()->AddVarint(
-                4, static_cast< ::google::protobuf::uint64>(value));
+                4, static_cast<::google::protobuf::uint64>(value));
           }
         } else {
           goto handle_unusual;
@@ -1377,6 +1407,7 @@ failure:
   return false;
 #undef DO_
 }
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 
 void Status::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
@@ -1463,35 +1494,38 @@ size_t Status::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (_has_bits_[0 / 32] & 15u) {
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x0000000fu) {
     // optional bool egm_convergence_met = 1;
-    if (has_egm_convergence_met()) {
+    if (cached_has_bits & 0x00000001u) {
       total_size += 1 + 1;
     }
 
     // optional .abb.egm.wrapper.Status.EGMState egm_state = 2 [default = EGM_UNDEFINED];
-    if (has_egm_state()) {
+    if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->egm_state());
     }
 
     // optional .abb.egm.wrapper.Status.MotorState motor_state = 3 [default = MOTORS_UNDEFINED];
-    if (has_motor_state()) {
+    if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->motor_state());
     }
 
     // optional .abb.egm.wrapper.Status.RAPIDExecutionState rapid_execution_state = 4 [default = RAPID_UNDEFINED];
-    if (has_rapid_execution_state()) {
+    if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->rapid_execution_state());
     }
 
   }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  SetCachedSize(cached_size);
   return total_size;
 }
 
@@ -1499,7 +1533,7 @@ void Status::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.wrapper.Status)
   GOOGLE_DCHECK_NE(&from, this);
   const Status* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const Status>(
+      ::google::protobuf::DynamicCastToGenerated<Status>(
           &from);
   if (source == NULL) {
   // @@protoc_insertion_point(generalized_merge_from_cast_fail:abb.egm.wrapper.Status)
@@ -1518,7 +1552,7 @@ void Status::MergeFrom(const Status& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 15u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       egm_convergence_met_ = from.egm_convergence_met_;
     }
@@ -1559,18 +1593,17 @@ void Status::Swap(Status* other) {
 }
 void Status::InternalSwap(Status* other) {
   using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   swap(egm_convergence_met_, other->egm_convergence_met_);
   swap(egm_state_, other->egm_state_);
   swap(motor_state_, other->motor_state_);
   swap(rapid_execution_state_, other->rapid_execution_state_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata Status::GetMetadata() const {
-  protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages];
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_egm_5fwrapper_2eproto);
+  return ::file_level_metadata_egm_5fwrapper_2eproto[kIndexInFileMessages];
 }
 
 
@@ -1578,15 +1611,16 @@ void Status::InternalSwap(Status* other) {
 
 void Joints::InitAsDefaultInstance() {
 }
+class Joints::HasBitSetters {
+ public:
+};
+
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Joints::kValuesFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 Joints::Joints()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    ::protobuf_egm_5fwrapper_2eproto::InitDefaultsJoints();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.wrapper.Joints)
 }
@@ -1594,14 +1628,12 @@ Joints::Joints(const Joints& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
       _has_bits_(from._has_bits_),
-      _cached_size_(0),
       values_(from.values_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:abb.egm.wrapper.Joints)
 }
 
 void Joints::SharedCtor() {
-  _cached_size_ = 0;
 }
 
 Joints::~Joints() {
@@ -1613,27 +1645,13 @@ void Joints::SharedDtor() {
 }
 
 void Joints::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  _cached_size_.Set(size);
 }
-const ::google::protobuf::Descriptor* Joints::descriptor() {
-  ::protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
-}
-
 const Joints& Joints::default_instance() {
-  ::protobuf_egm_5fwrapper_2eproto::InitDefaultsJoints();
+  ::google::protobuf::internal::InitSCC(&::scc_info_Joints_egm_5fwrapper_2eproto.base);
   return *internal_default_instance();
 }
 
-Joints* Joints::New(::google::protobuf::Arena* arena) const {
-  Joints* n = new Joints;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
 
 void Joints::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.wrapper.Joints)
@@ -1646,26 +1664,82 @@ void Joints::Clear() {
   _internal_metadata_.Clear();
 }
 
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* Joints::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<Joints*>(object);
+  ::google::protobuf::uint32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ::google::protobuf::uint32 tag;
+    ptr = Varint::Parse32Inline(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // repeated double values = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) == 9) {
+          do {
+            double val;
+            ::std::memcpy(&val, ptr, 8);
+            ptr += 8;
+            msg->add_values(val);
+            if (ptr >= end) break;
+          } while ((::google::protobuf::io::UnalignedLoad<::google::protobuf::uint64>(ptr) & 255) == 9 && (ptr += 1));
+          break;
+        } else if (static_cast<::google::protobuf::uint8>(tag) != 10) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::google::protobuf::internal::PackedDoubleParser;
+        object = msg->mutable_values();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        if (size) ptr = parser_till_end(ptr, newend, object, ctx);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr == newend);
+        break;
+      }
+      default: {
+      handle_unusual: (void)&&handle_unusual;
+        if ((tag & 7) == 4 || tag == 0) {
+          bool ok = ctx->ValidEndGroup(tag);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+len_delim_till_end: (void)&&len_delim_till_end;
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                                 {parser_till_end, object}, size);
+group_continues: (void)&&group_continues;
+  GOOGLE_DCHECK(ptr >= end);
+  ctx->StoreGroup({_InternalParse, msg}, {parser_till_end, object}, depth);
+  return ptr;
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 bool Joints::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.wrapper.Joints)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // repeated double values = 1;
       case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(9u /* 9 & 0xFF */)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (9 & 0xFF)) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
                  1, 9u, input, this->mutable_values())));
-        } else if (
-            static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
+        } else if (static_cast< ::google::protobuf::uint8>(tag) == (10 & 0xFF)) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
                  input, this->mutable_values())));
@@ -1694,6 +1768,7 @@ failure:
   return false;
 #undef DO_
 }
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 
 void Joints::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
@@ -1742,6 +1817,10 @@ size_t Joints::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
   // repeated double values = 1;
   {
     unsigned int count = static_cast<unsigned int>(this->values_size());
@@ -1752,9 +1831,7 @@ size_t Joints::ByteSizeLong() const {
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  SetCachedSize(cached_size);
   return total_size;
 }
 
@@ -1762,7 +1839,7 @@ void Joints::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.wrapper.Joints)
   GOOGLE_DCHECK_NE(&from, this);
   const Joints* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const Joints>(
+      ::google::protobuf::DynamicCastToGenerated<Joints>(
           &from);
   if (source == NULL) {
   // @@protoc_insertion_point(generalized_merge_from_cast_fail:abb.egm.wrapper.Joints)
@@ -1807,15 +1884,14 @@ void Joints::Swap(Joints* other) {
 }
 void Joints::InternalSwap(Joints* other) {
   using std::swap;
-  values_.InternalSwap(&other->values_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(_cached_size_, other->_cached_size_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  values_.InternalSwap(&other->values_);
 }
 
 ::google::protobuf::Metadata Joints::GetMetadata() const {
-  protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages];
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_egm_5fwrapper_2eproto);
+  return ::file_level_metadata_egm_5fwrapper_2eproto[kIndexInFileMessages];
 }
 
 
@@ -1827,6 +1903,26 @@ void JointSpace::InitAsDefaultInstance() {
   ::abb::egm::wrapper::_JointSpace_default_instance_._instance.get_mutable()->velocity_ = const_cast< ::abb::egm::wrapper::Joints*>(
       ::abb::egm::wrapper::Joints::internal_default_instance());
 }
+class JointSpace::HasBitSetters {
+ public:
+  static const ::abb::egm::wrapper::Joints& position(const JointSpace* msg);
+  static void set_has_position(JointSpace* msg) {
+    msg->_has_bits_[0] |= 0x00000001u;
+  }
+  static const ::abb::egm::wrapper::Joints& velocity(const JointSpace* msg);
+  static void set_has_velocity(JointSpace* msg) {
+    msg->_has_bits_[0] |= 0x00000002u;
+  }
+};
+
+const ::abb::egm::wrapper::Joints&
+JointSpace::HasBitSetters::position(const JointSpace* msg) {
+  return *msg->position_;
+}
+const ::abb::egm::wrapper::Joints&
+JointSpace::HasBitSetters::velocity(const JointSpace* msg) {
+  return *msg->velocity_;
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int JointSpace::kPositionFieldNumber;
 const int JointSpace::kVelocityFieldNumber;
@@ -1834,17 +1930,13 @@ const int JointSpace::kVelocityFieldNumber;
 
 JointSpace::JointSpace()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    ::protobuf_egm_5fwrapper_2eproto::InitDefaultsJointSpace();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.wrapper.JointSpace)
 }
 JointSpace::JointSpace(const JointSpace& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_),
-      _cached_size_(0) {
+      _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.has_position()) {
     position_ = new ::abb::egm::wrapper::Joints(*from.position_);
@@ -1860,7 +1952,8 @@ JointSpace::JointSpace(const JointSpace& from)
 }
 
 void JointSpace::SharedCtor() {
-  _cached_size_ = 0;
+  ::google::protobuf::internal::InitSCC(
+      &scc_info_JointSpace_egm_5fwrapper_2eproto.base);
   ::memset(&position_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&velocity_) -
       reinterpret_cast<char*>(&position_)) + sizeof(velocity_));
@@ -1877,27 +1970,13 @@ void JointSpace::SharedDtor() {
 }
 
 void JointSpace::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  _cached_size_.Set(size);
 }
-const ::google::protobuf::Descriptor* JointSpace::descriptor() {
-  ::protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
-}
-
 const JointSpace& JointSpace::default_instance() {
-  ::protobuf_egm_5fwrapper_2eproto::InitDefaultsJointSpace();
+  ::google::protobuf::internal::InitSCC(&::scc_info_JointSpace_egm_5fwrapper_2eproto.base);
   return *internal_default_instance();
 }
 
-JointSpace* JointSpace::New(::google::protobuf::Arena* arena) const {
-  JointSpace* n = new JointSpace;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
 
 void JointSpace::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.wrapper.JointSpace)
@@ -1906,7 +1985,7 @@ void JointSpace::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 3u) {
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
       GOOGLE_DCHECK(position_ != NULL);
       position_->Clear();
@@ -1920,20 +1999,86 @@ void JointSpace::Clear() {
   _internal_metadata_.Clear();
 }
 
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* JointSpace::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<JointSpace*>(object);
+  ::google::protobuf::uint32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ::google::protobuf::uint32 tag;
+    ptr = Varint::Parse32Inline(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // optional .abb.egm.wrapper.Joints position = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 10) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::abb::egm::wrapper::Joints::_InternalParse;
+        object = msg->mutable_position();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        bool ok = ctx->ParseExactRange({parser_till_end, object},
+                                       ptr, newend);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+        ptr = newend;
+        break;
+      }
+      // optional .abb.egm.wrapper.Joints velocity = 2;
+      case 2: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 18) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::abb::egm::wrapper::Joints::_InternalParse;
+        object = msg->mutable_velocity();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        bool ok = ctx->ParseExactRange({parser_till_end, object},
+                                       ptr, newend);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+        ptr = newend;
+        break;
+      }
+      default: {
+      handle_unusual: (void)&&handle_unusual;
+        if ((tag & 7) == 4 || tag == 0) {
+          bool ok = ctx->ValidEndGroup(tag);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+len_delim_till_end: (void)&&len_delim_till_end;
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                                 {parser_till_end, object}, size);
+group_continues: (void)&&group_continues;
+  GOOGLE_DCHECK(ptr >= end);
+  ctx->StoreGroup({_InternalParse, msg}, {parser_till_end, object}, depth);
+  return ptr;
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 bool JointSpace::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.wrapper.JointSpace)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // optional .abb.egm.wrapper.Joints position = 1;
       case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (10 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_position()));
         } else {
@@ -1944,8 +2089,7 @@ bool JointSpace::MergePartialFromCodedStream(
 
       // optional .abb.egm.wrapper.Joints velocity = 2;
       case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (18 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_velocity()));
         } else {
@@ -1973,6 +2117,7 @@ failure:
   return false;
 #undef DO_
 }
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 
 void JointSpace::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
@@ -1984,13 +2129,13 @@ void JointSpace::SerializeWithCachedSizes(
   // optional .abb.egm.wrapper.Joints position = 1;
   if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->position_, output);
+      1, HasBitSetters::position(this), output);
   }
 
   // optional .abb.egm.wrapper.Joints velocity = 2;
   if (cached_has_bits & 0x00000002u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, *this->velocity_, output);
+      2, HasBitSetters::velocity(this), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -2012,14 +2157,14 @@ void JointSpace::SerializeWithCachedSizes(
   if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1, *this->position_, deterministic, target);
+        1, HasBitSetters::position(this), deterministic, target);
   }
 
   // optional .abb.egm.wrapper.Joints velocity = 2;
   if (cached_has_bits & 0x00000002u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        2, *this->velocity_, deterministic, target);
+        2, HasBitSetters::velocity(this), deterministic, target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -2039,26 +2184,29 @@ size_t JointSpace::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (_has_bits_[0 / 32] & 3u) {
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
     // optional .abb.egm.wrapper.Joints position = 1;
-    if (has_position()) {
+    if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSize(
-          *this->position_);
+          *position_);
     }
 
     // optional .abb.egm.wrapper.Joints velocity = 2;
-    if (has_velocity()) {
+    if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSize(
-          *this->velocity_);
+          *velocity_);
     }
 
   }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  SetCachedSize(cached_size);
   return total_size;
 }
 
@@ -2066,7 +2214,7 @@ void JointSpace::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.wrapper.JointSpace)
   GOOGLE_DCHECK_NE(&from, this);
   const JointSpace* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const JointSpace>(
+      ::google::protobuf::DynamicCastToGenerated<JointSpace>(
           &from);
   if (source == NULL) {
   // @@protoc_insertion_point(generalized_merge_from_cast_fail:abb.egm.wrapper.JointSpace)
@@ -2085,7 +2233,7 @@ void JointSpace::MergeFrom(const JointSpace& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 3u) {
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
       mutable_position()->::abb::egm::wrapper::Joints::MergeFrom(from.position());
     }
@@ -2119,16 +2267,15 @@ void JointSpace::Swap(JointSpace* other) {
 }
 void JointSpace::InternalSwap(JointSpace* other) {
   using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   swap(position_, other->position_);
   swap(velocity_, other->velocity_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata JointSpace::GetMetadata() const {
-  protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages];
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_egm_5fwrapper_2eproto);
+  return ::file_level_metadata_egm_5fwrapper_2eproto[kIndexInFileMessages];
 }
 
 
@@ -2136,6 +2283,19 @@ void JointSpace::InternalSwap(JointSpace* other) {
 
 void Cartesian::InitAsDefaultInstance() {
 }
+class Cartesian::HasBitSetters {
+ public:
+  static void set_has_x(Cartesian* msg) {
+    msg->_has_bits_[0] |= 0x00000001u;
+  }
+  static void set_has_y(Cartesian* msg) {
+    msg->_has_bits_[0] |= 0x00000002u;
+  }
+  static void set_has_z(Cartesian* msg) {
+    msg->_has_bits_[0] |= 0x00000004u;
+  }
+};
+
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Cartesian::kXFieldNumber;
 const int Cartesian::kYFieldNumber;
@@ -2144,17 +2304,13 @@ const int Cartesian::kZFieldNumber;
 
 Cartesian::Cartesian()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    ::protobuf_egm_5fwrapper_2eproto::InitDefaultsCartesian();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.wrapper.Cartesian)
 }
 Cartesian::Cartesian(const Cartesian& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_),
-      _cached_size_(0) {
+      _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::memcpy(&x_, &from.x_,
     static_cast<size_t>(reinterpret_cast<char*>(&z_) -
@@ -2163,7 +2319,6 @@ Cartesian::Cartesian(const Cartesian& from)
 }
 
 void Cartesian::SharedCtor() {
-  _cached_size_ = 0;
   ::memset(&x_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&z_) -
       reinterpret_cast<char*>(&x_)) + sizeof(z_));
@@ -2178,27 +2333,13 @@ void Cartesian::SharedDtor() {
 }
 
 void Cartesian::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  _cached_size_.Set(size);
 }
-const ::google::protobuf::Descriptor* Cartesian::descriptor() {
-  ::protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
-}
-
 const Cartesian& Cartesian::default_instance() {
-  ::protobuf_egm_5fwrapper_2eproto::InitDefaultsCartesian();
+  ::google::protobuf::internal::InitSCC(&::scc_info_Cartesian_egm_5fwrapper_2eproto.base);
   return *internal_default_instance();
 }
 
-Cartesian* Cartesian::New(::google::protobuf::Arena* arena) const {
-  Cartesian* n = new Cartesian;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
 
 void Cartesian::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.wrapper.Cartesian)
@@ -2207,7 +2348,7 @@ void Cartesian::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 7u) {
+  if (cached_has_bits & 0x00000007u) {
     ::memset(&x_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&z_) -
         reinterpret_cast<char*>(&x_)) + sizeof(z_));
@@ -2216,21 +2357,84 @@ void Cartesian::Clear() {
   _internal_metadata_.Clear();
 }
 
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* Cartesian::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<Cartesian*>(object);
+  ::google::protobuf::uint32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ::google::protobuf::uint32 tag;
+    ptr = Varint::Parse32Inline(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // optional double x = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 9) goto handle_unusual;
+        double val;
+        ::std::memcpy(&val, ptr, 8);
+        ptr += 8;
+        msg->set_x(val);
+        break;
+      }
+      // optional double y = 2;
+      case 2: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 17) goto handle_unusual;
+        double val;
+        ::std::memcpy(&val, ptr, 8);
+        ptr += 8;
+        msg->set_y(val);
+        break;
+      }
+      // optional double z = 3;
+      case 3: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 25) goto handle_unusual;
+        double val;
+        ::std::memcpy(&val, ptr, 8);
+        ptr += 8;
+        msg->set_z(val);
+        break;
+      }
+      default: {
+      handle_unusual: (void)&&handle_unusual;
+        if ((tag & 7) == 4 || tag == 0) {
+          bool ok = ctx->ValidEndGroup(tag);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+len_delim_till_end: (void)&&len_delim_till_end;
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                                 {parser_till_end, object}, size);
+group_continues: (void)&&group_continues;
+  GOOGLE_DCHECK(ptr >= end);
+  ctx->StoreGroup({_InternalParse, msg}, {parser_till_end, object}, depth);
+  return ptr;
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 bool Cartesian::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.wrapper.Cartesian)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // optional double x = 1;
       case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(9u /* 9 & 0xFF */)) {
-          set_has_x();
+        if (static_cast< ::google::protobuf::uint8>(tag) == (9 & 0xFF)) {
+          HasBitSetters::set_has_x(this);
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
                  input, &x_)));
@@ -2242,9 +2446,8 @@ bool Cartesian::MergePartialFromCodedStream(
 
       // optional double y = 2;
       case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(17u /* 17 & 0xFF */)) {
-          set_has_y();
+        if (static_cast< ::google::protobuf::uint8>(tag) == (17 & 0xFF)) {
+          HasBitSetters::set_has_y(this);
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
                  input, &y_)));
@@ -2256,9 +2459,8 @@ bool Cartesian::MergePartialFromCodedStream(
 
       // optional double z = 3;
       case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(25u /* 25 & 0xFF */)) {
-          set_has_z();
+        if (static_cast< ::google::protobuf::uint8>(tag) == (25 & 0xFF)) {
+          HasBitSetters::set_has_z(this);
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
                  input, &z_)));
@@ -2287,6 +2489,7 @@ failure:
   return false;
 #undef DO_
 }
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 
 void Cartesian::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
@@ -2357,27 +2560,30 @@ size_t Cartesian::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (_has_bits_[0 / 32] & 7u) {
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
     // optional double x = 1;
-    if (has_x()) {
+    if (cached_has_bits & 0x00000001u) {
       total_size += 1 + 8;
     }
 
     // optional double y = 2;
-    if (has_y()) {
+    if (cached_has_bits & 0x00000002u) {
       total_size += 1 + 8;
     }
 
     // optional double z = 3;
-    if (has_z()) {
+    if (cached_has_bits & 0x00000004u) {
       total_size += 1 + 8;
     }
 
   }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  SetCachedSize(cached_size);
   return total_size;
 }
 
@@ -2385,7 +2591,7 @@ void Cartesian::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.wrapper.Cartesian)
   GOOGLE_DCHECK_NE(&from, this);
   const Cartesian* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const Cartesian>(
+      ::google::protobuf::DynamicCastToGenerated<Cartesian>(
           &from);
   if (source == NULL) {
   // @@protoc_insertion_point(generalized_merge_from_cast_fail:abb.egm.wrapper.Cartesian)
@@ -2404,7 +2610,7 @@ void Cartesian::MergeFrom(const Cartesian& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 7u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       x_ = from.x_;
     }
@@ -2442,17 +2648,16 @@ void Cartesian::Swap(Cartesian* other) {
 }
 void Cartesian::InternalSwap(Cartesian* other) {
   using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   swap(x_, other->x_);
   swap(y_, other->y_);
   swap(z_, other->z_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata Cartesian::GetMetadata() const {
-  protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages];
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_egm_5fwrapper_2eproto);
+  return ::file_level_metadata_egm_5fwrapper_2eproto[kIndexInFileMessages];
 }
 
 
@@ -2460,6 +2665,19 @@ void Cartesian::InternalSwap(Cartesian* other) {
 
 void Euler::InitAsDefaultInstance() {
 }
+class Euler::HasBitSetters {
+ public:
+  static void set_has_x(Euler* msg) {
+    msg->_has_bits_[0] |= 0x00000001u;
+  }
+  static void set_has_y(Euler* msg) {
+    msg->_has_bits_[0] |= 0x00000002u;
+  }
+  static void set_has_z(Euler* msg) {
+    msg->_has_bits_[0] |= 0x00000004u;
+  }
+};
+
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Euler::kXFieldNumber;
 const int Euler::kYFieldNumber;
@@ -2468,17 +2686,13 @@ const int Euler::kZFieldNumber;
 
 Euler::Euler()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    ::protobuf_egm_5fwrapper_2eproto::InitDefaultsEuler();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.wrapper.Euler)
 }
 Euler::Euler(const Euler& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_),
-      _cached_size_(0) {
+      _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::memcpy(&x_, &from.x_,
     static_cast<size_t>(reinterpret_cast<char*>(&z_) -
@@ -2487,7 +2701,6 @@ Euler::Euler(const Euler& from)
 }
 
 void Euler::SharedCtor() {
-  _cached_size_ = 0;
   ::memset(&x_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&z_) -
       reinterpret_cast<char*>(&x_)) + sizeof(z_));
@@ -2502,27 +2715,13 @@ void Euler::SharedDtor() {
 }
 
 void Euler::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  _cached_size_.Set(size);
 }
-const ::google::protobuf::Descriptor* Euler::descriptor() {
-  ::protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
-}
-
 const Euler& Euler::default_instance() {
-  ::protobuf_egm_5fwrapper_2eproto::InitDefaultsEuler();
+  ::google::protobuf::internal::InitSCC(&::scc_info_Euler_egm_5fwrapper_2eproto.base);
   return *internal_default_instance();
 }
 
-Euler* Euler::New(::google::protobuf::Arena* arena) const {
-  Euler* n = new Euler;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
 
 void Euler::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.wrapper.Euler)
@@ -2531,7 +2730,7 @@ void Euler::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 7u) {
+  if (cached_has_bits & 0x00000007u) {
     ::memset(&x_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&z_) -
         reinterpret_cast<char*>(&x_)) + sizeof(z_));
@@ -2540,21 +2739,84 @@ void Euler::Clear() {
   _internal_metadata_.Clear();
 }
 
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* Euler::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<Euler*>(object);
+  ::google::protobuf::uint32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ::google::protobuf::uint32 tag;
+    ptr = Varint::Parse32Inline(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // optional double x = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 9) goto handle_unusual;
+        double val;
+        ::std::memcpy(&val, ptr, 8);
+        ptr += 8;
+        msg->set_x(val);
+        break;
+      }
+      // optional double y = 2;
+      case 2: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 17) goto handle_unusual;
+        double val;
+        ::std::memcpy(&val, ptr, 8);
+        ptr += 8;
+        msg->set_y(val);
+        break;
+      }
+      // optional double z = 3;
+      case 3: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 25) goto handle_unusual;
+        double val;
+        ::std::memcpy(&val, ptr, 8);
+        ptr += 8;
+        msg->set_z(val);
+        break;
+      }
+      default: {
+      handle_unusual: (void)&&handle_unusual;
+        if ((tag & 7) == 4 || tag == 0) {
+          bool ok = ctx->ValidEndGroup(tag);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+len_delim_till_end: (void)&&len_delim_till_end;
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                                 {parser_till_end, object}, size);
+group_continues: (void)&&group_continues;
+  GOOGLE_DCHECK(ptr >= end);
+  ctx->StoreGroup({_InternalParse, msg}, {parser_till_end, object}, depth);
+  return ptr;
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 bool Euler::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.wrapper.Euler)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // optional double x = 1;
       case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(9u /* 9 & 0xFF */)) {
-          set_has_x();
+        if (static_cast< ::google::protobuf::uint8>(tag) == (9 & 0xFF)) {
+          HasBitSetters::set_has_x(this);
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
                  input, &x_)));
@@ -2566,9 +2828,8 @@ bool Euler::MergePartialFromCodedStream(
 
       // optional double y = 2;
       case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(17u /* 17 & 0xFF */)) {
-          set_has_y();
+        if (static_cast< ::google::protobuf::uint8>(tag) == (17 & 0xFF)) {
+          HasBitSetters::set_has_y(this);
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
                  input, &y_)));
@@ -2580,9 +2841,8 @@ bool Euler::MergePartialFromCodedStream(
 
       // optional double z = 3;
       case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(25u /* 25 & 0xFF */)) {
-          set_has_z();
+        if (static_cast< ::google::protobuf::uint8>(tag) == (25 & 0xFF)) {
+          HasBitSetters::set_has_z(this);
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
                  input, &z_)));
@@ -2611,6 +2871,7 @@ failure:
   return false;
 #undef DO_
 }
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 
 void Euler::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
@@ -2681,27 +2942,30 @@ size_t Euler::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (_has_bits_[0 / 32] & 7u) {
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
     // optional double x = 1;
-    if (has_x()) {
+    if (cached_has_bits & 0x00000001u) {
       total_size += 1 + 8;
     }
 
     // optional double y = 2;
-    if (has_y()) {
+    if (cached_has_bits & 0x00000002u) {
       total_size += 1 + 8;
     }
 
     // optional double z = 3;
-    if (has_z()) {
+    if (cached_has_bits & 0x00000004u) {
       total_size += 1 + 8;
     }
 
   }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  SetCachedSize(cached_size);
   return total_size;
 }
 
@@ -2709,7 +2973,7 @@ void Euler::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.wrapper.Euler)
   GOOGLE_DCHECK_NE(&from, this);
   const Euler* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const Euler>(
+      ::google::protobuf::DynamicCastToGenerated<Euler>(
           &from);
   if (source == NULL) {
   // @@protoc_insertion_point(generalized_merge_from_cast_fail:abb.egm.wrapper.Euler)
@@ -2728,7 +2992,7 @@ void Euler::MergeFrom(const Euler& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 7u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       x_ = from.x_;
     }
@@ -2766,17 +3030,16 @@ void Euler::Swap(Euler* other) {
 }
 void Euler::InternalSwap(Euler* other) {
   using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   swap(x_, other->x_);
   swap(y_, other->y_);
   swap(z_, other->z_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata Euler::GetMetadata() const {
-  protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages];
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_egm_5fwrapper_2eproto);
+  return ::file_level_metadata_egm_5fwrapper_2eproto[kIndexInFileMessages];
 }
 
 
@@ -2784,6 +3047,22 @@ void Euler::InternalSwap(Euler* other) {
 
 void Quaternion::InitAsDefaultInstance() {
 }
+class Quaternion::HasBitSetters {
+ public:
+  static void set_has_u0(Quaternion* msg) {
+    msg->_has_bits_[0] |= 0x00000001u;
+  }
+  static void set_has_u1(Quaternion* msg) {
+    msg->_has_bits_[0] |= 0x00000002u;
+  }
+  static void set_has_u2(Quaternion* msg) {
+    msg->_has_bits_[0] |= 0x00000004u;
+  }
+  static void set_has_u3(Quaternion* msg) {
+    msg->_has_bits_[0] |= 0x00000008u;
+  }
+};
+
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Quaternion::kU0FieldNumber;
 const int Quaternion::kU1FieldNumber;
@@ -2793,17 +3072,13 @@ const int Quaternion::kU3FieldNumber;
 
 Quaternion::Quaternion()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    ::protobuf_egm_5fwrapper_2eproto::InitDefaultsQuaternion();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.wrapper.Quaternion)
 }
 Quaternion::Quaternion(const Quaternion& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_),
-      _cached_size_(0) {
+      _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::memcpy(&u0_, &from.u0_,
     static_cast<size_t>(reinterpret_cast<char*>(&u3_) -
@@ -2812,7 +3087,6 @@ Quaternion::Quaternion(const Quaternion& from)
 }
 
 void Quaternion::SharedCtor() {
-  _cached_size_ = 0;
   ::memset(&u0_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&u3_) -
       reinterpret_cast<char*>(&u0_)) + sizeof(u3_));
@@ -2827,27 +3101,13 @@ void Quaternion::SharedDtor() {
 }
 
 void Quaternion::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  _cached_size_.Set(size);
 }
-const ::google::protobuf::Descriptor* Quaternion::descriptor() {
-  ::protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
-}
-
 const Quaternion& Quaternion::default_instance() {
-  ::protobuf_egm_5fwrapper_2eproto::InitDefaultsQuaternion();
+  ::google::protobuf::internal::InitSCC(&::scc_info_Quaternion_egm_5fwrapper_2eproto.base);
   return *internal_default_instance();
 }
 
-Quaternion* Quaternion::New(::google::protobuf::Arena* arena) const {
-  Quaternion* n = new Quaternion;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
 
 void Quaternion::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.wrapper.Quaternion)
@@ -2856,7 +3116,7 @@ void Quaternion::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 15u) {
+  if (cached_has_bits & 0x0000000fu) {
     ::memset(&u0_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&u3_) -
         reinterpret_cast<char*>(&u0_)) + sizeof(u3_));
@@ -2865,21 +3125,93 @@ void Quaternion::Clear() {
   _internal_metadata_.Clear();
 }
 
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* Quaternion::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<Quaternion*>(object);
+  ::google::protobuf::uint32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ::google::protobuf::uint32 tag;
+    ptr = Varint::Parse32Inline(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // optional double u0 = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 9) goto handle_unusual;
+        double val;
+        ::std::memcpy(&val, ptr, 8);
+        ptr += 8;
+        msg->set_u0(val);
+        break;
+      }
+      // optional double u1 = 2;
+      case 2: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 17) goto handle_unusual;
+        double val;
+        ::std::memcpy(&val, ptr, 8);
+        ptr += 8;
+        msg->set_u1(val);
+        break;
+      }
+      // optional double u2 = 3;
+      case 3: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 25) goto handle_unusual;
+        double val;
+        ::std::memcpy(&val, ptr, 8);
+        ptr += 8;
+        msg->set_u2(val);
+        break;
+      }
+      // optional double u3 = 4;
+      case 4: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 33) goto handle_unusual;
+        double val;
+        ::std::memcpy(&val, ptr, 8);
+        ptr += 8;
+        msg->set_u3(val);
+        break;
+      }
+      default: {
+      handle_unusual: (void)&&handle_unusual;
+        if ((tag & 7) == 4 || tag == 0) {
+          bool ok = ctx->ValidEndGroup(tag);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+len_delim_till_end: (void)&&len_delim_till_end;
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                                 {parser_till_end, object}, size);
+group_continues: (void)&&group_continues;
+  GOOGLE_DCHECK(ptr >= end);
+  ctx->StoreGroup({_InternalParse, msg}, {parser_till_end, object}, depth);
+  return ptr;
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 bool Quaternion::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.wrapper.Quaternion)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // optional double u0 = 1;
       case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(9u /* 9 & 0xFF */)) {
-          set_has_u0();
+        if (static_cast< ::google::protobuf::uint8>(tag) == (9 & 0xFF)) {
+          HasBitSetters::set_has_u0(this);
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
                  input, &u0_)));
@@ -2891,9 +3223,8 @@ bool Quaternion::MergePartialFromCodedStream(
 
       // optional double u1 = 2;
       case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(17u /* 17 & 0xFF */)) {
-          set_has_u1();
+        if (static_cast< ::google::protobuf::uint8>(tag) == (17 & 0xFF)) {
+          HasBitSetters::set_has_u1(this);
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
                  input, &u1_)));
@@ -2905,9 +3236,8 @@ bool Quaternion::MergePartialFromCodedStream(
 
       // optional double u2 = 3;
       case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(25u /* 25 & 0xFF */)) {
-          set_has_u2();
+        if (static_cast< ::google::protobuf::uint8>(tag) == (25 & 0xFF)) {
+          HasBitSetters::set_has_u2(this);
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
                  input, &u2_)));
@@ -2919,9 +3249,8 @@ bool Quaternion::MergePartialFromCodedStream(
 
       // optional double u3 = 4;
       case 4: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(33u /* 33 & 0xFF */)) {
-          set_has_u3();
+        if (static_cast< ::google::protobuf::uint8>(tag) == (33 & 0xFF)) {
+          HasBitSetters::set_has_u3(this);
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
                  input, &u3_)));
@@ -2950,6 +3279,7 @@ failure:
   return false;
 #undef DO_
 }
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 
 void Quaternion::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
@@ -3030,32 +3360,35 @@ size_t Quaternion::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (_has_bits_[0 / 32] & 15u) {
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x0000000fu) {
     // optional double u0 = 1;
-    if (has_u0()) {
+    if (cached_has_bits & 0x00000001u) {
       total_size += 1 + 8;
     }
 
     // optional double u1 = 2;
-    if (has_u1()) {
+    if (cached_has_bits & 0x00000002u) {
       total_size += 1 + 8;
     }
 
     // optional double u2 = 3;
-    if (has_u2()) {
+    if (cached_has_bits & 0x00000004u) {
       total_size += 1 + 8;
     }
 
     // optional double u3 = 4;
-    if (has_u3()) {
+    if (cached_has_bits & 0x00000008u) {
       total_size += 1 + 8;
     }
 
   }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  SetCachedSize(cached_size);
   return total_size;
 }
 
@@ -3063,7 +3396,7 @@ void Quaternion::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.wrapper.Quaternion)
   GOOGLE_DCHECK_NE(&from, this);
   const Quaternion* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const Quaternion>(
+      ::google::protobuf::DynamicCastToGenerated<Quaternion>(
           &from);
   if (source == NULL) {
   // @@protoc_insertion_point(generalized_merge_from_cast_fail:abb.egm.wrapper.Quaternion)
@@ -3082,7 +3415,7 @@ void Quaternion::MergeFrom(const Quaternion& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 15u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       u0_ = from.u0_;
     }
@@ -3123,18 +3456,17 @@ void Quaternion::Swap(Quaternion* other) {
 }
 void Quaternion::InternalSwap(Quaternion* other) {
   using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   swap(u0_, other->u0_);
   swap(u1_, other->u1_);
   swap(u2_, other->u2_);
   swap(u3_, other->u3_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata Quaternion::GetMetadata() const {
-  protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages];
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_egm_5fwrapper_2eproto);
+  return ::file_level_metadata_egm_5fwrapper_2eproto[kIndexInFileMessages];
 }
 
 
@@ -3148,6 +3480,34 @@ void CartesianPose::InitAsDefaultInstance() {
   ::abb::egm::wrapper::_CartesianPose_default_instance_._instance.get_mutable()->quaternion_ = const_cast< ::abb::egm::wrapper::Quaternion*>(
       ::abb::egm::wrapper::Quaternion::internal_default_instance());
 }
+class CartesianPose::HasBitSetters {
+ public:
+  static const ::abb::egm::wrapper::Cartesian& position(const CartesianPose* msg);
+  static void set_has_position(CartesianPose* msg) {
+    msg->_has_bits_[0] |= 0x00000001u;
+  }
+  static const ::abb::egm::wrapper::Euler& euler(const CartesianPose* msg);
+  static void set_has_euler(CartesianPose* msg) {
+    msg->_has_bits_[0] |= 0x00000002u;
+  }
+  static const ::abb::egm::wrapper::Quaternion& quaternion(const CartesianPose* msg);
+  static void set_has_quaternion(CartesianPose* msg) {
+    msg->_has_bits_[0] |= 0x00000004u;
+  }
+};
+
+const ::abb::egm::wrapper::Cartesian&
+CartesianPose::HasBitSetters::position(const CartesianPose* msg) {
+  return *msg->position_;
+}
+const ::abb::egm::wrapper::Euler&
+CartesianPose::HasBitSetters::euler(const CartesianPose* msg) {
+  return *msg->euler_;
+}
+const ::abb::egm::wrapper::Quaternion&
+CartesianPose::HasBitSetters::quaternion(const CartesianPose* msg) {
+  return *msg->quaternion_;
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int CartesianPose::kPositionFieldNumber;
 const int CartesianPose::kEulerFieldNumber;
@@ -3156,17 +3516,13 @@ const int CartesianPose::kQuaternionFieldNumber;
 
 CartesianPose::CartesianPose()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    ::protobuf_egm_5fwrapper_2eproto::InitDefaultsCartesianPose();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.wrapper.CartesianPose)
 }
 CartesianPose::CartesianPose(const CartesianPose& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_),
-      _cached_size_(0) {
+      _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.has_position()) {
     position_ = new ::abb::egm::wrapper::Cartesian(*from.position_);
@@ -3187,7 +3543,8 @@ CartesianPose::CartesianPose(const CartesianPose& from)
 }
 
 void CartesianPose::SharedCtor() {
-  _cached_size_ = 0;
+  ::google::protobuf::internal::InitSCC(
+      &scc_info_CartesianPose_egm_5fwrapper_2eproto.base);
   ::memset(&position_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&quaternion_) -
       reinterpret_cast<char*>(&position_)) + sizeof(quaternion_));
@@ -3205,27 +3562,13 @@ void CartesianPose::SharedDtor() {
 }
 
 void CartesianPose::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  _cached_size_.Set(size);
 }
-const ::google::protobuf::Descriptor* CartesianPose::descriptor() {
-  ::protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
-}
-
 const CartesianPose& CartesianPose::default_instance() {
-  ::protobuf_egm_5fwrapper_2eproto::InitDefaultsCartesianPose();
+  ::google::protobuf::internal::InitSCC(&::scc_info_CartesianPose_egm_5fwrapper_2eproto.base);
   return *internal_default_instance();
 }
 
-CartesianPose* CartesianPose::New(::google::protobuf::Arena* arena) const {
-  CartesianPose* n = new CartesianPose;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
 
 void CartesianPose::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.wrapper.CartesianPose)
@@ -3234,7 +3577,7 @@ void CartesianPose::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 7u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       GOOGLE_DCHECK(position_ != NULL);
       position_->Clear();
@@ -3252,20 +3595,101 @@ void CartesianPose::Clear() {
   _internal_metadata_.Clear();
 }
 
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* CartesianPose::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<CartesianPose*>(object);
+  ::google::protobuf::uint32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ::google::protobuf::uint32 tag;
+    ptr = Varint::Parse32Inline(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // optional .abb.egm.wrapper.Cartesian position = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 10) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::abb::egm::wrapper::Cartesian::_InternalParse;
+        object = msg->mutable_position();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        bool ok = ctx->ParseExactRange({parser_till_end, object},
+                                       ptr, newend);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+        ptr = newend;
+        break;
+      }
+      // optional .abb.egm.wrapper.Euler euler = 2;
+      case 2: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 18) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::abb::egm::wrapper::Euler::_InternalParse;
+        object = msg->mutable_euler();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        bool ok = ctx->ParseExactRange({parser_till_end, object},
+                                       ptr, newend);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+        ptr = newend;
+        break;
+      }
+      // optional .abb.egm.wrapper.Quaternion quaternion = 3;
+      case 3: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 26) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::abb::egm::wrapper::Quaternion::_InternalParse;
+        object = msg->mutable_quaternion();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        bool ok = ctx->ParseExactRange({parser_till_end, object},
+                                       ptr, newend);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+        ptr = newend;
+        break;
+      }
+      default: {
+      handle_unusual: (void)&&handle_unusual;
+        if ((tag & 7) == 4 || tag == 0) {
+          bool ok = ctx->ValidEndGroup(tag);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+len_delim_till_end: (void)&&len_delim_till_end;
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                                 {parser_till_end, object}, size);
+group_continues: (void)&&group_continues;
+  GOOGLE_DCHECK(ptr >= end);
+  ctx->StoreGroup({_InternalParse, msg}, {parser_till_end, object}, depth);
+  return ptr;
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 bool CartesianPose::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.wrapper.CartesianPose)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // optional .abb.egm.wrapper.Cartesian position = 1;
       case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (10 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_position()));
         } else {
@@ -3276,8 +3700,7 @@ bool CartesianPose::MergePartialFromCodedStream(
 
       // optional .abb.egm.wrapper.Euler euler = 2;
       case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (18 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_euler()));
         } else {
@@ -3288,8 +3711,7 @@ bool CartesianPose::MergePartialFromCodedStream(
 
       // optional .abb.egm.wrapper.Quaternion quaternion = 3;
       case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(26u /* 26 & 0xFF */)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (26 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_quaternion()));
         } else {
@@ -3317,6 +3739,7 @@ failure:
   return false;
 #undef DO_
 }
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 
 void CartesianPose::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
@@ -3328,19 +3751,19 @@ void CartesianPose::SerializeWithCachedSizes(
   // optional .abb.egm.wrapper.Cartesian position = 1;
   if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->position_, output);
+      1, HasBitSetters::position(this), output);
   }
 
   // optional .abb.egm.wrapper.Euler euler = 2;
   if (cached_has_bits & 0x00000002u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, *this->euler_, output);
+      2, HasBitSetters::euler(this), output);
   }
 
   // optional .abb.egm.wrapper.Quaternion quaternion = 3;
   if (cached_has_bits & 0x00000004u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      3, *this->quaternion_, output);
+      3, HasBitSetters::quaternion(this), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -3362,21 +3785,21 @@ void CartesianPose::SerializeWithCachedSizes(
   if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1, *this->position_, deterministic, target);
+        1, HasBitSetters::position(this), deterministic, target);
   }
 
   // optional .abb.egm.wrapper.Euler euler = 2;
   if (cached_has_bits & 0x00000002u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        2, *this->euler_, deterministic, target);
+        2, HasBitSetters::euler(this), deterministic, target);
   }
 
   // optional .abb.egm.wrapper.Quaternion quaternion = 3;
   if (cached_has_bits & 0x00000004u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        3, *this->quaternion_, deterministic, target);
+        3, HasBitSetters::quaternion(this), deterministic, target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -3396,33 +3819,36 @@ size_t CartesianPose::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (_has_bits_[0 / 32] & 7u) {
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
     // optional .abb.egm.wrapper.Cartesian position = 1;
-    if (has_position()) {
+    if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSize(
-          *this->position_);
+          *position_);
     }
 
     // optional .abb.egm.wrapper.Euler euler = 2;
-    if (has_euler()) {
+    if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSize(
-          *this->euler_);
+          *euler_);
     }
 
     // optional .abb.egm.wrapper.Quaternion quaternion = 3;
-    if (has_quaternion()) {
+    if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSize(
-          *this->quaternion_);
+          *quaternion_);
     }
 
   }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  SetCachedSize(cached_size);
   return total_size;
 }
 
@@ -3430,7 +3856,7 @@ void CartesianPose::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.wrapper.CartesianPose)
   GOOGLE_DCHECK_NE(&from, this);
   const CartesianPose* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const CartesianPose>(
+      ::google::protobuf::DynamicCastToGenerated<CartesianPose>(
           &from);
   if (source == NULL) {
   // @@protoc_insertion_point(generalized_merge_from_cast_fail:abb.egm.wrapper.CartesianPose)
@@ -3449,7 +3875,7 @@ void CartesianPose::MergeFrom(const CartesianPose& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 7u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       mutable_position()->::abb::egm::wrapper::Cartesian::MergeFrom(from.position());
     }
@@ -3486,17 +3912,16 @@ void CartesianPose::Swap(CartesianPose* other) {
 }
 void CartesianPose::InternalSwap(CartesianPose* other) {
   using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   swap(position_, other->position_);
   swap(euler_, other->euler_);
   swap(quaternion_, other->quaternion_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata CartesianPose::GetMetadata() const {
-  protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages];
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_egm_5fwrapper_2eproto);
+  return ::file_level_metadata_egm_5fwrapper_2eproto[kIndexInFileMessages];
 }
 
 
@@ -3508,6 +3933,26 @@ void CartesianVelocity::InitAsDefaultInstance() {
   ::abb::egm::wrapper::_CartesianVelocity_default_instance_._instance.get_mutable()->angular_ = const_cast< ::abb::egm::wrapper::Euler*>(
       ::abb::egm::wrapper::Euler::internal_default_instance());
 }
+class CartesianVelocity::HasBitSetters {
+ public:
+  static const ::abb::egm::wrapper::Cartesian& linear(const CartesianVelocity* msg);
+  static void set_has_linear(CartesianVelocity* msg) {
+    msg->_has_bits_[0] |= 0x00000001u;
+  }
+  static const ::abb::egm::wrapper::Euler& angular(const CartesianVelocity* msg);
+  static void set_has_angular(CartesianVelocity* msg) {
+    msg->_has_bits_[0] |= 0x00000002u;
+  }
+};
+
+const ::abb::egm::wrapper::Cartesian&
+CartesianVelocity::HasBitSetters::linear(const CartesianVelocity* msg) {
+  return *msg->linear_;
+}
+const ::abb::egm::wrapper::Euler&
+CartesianVelocity::HasBitSetters::angular(const CartesianVelocity* msg) {
+  return *msg->angular_;
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int CartesianVelocity::kLinearFieldNumber;
 const int CartesianVelocity::kAngularFieldNumber;
@@ -3515,17 +3960,13 @@ const int CartesianVelocity::kAngularFieldNumber;
 
 CartesianVelocity::CartesianVelocity()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    ::protobuf_egm_5fwrapper_2eproto::InitDefaultsCartesianVelocity();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.wrapper.CartesianVelocity)
 }
 CartesianVelocity::CartesianVelocity(const CartesianVelocity& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_),
-      _cached_size_(0) {
+      _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.has_linear()) {
     linear_ = new ::abb::egm::wrapper::Cartesian(*from.linear_);
@@ -3541,7 +3982,8 @@ CartesianVelocity::CartesianVelocity(const CartesianVelocity& from)
 }
 
 void CartesianVelocity::SharedCtor() {
-  _cached_size_ = 0;
+  ::google::protobuf::internal::InitSCC(
+      &scc_info_CartesianVelocity_egm_5fwrapper_2eproto.base);
   ::memset(&linear_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&angular_) -
       reinterpret_cast<char*>(&linear_)) + sizeof(angular_));
@@ -3558,27 +4000,13 @@ void CartesianVelocity::SharedDtor() {
 }
 
 void CartesianVelocity::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  _cached_size_.Set(size);
 }
-const ::google::protobuf::Descriptor* CartesianVelocity::descriptor() {
-  ::protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
-}
-
 const CartesianVelocity& CartesianVelocity::default_instance() {
-  ::protobuf_egm_5fwrapper_2eproto::InitDefaultsCartesianVelocity();
+  ::google::protobuf::internal::InitSCC(&::scc_info_CartesianVelocity_egm_5fwrapper_2eproto.base);
   return *internal_default_instance();
 }
 
-CartesianVelocity* CartesianVelocity::New(::google::protobuf::Arena* arena) const {
-  CartesianVelocity* n = new CartesianVelocity;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
 
 void CartesianVelocity::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.wrapper.CartesianVelocity)
@@ -3587,7 +4015,7 @@ void CartesianVelocity::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 3u) {
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
       GOOGLE_DCHECK(linear_ != NULL);
       linear_->Clear();
@@ -3601,20 +4029,86 @@ void CartesianVelocity::Clear() {
   _internal_metadata_.Clear();
 }
 
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* CartesianVelocity::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<CartesianVelocity*>(object);
+  ::google::protobuf::uint32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ::google::protobuf::uint32 tag;
+    ptr = Varint::Parse32Inline(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // optional .abb.egm.wrapper.Cartesian linear = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 10) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::abb::egm::wrapper::Cartesian::_InternalParse;
+        object = msg->mutable_linear();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        bool ok = ctx->ParseExactRange({parser_till_end, object},
+                                       ptr, newend);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+        ptr = newend;
+        break;
+      }
+      // optional .abb.egm.wrapper.Euler angular = 2;
+      case 2: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 18) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::abb::egm::wrapper::Euler::_InternalParse;
+        object = msg->mutable_angular();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        bool ok = ctx->ParseExactRange({parser_till_end, object},
+                                       ptr, newend);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+        ptr = newend;
+        break;
+      }
+      default: {
+      handle_unusual: (void)&&handle_unusual;
+        if ((tag & 7) == 4 || tag == 0) {
+          bool ok = ctx->ValidEndGroup(tag);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+len_delim_till_end: (void)&&len_delim_till_end;
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                                 {parser_till_end, object}, size);
+group_continues: (void)&&group_continues;
+  GOOGLE_DCHECK(ptr >= end);
+  ctx->StoreGroup({_InternalParse, msg}, {parser_till_end, object}, depth);
+  return ptr;
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 bool CartesianVelocity::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.wrapper.CartesianVelocity)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // optional .abb.egm.wrapper.Cartesian linear = 1;
       case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (10 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_linear()));
         } else {
@@ -3625,8 +4119,7 @@ bool CartesianVelocity::MergePartialFromCodedStream(
 
       // optional .abb.egm.wrapper.Euler angular = 2;
       case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (18 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_angular()));
         } else {
@@ -3654,6 +4147,7 @@ failure:
   return false;
 #undef DO_
 }
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 
 void CartesianVelocity::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
@@ -3665,13 +4159,13 @@ void CartesianVelocity::SerializeWithCachedSizes(
   // optional .abb.egm.wrapper.Cartesian linear = 1;
   if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->linear_, output);
+      1, HasBitSetters::linear(this), output);
   }
 
   // optional .abb.egm.wrapper.Euler angular = 2;
   if (cached_has_bits & 0x00000002u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, *this->angular_, output);
+      2, HasBitSetters::angular(this), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -3693,14 +4187,14 @@ void CartesianVelocity::SerializeWithCachedSizes(
   if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1, *this->linear_, deterministic, target);
+        1, HasBitSetters::linear(this), deterministic, target);
   }
 
   // optional .abb.egm.wrapper.Euler angular = 2;
   if (cached_has_bits & 0x00000002u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        2, *this->angular_, deterministic, target);
+        2, HasBitSetters::angular(this), deterministic, target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -3720,26 +4214,29 @@ size_t CartesianVelocity::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (_has_bits_[0 / 32] & 3u) {
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
     // optional .abb.egm.wrapper.Cartesian linear = 1;
-    if (has_linear()) {
+    if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSize(
-          *this->linear_);
+          *linear_);
     }
 
     // optional .abb.egm.wrapper.Euler angular = 2;
-    if (has_angular()) {
+    if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSize(
-          *this->angular_);
+          *angular_);
     }
 
   }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  SetCachedSize(cached_size);
   return total_size;
 }
 
@@ -3747,7 +4244,7 @@ void CartesianVelocity::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.wrapper.CartesianVelocity)
   GOOGLE_DCHECK_NE(&from, this);
   const CartesianVelocity* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const CartesianVelocity>(
+      ::google::protobuf::DynamicCastToGenerated<CartesianVelocity>(
           &from);
   if (source == NULL) {
   // @@protoc_insertion_point(generalized_merge_from_cast_fail:abb.egm.wrapper.CartesianVelocity)
@@ -3766,7 +4263,7 @@ void CartesianVelocity::MergeFrom(const CartesianVelocity& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 3u) {
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
       mutable_linear()->::abb::egm::wrapper::Cartesian::MergeFrom(from.linear());
     }
@@ -3800,16 +4297,15 @@ void CartesianVelocity::Swap(CartesianVelocity* other) {
 }
 void CartesianVelocity::InternalSwap(CartesianVelocity* other) {
   using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   swap(linear_, other->linear_);
   swap(angular_, other->angular_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata CartesianVelocity::GetMetadata() const {
-  protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages];
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_egm_5fwrapper_2eproto);
+  return ::file_level_metadata_egm_5fwrapper_2eproto[kIndexInFileMessages];
 }
 
 
@@ -3821,6 +4317,26 @@ void CartesianSpace::InitAsDefaultInstance() {
   ::abb::egm::wrapper::_CartesianSpace_default_instance_._instance.get_mutable()->velocity_ = const_cast< ::abb::egm::wrapper::CartesianVelocity*>(
       ::abb::egm::wrapper::CartesianVelocity::internal_default_instance());
 }
+class CartesianSpace::HasBitSetters {
+ public:
+  static const ::abb::egm::wrapper::CartesianPose& pose(const CartesianSpace* msg);
+  static void set_has_pose(CartesianSpace* msg) {
+    msg->_has_bits_[0] |= 0x00000001u;
+  }
+  static const ::abb::egm::wrapper::CartesianVelocity& velocity(const CartesianSpace* msg);
+  static void set_has_velocity(CartesianSpace* msg) {
+    msg->_has_bits_[0] |= 0x00000002u;
+  }
+};
+
+const ::abb::egm::wrapper::CartesianPose&
+CartesianSpace::HasBitSetters::pose(const CartesianSpace* msg) {
+  return *msg->pose_;
+}
+const ::abb::egm::wrapper::CartesianVelocity&
+CartesianSpace::HasBitSetters::velocity(const CartesianSpace* msg) {
+  return *msg->velocity_;
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int CartesianSpace::kPoseFieldNumber;
 const int CartesianSpace::kVelocityFieldNumber;
@@ -3828,17 +4344,13 @@ const int CartesianSpace::kVelocityFieldNumber;
 
 CartesianSpace::CartesianSpace()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    ::protobuf_egm_5fwrapper_2eproto::InitDefaultsCartesianSpace();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.wrapper.CartesianSpace)
 }
 CartesianSpace::CartesianSpace(const CartesianSpace& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_),
-      _cached_size_(0) {
+      _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.has_pose()) {
     pose_ = new ::abb::egm::wrapper::CartesianPose(*from.pose_);
@@ -3854,7 +4366,8 @@ CartesianSpace::CartesianSpace(const CartesianSpace& from)
 }
 
 void CartesianSpace::SharedCtor() {
-  _cached_size_ = 0;
+  ::google::protobuf::internal::InitSCC(
+      &scc_info_CartesianSpace_egm_5fwrapper_2eproto.base);
   ::memset(&pose_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&velocity_) -
       reinterpret_cast<char*>(&pose_)) + sizeof(velocity_));
@@ -3871,27 +4384,13 @@ void CartesianSpace::SharedDtor() {
 }
 
 void CartesianSpace::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  _cached_size_.Set(size);
 }
-const ::google::protobuf::Descriptor* CartesianSpace::descriptor() {
-  ::protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
-}
-
 const CartesianSpace& CartesianSpace::default_instance() {
-  ::protobuf_egm_5fwrapper_2eproto::InitDefaultsCartesianSpace();
+  ::google::protobuf::internal::InitSCC(&::scc_info_CartesianSpace_egm_5fwrapper_2eproto.base);
   return *internal_default_instance();
 }
 
-CartesianSpace* CartesianSpace::New(::google::protobuf::Arena* arena) const {
-  CartesianSpace* n = new CartesianSpace;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
 
 void CartesianSpace::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.wrapper.CartesianSpace)
@@ -3900,7 +4399,7 @@ void CartesianSpace::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 3u) {
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
       GOOGLE_DCHECK(pose_ != NULL);
       pose_->Clear();
@@ -3914,20 +4413,86 @@ void CartesianSpace::Clear() {
   _internal_metadata_.Clear();
 }
 
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* CartesianSpace::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<CartesianSpace*>(object);
+  ::google::protobuf::uint32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ::google::protobuf::uint32 tag;
+    ptr = Varint::Parse32Inline(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // optional .abb.egm.wrapper.CartesianPose pose = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 10) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::abb::egm::wrapper::CartesianPose::_InternalParse;
+        object = msg->mutable_pose();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        bool ok = ctx->ParseExactRange({parser_till_end, object},
+                                       ptr, newend);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+        ptr = newend;
+        break;
+      }
+      // optional .abb.egm.wrapper.CartesianVelocity velocity = 2;
+      case 2: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 18) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::abb::egm::wrapper::CartesianVelocity::_InternalParse;
+        object = msg->mutable_velocity();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        bool ok = ctx->ParseExactRange({parser_till_end, object},
+                                       ptr, newend);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+        ptr = newend;
+        break;
+      }
+      default: {
+      handle_unusual: (void)&&handle_unusual;
+        if ((tag & 7) == 4 || tag == 0) {
+          bool ok = ctx->ValidEndGroup(tag);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+len_delim_till_end: (void)&&len_delim_till_end;
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                                 {parser_till_end, object}, size);
+group_continues: (void)&&group_continues;
+  GOOGLE_DCHECK(ptr >= end);
+  ctx->StoreGroup({_InternalParse, msg}, {parser_till_end, object}, depth);
+  return ptr;
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 bool CartesianSpace::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.wrapper.CartesianSpace)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // optional .abb.egm.wrapper.CartesianPose pose = 1;
       case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (10 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_pose()));
         } else {
@@ -3938,8 +4503,7 @@ bool CartesianSpace::MergePartialFromCodedStream(
 
       // optional .abb.egm.wrapper.CartesianVelocity velocity = 2;
       case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (18 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_velocity()));
         } else {
@@ -3967,6 +4531,7 @@ failure:
   return false;
 #undef DO_
 }
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 
 void CartesianSpace::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
@@ -3978,13 +4543,13 @@ void CartesianSpace::SerializeWithCachedSizes(
   // optional .abb.egm.wrapper.CartesianPose pose = 1;
   if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->pose_, output);
+      1, HasBitSetters::pose(this), output);
   }
 
   // optional .abb.egm.wrapper.CartesianVelocity velocity = 2;
   if (cached_has_bits & 0x00000002u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, *this->velocity_, output);
+      2, HasBitSetters::velocity(this), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -4006,14 +4571,14 @@ void CartesianSpace::SerializeWithCachedSizes(
   if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1, *this->pose_, deterministic, target);
+        1, HasBitSetters::pose(this), deterministic, target);
   }
 
   // optional .abb.egm.wrapper.CartesianVelocity velocity = 2;
   if (cached_has_bits & 0x00000002u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        2, *this->velocity_, deterministic, target);
+        2, HasBitSetters::velocity(this), deterministic, target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -4033,26 +4598,29 @@ size_t CartesianSpace::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (_has_bits_[0 / 32] & 3u) {
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
     // optional .abb.egm.wrapper.CartesianPose pose = 1;
-    if (has_pose()) {
+    if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSize(
-          *this->pose_);
+          *pose_);
     }
 
     // optional .abb.egm.wrapper.CartesianVelocity velocity = 2;
-    if (has_velocity()) {
+    if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSize(
-          *this->velocity_);
+          *velocity_);
     }
 
   }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  SetCachedSize(cached_size);
   return total_size;
 }
 
@@ -4060,7 +4628,7 @@ void CartesianSpace::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.wrapper.CartesianSpace)
   GOOGLE_DCHECK_NE(&from, this);
   const CartesianSpace* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const CartesianSpace>(
+      ::google::protobuf::DynamicCastToGenerated<CartesianSpace>(
           &from);
   if (source == NULL) {
   // @@protoc_insertion_point(generalized_merge_from_cast_fail:abb.egm.wrapper.CartesianSpace)
@@ -4079,7 +4647,7 @@ void CartesianSpace::MergeFrom(const CartesianSpace& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 3u) {
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
       mutable_pose()->::abb::egm::wrapper::CartesianPose::MergeFrom(from.pose());
     }
@@ -4113,16 +4681,15 @@ void CartesianSpace::Swap(CartesianSpace* other) {
 }
 void CartesianSpace::InternalSwap(CartesianSpace* other) {
   using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   swap(pose_, other->pose_);
   swap(velocity_, other->velocity_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata CartesianSpace::GetMetadata() const {
-  protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages];
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_egm_5fwrapper_2eproto);
+  return ::file_level_metadata_egm_5fwrapper_2eproto[kIndexInFileMessages];
 }
 
 
@@ -4134,6 +4701,26 @@ void Robot::InitAsDefaultInstance() {
   ::abb::egm::wrapper::_Robot_default_instance_._instance.get_mutable()->cartesian_ = const_cast< ::abb::egm::wrapper::CartesianSpace*>(
       ::abb::egm::wrapper::CartesianSpace::internal_default_instance());
 }
+class Robot::HasBitSetters {
+ public:
+  static const ::abb::egm::wrapper::JointSpace& joints(const Robot* msg);
+  static void set_has_joints(Robot* msg) {
+    msg->_has_bits_[0] |= 0x00000001u;
+  }
+  static const ::abb::egm::wrapper::CartesianSpace& cartesian(const Robot* msg);
+  static void set_has_cartesian(Robot* msg) {
+    msg->_has_bits_[0] |= 0x00000002u;
+  }
+};
+
+const ::abb::egm::wrapper::JointSpace&
+Robot::HasBitSetters::joints(const Robot* msg) {
+  return *msg->joints_;
+}
+const ::abb::egm::wrapper::CartesianSpace&
+Robot::HasBitSetters::cartesian(const Robot* msg) {
+  return *msg->cartesian_;
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Robot::kJointsFieldNumber;
 const int Robot::kCartesianFieldNumber;
@@ -4141,17 +4728,13 @@ const int Robot::kCartesianFieldNumber;
 
 Robot::Robot()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    ::protobuf_egm_5fwrapper_2eproto::InitDefaultsRobot();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.wrapper.Robot)
 }
 Robot::Robot(const Robot& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_),
-      _cached_size_(0) {
+      _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.has_joints()) {
     joints_ = new ::abb::egm::wrapper::JointSpace(*from.joints_);
@@ -4167,7 +4750,8 @@ Robot::Robot(const Robot& from)
 }
 
 void Robot::SharedCtor() {
-  _cached_size_ = 0;
+  ::google::protobuf::internal::InitSCC(
+      &scc_info_Robot_egm_5fwrapper_2eproto.base);
   ::memset(&joints_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&cartesian_) -
       reinterpret_cast<char*>(&joints_)) + sizeof(cartesian_));
@@ -4184,27 +4768,13 @@ void Robot::SharedDtor() {
 }
 
 void Robot::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  _cached_size_.Set(size);
 }
-const ::google::protobuf::Descriptor* Robot::descriptor() {
-  ::protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
-}
-
 const Robot& Robot::default_instance() {
-  ::protobuf_egm_5fwrapper_2eproto::InitDefaultsRobot();
+  ::google::protobuf::internal::InitSCC(&::scc_info_Robot_egm_5fwrapper_2eproto.base);
   return *internal_default_instance();
 }
 
-Robot* Robot::New(::google::protobuf::Arena* arena) const {
-  Robot* n = new Robot;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
 
 void Robot::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.wrapper.Robot)
@@ -4213,7 +4783,7 @@ void Robot::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 3u) {
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
       GOOGLE_DCHECK(joints_ != NULL);
       joints_->Clear();
@@ -4227,20 +4797,86 @@ void Robot::Clear() {
   _internal_metadata_.Clear();
 }
 
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* Robot::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<Robot*>(object);
+  ::google::protobuf::uint32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ::google::protobuf::uint32 tag;
+    ptr = Varint::Parse32Inline(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // optional .abb.egm.wrapper.JointSpace joints = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 10) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::abb::egm::wrapper::JointSpace::_InternalParse;
+        object = msg->mutable_joints();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        bool ok = ctx->ParseExactRange({parser_till_end, object},
+                                       ptr, newend);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+        ptr = newend;
+        break;
+      }
+      // optional .abb.egm.wrapper.CartesianSpace cartesian = 2;
+      case 2: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 18) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::abb::egm::wrapper::CartesianSpace::_InternalParse;
+        object = msg->mutable_cartesian();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        bool ok = ctx->ParseExactRange({parser_till_end, object},
+                                       ptr, newend);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+        ptr = newend;
+        break;
+      }
+      default: {
+      handle_unusual: (void)&&handle_unusual;
+        if ((tag & 7) == 4 || tag == 0) {
+          bool ok = ctx->ValidEndGroup(tag);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+len_delim_till_end: (void)&&len_delim_till_end;
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                                 {parser_till_end, object}, size);
+group_continues: (void)&&group_continues;
+  GOOGLE_DCHECK(ptr >= end);
+  ctx->StoreGroup({_InternalParse, msg}, {parser_till_end, object}, depth);
+  return ptr;
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 bool Robot::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.wrapper.Robot)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // optional .abb.egm.wrapper.JointSpace joints = 1;
       case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (10 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_joints()));
         } else {
@@ -4251,8 +4887,7 @@ bool Robot::MergePartialFromCodedStream(
 
       // optional .abb.egm.wrapper.CartesianSpace cartesian = 2;
       case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (18 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_cartesian()));
         } else {
@@ -4280,6 +4915,7 @@ failure:
   return false;
 #undef DO_
 }
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 
 void Robot::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
@@ -4291,13 +4927,13 @@ void Robot::SerializeWithCachedSizes(
   // optional .abb.egm.wrapper.JointSpace joints = 1;
   if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->joints_, output);
+      1, HasBitSetters::joints(this), output);
   }
 
   // optional .abb.egm.wrapper.CartesianSpace cartesian = 2;
   if (cached_has_bits & 0x00000002u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, *this->cartesian_, output);
+      2, HasBitSetters::cartesian(this), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -4319,14 +4955,14 @@ void Robot::SerializeWithCachedSizes(
   if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1, *this->joints_, deterministic, target);
+        1, HasBitSetters::joints(this), deterministic, target);
   }
 
   // optional .abb.egm.wrapper.CartesianSpace cartesian = 2;
   if (cached_has_bits & 0x00000002u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        2, *this->cartesian_, deterministic, target);
+        2, HasBitSetters::cartesian(this), deterministic, target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -4346,26 +4982,29 @@ size_t Robot::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (_has_bits_[0 / 32] & 3u) {
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
     // optional .abb.egm.wrapper.JointSpace joints = 1;
-    if (has_joints()) {
+    if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSize(
-          *this->joints_);
+          *joints_);
     }
 
     // optional .abb.egm.wrapper.CartesianSpace cartesian = 2;
-    if (has_cartesian()) {
+    if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSize(
-          *this->cartesian_);
+          *cartesian_);
     }
 
   }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  SetCachedSize(cached_size);
   return total_size;
 }
 
@@ -4373,7 +5012,7 @@ void Robot::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.wrapper.Robot)
   GOOGLE_DCHECK_NE(&from, this);
   const Robot* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const Robot>(
+      ::google::protobuf::DynamicCastToGenerated<Robot>(
           &from);
   if (source == NULL) {
   // @@protoc_insertion_point(generalized_merge_from_cast_fail:abb.egm.wrapper.Robot)
@@ -4392,7 +5031,7 @@ void Robot::MergeFrom(const Robot& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 3u) {
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
       mutable_joints()->::abb::egm::wrapper::JointSpace::MergeFrom(from.joints());
     }
@@ -4426,16 +5065,15 @@ void Robot::Swap(Robot* other) {
 }
 void Robot::InternalSwap(Robot* other) {
   using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   swap(joints_, other->joints_);
   swap(cartesian_, other->cartesian_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata Robot::GetMetadata() const {
-  protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages];
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_egm_5fwrapper_2eproto);
+  return ::file_level_metadata_egm_5fwrapper_2eproto[kIndexInFileMessages];
 }
 
 
@@ -4445,23 +5083,31 @@ void External::InitAsDefaultInstance() {
   ::abb::egm::wrapper::_External_default_instance_._instance.get_mutable()->joints_ = const_cast< ::abb::egm::wrapper::JointSpace*>(
       ::abb::egm::wrapper::JointSpace::internal_default_instance());
 }
+class External::HasBitSetters {
+ public:
+  static const ::abb::egm::wrapper::JointSpace& joints(const External* msg);
+  static void set_has_joints(External* msg) {
+    msg->_has_bits_[0] |= 0x00000001u;
+  }
+};
+
+const ::abb::egm::wrapper::JointSpace&
+External::HasBitSetters::joints(const External* msg) {
+  return *msg->joints_;
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int External::kJointsFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 External::External()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    ::protobuf_egm_5fwrapper_2eproto::InitDefaultsExternal();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.wrapper.External)
 }
 External::External(const External& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_),
-      _cached_size_(0) {
+      _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.has_joints()) {
     joints_ = new ::abb::egm::wrapper::JointSpace(*from.joints_);
@@ -4472,7 +5118,8 @@ External::External(const External& from)
 }
 
 void External::SharedCtor() {
-  _cached_size_ = 0;
+  ::google::protobuf::internal::InitSCC(
+      &scc_info_External_egm_5fwrapper_2eproto.base);
   joints_ = NULL;
 }
 
@@ -4486,27 +5133,13 @@ void External::SharedDtor() {
 }
 
 void External::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  _cached_size_.Set(size);
 }
-const ::google::protobuf::Descriptor* External::descriptor() {
-  ::protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
-}
-
 const External& External::default_instance() {
-  ::protobuf_egm_5fwrapper_2eproto::InitDefaultsExternal();
+  ::google::protobuf::internal::InitSCC(&::scc_info_External_egm_5fwrapper_2eproto.base);
   return *internal_default_instance();
 }
 
-External* External::New(::google::protobuf::Arena* arena) const {
-  External* n = new External;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
 
 void External::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.wrapper.External)
@@ -4523,20 +5156,71 @@ void External::Clear() {
   _internal_metadata_.Clear();
 }
 
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* External::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<External*>(object);
+  ::google::protobuf::uint32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ::google::protobuf::uint32 tag;
+    ptr = Varint::Parse32Inline(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // optional .abb.egm.wrapper.JointSpace joints = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 10) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::abb::egm::wrapper::JointSpace::_InternalParse;
+        object = msg->mutable_joints();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        bool ok = ctx->ParseExactRange({parser_till_end, object},
+                                       ptr, newend);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+        ptr = newend;
+        break;
+      }
+      default: {
+      handle_unusual: (void)&&handle_unusual;
+        if ((tag & 7) == 4 || tag == 0) {
+          bool ok = ctx->ValidEndGroup(tag);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+len_delim_till_end: (void)&&len_delim_till_end;
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                                 {parser_till_end, object}, size);
+group_continues: (void)&&group_continues;
+  GOOGLE_DCHECK(ptr >= end);
+  ctx->StoreGroup({_InternalParse, msg}, {parser_till_end, object}, depth);
+  return ptr;
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 bool External::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.wrapper.External)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // optional .abb.egm.wrapper.JointSpace joints = 1;
       case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (10 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_joints()));
         } else {
@@ -4564,6 +5248,7 @@ failure:
   return false;
 #undef DO_
 }
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 
 void External::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
@@ -4575,7 +5260,7 @@ void External::SerializeWithCachedSizes(
   // optional .abb.egm.wrapper.JointSpace joints = 1;
   if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->joints_, output);
+      1, HasBitSetters::joints(this), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -4597,7 +5282,7 @@ void External::SerializeWithCachedSizes(
   if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1, *this->joints_, deterministic, target);
+        1, HasBitSetters::joints(this), deterministic, target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -4617,17 +5302,20 @@ size_t External::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
   // optional .abb.egm.wrapper.JointSpace joints = 1;
-  if (has_joints()) {
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSize(
-        *this->joints_);
+        *joints_);
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  SetCachedSize(cached_size);
   return total_size;
 }
 
@@ -4635,7 +5323,7 @@ void External::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.wrapper.External)
   GOOGLE_DCHECK_NE(&from, this);
   const External* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const External>(
+      ::google::protobuf::DynamicCastToGenerated<External>(
           &from);
   if (source == NULL) {
   // @@protoc_insertion_point(generalized_merge_from_cast_fail:abb.egm.wrapper.External)
@@ -4682,15 +5370,14 @@ void External::Swap(External* other) {
 }
 void External::InternalSwap(External* other) {
   using std::swap;
-  swap(joints_, other->joints_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(_cached_size_, other->_cached_size_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(joints_, other->joints_);
 }
 
 ::google::protobuf::Metadata External::GetMetadata() const {
-  protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages];
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_egm_5fwrapper_2eproto);
+  return ::file_level_metadata_egm_5fwrapper_2eproto[kIndexInFileMessages];
 }
 
 
@@ -4702,6 +5389,26 @@ void Feedback::InitAsDefaultInstance() {
   ::abb::egm::wrapper::_Feedback_default_instance_._instance.get_mutable()->external_ = const_cast< ::abb::egm::wrapper::External*>(
       ::abb::egm::wrapper::External::internal_default_instance());
 }
+class Feedback::HasBitSetters {
+ public:
+  static const ::abb::egm::wrapper::Robot& robot(const Feedback* msg);
+  static void set_has_robot(Feedback* msg) {
+    msg->_has_bits_[0] |= 0x00000001u;
+  }
+  static const ::abb::egm::wrapper::External& external(const Feedback* msg);
+  static void set_has_external(Feedback* msg) {
+    msg->_has_bits_[0] |= 0x00000002u;
+  }
+};
+
+const ::abb::egm::wrapper::Robot&
+Feedback::HasBitSetters::robot(const Feedback* msg) {
+  return *msg->robot_;
+}
+const ::abb::egm::wrapper::External&
+Feedback::HasBitSetters::external(const Feedback* msg) {
+  return *msg->external_;
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Feedback::kRobotFieldNumber;
 const int Feedback::kExternalFieldNumber;
@@ -4709,17 +5416,13 @@ const int Feedback::kExternalFieldNumber;
 
 Feedback::Feedback()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    ::protobuf_egm_5fwrapper_2eproto::InitDefaultsFeedback();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.wrapper.Feedback)
 }
 Feedback::Feedback(const Feedback& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_),
-      _cached_size_(0) {
+      _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.has_robot()) {
     robot_ = new ::abb::egm::wrapper::Robot(*from.robot_);
@@ -4735,7 +5438,8 @@ Feedback::Feedback(const Feedback& from)
 }
 
 void Feedback::SharedCtor() {
-  _cached_size_ = 0;
+  ::google::protobuf::internal::InitSCC(
+      &scc_info_Feedback_egm_5fwrapper_2eproto.base);
   ::memset(&robot_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&external_) -
       reinterpret_cast<char*>(&robot_)) + sizeof(external_));
@@ -4752,27 +5456,13 @@ void Feedback::SharedDtor() {
 }
 
 void Feedback::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  _cached_size_.Set(size);
 }
-const ::google::protobuf::Descriptor* Feedback::descriptor() {
-  ::protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
-}
-
 const Feedback& Feedback::default_instance() {
-  ::protobuf_egm_5fwrapper_2eproto::InitDefaultsFeedback();
+  ::google::protobuf::internal::InitSCC(&::scc_info_Feedback_egm_5fwrapper_2eproto.base);
   return *internal_default_instance();
 }
 
-Feedback* Feedback::New(::google::protobuf::Arena* arena) const {
-  Feedback* n = new Feedback;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
 
 void Feedback::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.wrapper.Feedback)
@@ -4781,7 +5471,7 @@ void Feedback::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 3u) {
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
       GOOGLE_DCHECK(robot_ != NULL);
       robot_->Clear();
@@ -4795,20 +5485,86 @@ void Feedback::Clear() {
   _internal_metadata_.Clear();
 }
 
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* Feedback::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<Feedback*>(object);
+  ::google::protobuf::uint32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ::google::protobuf::uint32 tag;
+    ptr = Varint::Parse32Inline(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // optional .abb.egm.wrapper.Robot robot = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 10) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::abb::egm::wrapper::Robot::_InternalParse;
+        object = msg->mutable_robot();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        bool ok = ctx->ParseExactRange({parser_till_end, object},
+                                       ptr, newend);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+        ptr = newend;
+        break;
+      }
+      // optional .abb.egm.wrapper.External external = 2;
+      case 2: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 18) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::abb::egm::wrapper::External::_InternalParse;
+        object = msg->mutable_external();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        bool ok = ctx->ParseExactRange({parser_till_end, object},
+                                       ptr, newend);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+        ptr = newend;
+        break;
+      }
+      default: {
+      handle_unusual: (void)&&handle_unusual;
+        if ((tag & 7) == 4 || tag == 0) {
+          bool ok = ctx->ValidEndGroup(tag);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+len_delim_till_end: (void)&&len_delim_till_end;
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                                 {parser_till_end, object}, size);
+group_continues: (void)&&group_continues;
+  GOOGLE_DCHECK(ptr >= end);
+  ctx->StoreGroup({_InternalParse, msg}, {parser_till_end, object}, depth);
+  return ptr;
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 bool Feedback::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.wrapper.Feedback)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // optional .abb.egm.wrapper.Robot robot = 1;
       case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (10 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_robot()));
         } else {
@@ -4819,8 +5575,7 @@ bool Feedback::MergePartialFromCodedStream(
 
       // optional .abb.egm.wrapper.External external = 2;
       case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (18 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_external()));
         } else {
@@ -4848,6 +5603,7 @@ failure:
   return false;
 #undef DO_
 }
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 
 void Feedback::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
@@ -4859,13 +5615,13 @@ void Feedback::SerializeWithCachedSizes(
   // optional .abb.egm.wrapper.Robot robot = 1;
   if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->robot_, output);
+      1, HasBitSetters::robot(this), output);
   }
 
   // optional .abb.egm.wrapper.External external = 2;
   if (cached_has_bits & 0x00000002u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, *this->external_, output);
+      2, HasBitSetters::external(this), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -4887,14 +5643,14 @@ void Feedback::SerializeWithCachedSizes(
   if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1, *this->robot_, deterministic, target);
+        1, HasBitSetters::robot(this), deterministic, target);
   }
 
   // optional .abb.egm.wrapper.External external = 2;
   if (cached_has_bits & 0x00000002u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        2, *this->external_, deterministic, target);
+        2, HasBitSetters::external(this), deterministic, target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -4914,26 +5670,29 @@ size_t Feedback::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (_has_bits_[0 / 32] & 3u) {
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
     // optional .abb.egm.wrapper.Robot robot = 1;
-    if (has_robot()) {
+    if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSize(
-          *this->robot_);
+          *robot_);
     }
 
     // optional .abb.egm.wrapper.External external = 2;
-    if (has_external()) {
+    if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSize(
-          *this->external_);
+          *external_);
     }
 
   }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  SetCachedSize(cached_size);
   return total_size;
 }
 
@@ -4941,7 +5700,7 @@ void Feedback::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.wrapper.Feedback)
   GOOGLE_DCHECK_NE(&from, this);
   const Feedback* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const Feedback>(
+      ::google::protobuf::DynamicCastToGenerated<Feedback>(
           &from);
   if (source == NULL) {
   // @@protoc_insertion_point(generalized_merge_from_cast_fail:abb.egm.wrapper.Feedback)
@@ -4960,7 +5719,7 @@ void Feedback::MergeFrom(const Feedback& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 3u) {
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
       mutable_robot()->::abb::egm::wrapper::Robot::MergeFrom(from.robot());
     }
@@ -4994,16 +5753,15 @@ void Feedback::Swap(Feedback* other) {
 }
 void Feedback::InternalSwap(Feedback* other) {
   using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   swap(robot_, other->robot_);
   swap(external_, other->external_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata Feedback::GetMetadata() const {
-  protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages];
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_egm_5fwrapper_2eproto);
+  return ::file_level_metadata_egm_5fwrapper_2eproto[kIndexInFileMessages];
 }
 
 
@@ -5015,6 +5773,26 @@ void Planned::InitAsDefaultInstance() {
   ::abb::egm::wrapper::_Planned_default_instance_._instance.get_mutable()->external_ = const_cast< ::abb::egm::wrapper::External*>(
       ::abb::egm::wrapper::External::internal_default_instance());
 }
+class Planned::HasBitSetters {
+ public:
+  static const ::abb::egm::wrapper::Robot& robot(const Planned* msg);
+  static void set_has_robot(Planned* msg) {
+    msg->_has_bits_[0] |= 0x00000001u;
+  }
+  static const ::abb::egm::wrapper::External& external(const Planned* msg);
+  static void set_has_external(Planned* msg) {
+    msg->_has_bits_[0] |= 0x00000002u;
+  }
+};
+
+const ::abb::egm::wrapper::Robot&
+Planned::HasBitSetters::robot(const Planned* msg) {
+  return *msg->robot_;
+}
+const ::abb::egm::wrapper::External&
+Planned::HasBitSetters::external(const Planned* msg) {
+  return *msg->external_;
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Planned::kRobotFieldNumber;
 const int Planned::kExternalFieldNumber;
@@ -5022,17 +5800,13 @@ const int Planned::kExternalFieldNumber;
 
 Planned::Planned()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    ::protobuf_egm_5fwrapper_2eproto::InitDefaultsPlanned();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.wrapper.Planned)
 }
 Planned::Planned(const Planned& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_),
-      _cached_size_(0) {
+      _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.has_robot()) {
     robot_ = new ::abb::egm::wrapper::Robot(*from.robot_);
@@ -5048,7 +5822,8 @@ Planned::Planned(const Planned& from)
 }
 
 void Planned::SharedCtor() {
-  _cached_size_ = 0;
+  ::google::protobuf::internal::InitSCC(
+      &scc_info_Planned_egm_5fwrapper_2eproto.base);
   ::memset(&robot_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&external_) -
       reinterpret_cast<char*>(&robot_)) + sizeof(external_));
@@ -5065,27 +5840,13 @@ void Planned::SharedDtor() {
 }
 
 void Planned::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  _cached_size_.Set(size);
 }
-const ::google::protobuf::Descriptor* Planned::descriptor() {
-  ::protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
-}
-
 const Planned& Planned::default_instance() {
-  ::protobuf_egm_5fwrapper_2eproto::InitDefaultsPlanned();
+  ::google::protobuf::internal::InitSCC(&::scc_info_Planned_egm_5fwrapper_2eproto.base);
   return *internal_default_instance();
 }
 
-Planned* Planned::New(::google::protobuf::Arena* arena) const {
-  Planned* n = new Planned;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
 
 void Planned::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.wrapper.Planned)
@@ -5094,7 +5855,7 @@ void Planned::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 3u) {
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
       GOOGLE_DCHECK(robot_ != NULL);
       robot_->Clear();
@@ -5108,20 +5869,86 @@ void Planned::Clear() {
   _internal_metadata_.Clear();
 }
 
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* Planned::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<Planned*>(object);
+  ::google::protobuf::uint32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ::google::protobuf::uint32 tag;
+    ptr = Varint::Parse32Inline(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // optional .abb.egm.wrapper.Robot robot = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 10) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::abb::egm::wrapper::Robot::_InternalParse;
+        object = msg->mutable_robot();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        bool ok = ctx->ParseExactRange({parser_till_end, object},
+                                       ptr, newend);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+        ptr = newend;
+        break;
+      }
+      // optional .abb.egm.wrapper.External external = 2;
+      case 2: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 18) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::abb::egm::wrapper::External::_InternalParse;
+        object = msg->mutable_external();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        bool ok = ctx->ParseExactRange({parser_till_end, object},
+                                       ptr, newend);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+        ptr = newend;
+        break;
+      }
+      default: {
+      handle_unusual: (void)&&handle_unusual;
+        if ((tag & 7) == 4 || tag == 0) {
+          bool ok = ctx->ValidEndGroup(tag);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+len_delim_till_end: (void)&&len_delim_till_end;
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                                 {parser_till_end, object}, size);
+group_continues: (void)&&group_continues;
+  GOOGLE_DCHECK(ptr >= end);
+  ctx->StoreGroup({_InternalParse, msg}, {parser_till_end, object}, depth);
+  return ptr;
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 bool Planned::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.wrapper.Planned)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // optional .abb.egm.wrapper.Robot robot = 1;
       case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (10 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_robot()));
         } else {
@@ -5132,8 +5959,7 @@ bool Planned::MergePartialFromCodedStream(
 
       // optional .abb.egm.wrapper.External external = 2;
       case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (18 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_external()));
         } else {
@@ -5161,6 +5987,7 @@ failure:
   return false;
 #undef DO_
 }
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 
 void Planned::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
@@ -5172,13 +5999,13 @@ void Planned::SerializeWithCachedSizes(
   // optional .abb.egm.wrapper.Robot robot = 1;
   if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->robot_, output);
+      1, HasBitSetters::robot(this), output);
   }
 
   // optional .abb.egm.wrapper.External external = 2;
   if (cached_has_bits & 0x00000002u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, *this->external_, output);
+      2, HasBitSetters::external(this), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -5200,14 +6027,14 @@ void Planned::SerializeWithCachedSizes(
   if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1, *this->robot_, deterministic, target);
+        1, HasBitSetters::robot(this), deterministic, target);
   }
 
   // optional .abb.egm.wrapper.External external = 2;
   if (cached_has_bits & 0x00000002u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        2, *this->external_, deterministic, target);
+        2, HasBitSetters::external(this), deterministic, target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -5227,26 +6054,29 @@ size_t Planned::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (_has_bits_[0 / 32] & 3u) {
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
     // optional .abb.egm.wrapper.Robot robot = 1;
-    if (has_robot()) {
+    if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSize(
-          *this->robot_);
+          *robot_);
     }
 
     // optional .abb.egm.wrapper.External external = 2;
-    if (has_external()) {
+    if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSize(
-          *this->external_);
+          *external_);
     }
 
   }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  SetCachedSize(cached_size);
   return total_size;
 }
 
@@ -5254,7 +6084,7 @@ void Planned::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.wrapper.Planned)
   GOOGLE_DCHECK_NE(&from, this);
   const Planned* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const Planned>(
+      ::google::protobuf::DynamicCastToGenerated<Planned>(
           &from);
   if (source == NULL) {
   // @@protoc_insertion_point(generalized_merge_from_cast_fail:abb.egm.wrapper.Planned)
@@ -5273,7 +6103,7 @@ void Planned::MergeFrom(const Planned& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 3u) {
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
       mutable_robot()->::abb::egm::wrapper::Robot::MergeFrom(from.robot());
     }
@@ -5307,16 +6137,15 @@ void Planned::Swap(Planned* other) {
 }
 void Planned::InternalSwap(Planned* other) {
   using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   swap(robot_, other->robot_);
   swap(external_, other->external_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata Planned::GetMetadata() const {
-  protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages];
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_egm_5fwrapper_2eproto);
+  return ::file_level_metadata_egm_5fwrapper_2eproto[kIndexInFileMessages];
 }
 
 
@@ -5332,6 +6161,42 @@ void Input::InitAsDefaultInstance() {
   ::abb::egm::wrapper::_Input_default_instance_._instance.get_mutable()->status_ = const_cast< ::abb::egm::wrapper::Status*>(
       ::abb::egm::wrapper::Status::internal_default_instance());
 }
+class Input::HasBitSetters {
+ public:
+  static const ::abb::egm::wrapper::Header& header(const Input* msg);
+  static void set_has_header(Input* msg) {
+    msg->_has_bits_[0] |= 0x00000001u;
+  }
+  static const ::abb::egm::wrapper::Feedback& feedback(const Input* msg);
+  static void set_has_feedback(Input* msg) {
+    msg->_has_bits_[0] |= 0x00000002u;
+  }
+  static const ::abb::egm::wrapper::Planned& planned(const Input* msg);
+  static void set_has_planned(Input* msg) {
+    msg->_has_bits_[0] |= 0x00000004u;
+  }
+  static const ::abb::egm::wrapper::Status& status(const Input* msg);
+  static void set_has_status(Input* msg) {
+    msg->_has_bits_[0] |= 0x00000008u;
+  }
+};
+
+const ::abb::egm::wrapper::Header&
+Input::HasBitSetters::header(const Input* msg) {
+  return *msg->header_;
+}
+const ::abb::egm::wrapper::Feedback&
+Input::HasBitSetters::feedback(const Input* msg) {
+  return *msg->feedback_;
+}
+const ::abb::egm::wrapper::Planned&
+Input::HasBitSetters::planned(const Input* msg) {
+  return *msg->planned_;
+}
+const ::abb::egm::wrapper::Status&
+Input::HasBitSetters::status(const Input* msg) {
+  return *msg->status_;
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Input::kHeaderFieldNumber;
 const int Input::kFeedbackFieldNumber;
@@ -5341,17 +6206,13 @@ const int Input::kStatusFieldNumber;
 
 Input::Input()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    ::protobuf_egm_5fwrapper_2eproto::InitDefaultsInput();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.wrapper.Input)
 }
 Input::Input(const Input& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_),
-      _cached_size_(0) {
+      _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.has_header()) {
     header_ = new ::abb::egm::wrapper::Header(*from.header_);
@@ -5377,7 +6238,8 @@ Input::Input(const Input& from)
 }
 
 void Input::SharedCtor() {
-  _cached_size_ = 0;
+  ::google::protobuf::internal::InitSCC(
+      &scc_info_Input_egm_5fwrapper_2eproto.base);
   ::memset(&header_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&status_) -
       reinterpret_cast<char*>(&header_)) + sizeof(status_));
@@ -5396,27 +6258,13 @@ void Input::SharedDtor() {
 }
 
 void Input::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  _cached_size_.Set(size);
 }
-const ::google::protobuf::Descriptor* Input::descriptor() {
-  ::protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
-}
-
 const Input& Input::default_instance() {
-  ::protobuf_egm_5fwrapper_2eproto::InitDefaultsInput();
+  ::google::protobuf::internal::InitSCC(&::scc_info_Input_egm_5fwrapper_2eproto.base);
   return *internal_default_instance();
 }
 
-Input* Input::New(::google::protobuf::Arena* arena) const {
-  Input* n = new Input;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
 
 void Input::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.wrapper.Input)
@@ -5425,7 +6273,7 @@ void Input::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 15u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       GOOGLE_DCHECK(header_ != NULL);
       header_->Clear();
@@ -5447,20 +6295,116 @@ void Input::Clear() {
   _internal_metadata_.Clear();
 }
 
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* Input::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<Input*>(object);
+  ::google::protobuf::uint32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ::google::protobuf::uint32 tag;
+    ptr = Varint::Parse32Inline(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // optional .abb.egm.wrapper.Header header = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 10) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::abb::egm::wrapper::Header::_InternalParse;
+        object = msg->mutable_header();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        bool ok = ctx->ParseExactRange({parser_till_end, object},
+                                       ptr, newend);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+        ptr = newend;
+        break;
+      }
+      // optional .abb.egm.wrapper.Feedback feedback = 2;
+      case 2: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 18) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::abb::egm::wrapper::Feedback::_InternalParse;
+        object = msg->mutable_feedback();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        bool ok = ctx->ParseExactRange({parser_till_end, object},
+                                       ptr, newend);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+        ptr = newend;
+        break;
+      }
+      // optional .abb.egm.wrapper.Planned planned = 3;
+      case 3: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 26) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::abb::egm::wrapper::Planned::_InternalParse;
+        object = msg->mutable_planned();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        bool ok = ctx->ParseExactRange({parser_till_end, object},
+                                       ptr, newend);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+        ptr = newend;
+        break;
+      }
+      // optional .abb.egm.wrapper.Status status = 4;
+      case 4: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 34) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::abb::egm::wrapper::Status::_InternalParse;
+        object = msg->mutable_status();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        bool ok = ctx->ParseExactRange({parser_till_end, object},
+                                       ptr, newend);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+        ptr = newend;
+        break;
+      }
+      default: {
+      handle_unusual: (void)&&handle_unusual;
+        if ((tag & 7) == 4 || tag == 0) {
+          bool ok = ctx->ValidEndGroup(tag);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+len_delim_till_end: (void)&&len_delim_till_end;
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                                 {parser_till_end, object}, size);
+group_continues: (void)&&group_continues;
+  GOOGLE_DCHECK(ptr >= end);
+  ctx->StoreGroup({_InternalParse, msg}, {parser_till_end, object}, depth);
+  return ptr;
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 bool Input::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.wrapper.Input)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // optional .abb.egm.wrapper.Header header = 1;
       case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (10 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_header()));
         } else {
@@ -5471,8 +6415,7 @@ bool Input::MergePartialFromCodedStream(
 
       // optional .abb.egm.wrapper.Feedback feedback = 2;
       case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (18 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_feedback()));
         } else {
@@ -5483,8 +6426,7 @@ bool Input::MergePartialFromCodedStream(
 
       // optional .abb.egm.wrapper.Planned planned = 3;
       case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(26u /* 26 & 0xFF */)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (26 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_planned()));
         } else {
@@ -5495,8 +6437,7 @@ bool Input::MergePartialFromCodedStream(
 
       // optional .abb.egm.wrapper.Status status = 4;
       case 4: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(34u /* 34 & 0xFF */)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (34 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_status()));
         } else {
@@ -5524,6 +6465,7 @@ failure:
   return false;
 #undef DO_
 }
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 
 void Input::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
@@ -5535,25 +6477,25 @@ void Input::SerializeWithCachedSizes(
   // optional .abb.egm.wrapper.Header header = 1;
   if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->header_, output);
+      1, HasBitSetters::header(this), output);
   }
 
   // optional .abb.egm.wrapper.Feedback feedback = 2;
   if (cached_has_bits & 0x00000002u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, *this->feedback_, output);
+      2, HasBitSetters::feedback(this), output);
   }
 
   // optional .abb.egm.wrapper.Planned planned = 3;
   if (cached_has_bits & 0x00000004u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      3, *this->planned_, output);
+      3, HasBitSetters::planned(this), output);
   }
 
   // optional .abb.egm.wrapper.Status status = 4;
   if (cached_has_bits & 0x00000008u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      4, *this->status_, output);
+      4, HasBitSetters::status(this), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -5575,28 +6517,28 @@ void Input::SerializeWithCachedSizes(
   if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1, *this->header_, deterministic, target);
+        1, HasBitSetters::header(this), deterministic, target);
   }
 
   // optional .abb.egm.wrapper.Feedback feedback = 2;
   if (cached_has_bits & 0x00000002u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        2, *this->feedback_, deterministic, target);
+        2, HasBitSetters::feedback(this), deterministic, target);
   }
 
   // optional .abb.egm.wrapper.Planned planned = 3;
   if (cached_has_bits & 0x00000004u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        3, *this->planned_, deterministic, target);
+        3, HasBitSetters::planned(this), deterministic, target);
   }
 
   // optional .abb.egm.wrapper.Status status = 4;
   if (cached_has_bits & 0x00000008u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        4, *this->status_, deterministic, target);
+        4, HasBitSetters::status(this), deterministic, target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -5616,40 +6558,43 @@ size_t Input::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (_has_bits_[0 / 32] & 15u) {
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x0000000fu) {
     // optional .abb.egm.wrapper.Header header = 1;
-    if (has_header()) {
+    if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSize(
-          *this->header_);
+          *header_);
     }
 
     // optional .abb.egm.wrapper.Feedback feedback = 2;
-    if (has_feedback()) {
+    if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSize(
-          *this->feedback_);
+          *feedback_);
     }
 
     // optional .abb.egm.wrapper.Planned planned = 3;
-    if (has_planned()) {
+    if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSize(
-          *this->planned_);
+          *planned_);
     }
 
     // optional .abb.egm.wrapper.Status status = 4;
-    if (has_status()) {
+    if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSize(
-          *this->status_);
+          *status_);
     }
 
   }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  SetCachedSize(cached_size);
   return total_size;
 }
 
@@ -5657,7 +6602,7 @@ void Input::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.wrapper.Input)
   GOOGLE_DCHECK_NE(&from, this);
   const Input* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const Input>(
+      ::google::protobuf::DynamicCastToGenerated<Input>(
           &from);
   if (source == NULL) {
   // @@protoc_insertion_point(generalized_merge_from_cast_fail:abb.egm.wrapper.Input)
@@ -5676,7 +6621,7 @@ void Input::MergeFrom(const Input& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 15u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       mutable_header()->::abb::egm::wrapper::Header::MergeFrom(from.header());
     }
@@ -5716,18 +6661,17 @@ void Input::Swap(Input* other) {
 }
 void Input::InternalSwap(Input* other) {
   using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   swap(header_, other->header_);
   swap(feedback_, other->feedback_);
   swap(planned_, other->planned_);
   swap(status_, other->status_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata Input::GetMetadata() const {
-  protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages];
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_egm_5fwrapper_2eproto);
+  return ::file_level_metadata_egm_5fwrapper_2eproto[kIndexInFileMessages];
 }
 
 
@@ -5739,6 +6683,26 @@ void Output::InitAsDefaultInstance() {
   ::abb::egm::wrapper::_Output_default_instance_._instance.get_mutable()->external_ = const_cast< ::abb::egm::wrapper::External*>(
       ::abb::egm::wrapper::External::internal_default_instance());
 }
+class Output::HasBitSetters {
+ public:
+  static const ::abb::egm::wrapper::Robot& robot(const Output* msg);
+  static void set_has_robot(Output* msg) {
+    msg->_has_bits_[0] |= 0x00000001u;
+  }
+  static const ::abb::egm::wrapper::External& external(const Output* msg);
+  static void set_has_external(Output* msg) {
+    msg->_has_bits_[0] |= 0x00000002u;
+  }
+};
+
+const ::abb::egm::wrapper::Robot&
+Output::HasBitSetters::robot(const Output* msg) {
+  return *msg->robot_;
+}
+const ::abb::egm::wrapper::External&
+Output::HasBitSetters::external(const Output* msg) {
+  return *msg->external_;
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Output::kRobotFieldNumber;
 const int Output::kExternalFieldNumber;
@@ -5746,17 +6710,13 @@ const int Output::kExternalFieldNumber;
 
 Output::Output()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    ::protobuf_egm_5fwrapper_2eproto::InitDefaultsOutput();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.wrapper.Output)
 }
 Output::Output(const Output& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_),
-      _cached_size_(0) {
+      _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.has_robot()) {
     robot_ = new ::abb::egm::wrapper::Robot(*from.robot_);
@@ -5772,7 +6732,8 @@ Output::Output(const Output& from)
 }
 
 void Output::SharedCtor() {
-  _cached_size_ = 0;
+  ::google::protobuf::internal::InitSCC(
+      &scc_info_Output_egm_5fwrapper_2eproto.base);
   ::memset(&robot_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&external_) -
       reinterpret_cast<char*>(&robot_)) + sizeof(external_));
@@ -5789,27 +6750,13 @@ void Output::SharedDtor() {
 }
 
 void Output::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  _cached_size_.Set(size);
 }
-const ::google::protobuf::Descriptor* Output::descriptor() {
-  ::protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
-}
-
 const Output& Output::default_instance() {
-  ::protobuf_egm_5fwrapper_2eproto::InitDefaultsOutput();
+  ::google::protobuf::internal::InitSCC(&::scc_info_Output_egm_5fwrapper_2eproto.base);
   return *internal_default_instance();
 }
 
-Output* Output::New(::google::protobuf::Arena* arena) const {
-  Output* n = new Output;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
 
 void Output::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.wrapper.Output)
@@ -5818,7 +6765,7 @@ void Output::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 3u) {
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
       GOOGLE_DCHECK(robot_ != NULL);
       robot_->Clear();
@@ -5832,20 +6779,86 @@ void Output::Clear() {
   _internal_metadata_.Clear();
 }
 
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* Output::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<Output*>(object);
+  ::google::protobuf::uint32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ::google::protobuf::uint32 tag;
+    ptr = Varint::Parse32Inline(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // optional .abb.egm.wrapper.Robot robot = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 10) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::abb::egm::wrapper::Robot::_InternalParse;
+        object = msg->mutable_robot();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        bool ok = ctx->ParseExactRange({parser_till_end, object},
+                                       ptr, newend);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+        ptr = newend;
+        break;
+      }
+      // optional .abb.egm.wrapper.External external = 2;
+      case 2: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 18) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::abb::egm::wrapper::External::_InternalParse;
+        object = msg->mutable_external();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        bool ok = ctx->ParseExactRange({parser_till_end, object},
+                                       ptr, newend);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+        ptr = newend;
+        break;
+      }
+      default: {
+      handle_unusual: (void)&&handle_unusual;
+        if ((tag & 7) == 4 || tag == 0) {
+          bool ok = ctx->ValidEndGroup(tag);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+len_delim_till_end: (void)&&len_delim_till_end;
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                                 {parser_till_end, object}, size);
+group_continues: (void)&&group_continues;
+  GOOGLE_DCHECK(ptr >= end);
+  ctx->StoreGroup({_InternalParse, msg}, {parser_till_end, object}, depth);
+  return ptr;
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 bool Output::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.wrapper.Output)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // optional .abb.egm.wrapper.Robot robot = 1;
       case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (10 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_robot()));
         } else {
@@ -5856,8 +6869,7 @@ bool Output::MergePartialFromCodedStream(
 
       // optional .abb.egm.wrapper.External external = 2;
       case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (18 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_external()));
         } else {
@@ -5885,6 +6897,7 @@ failure:
   return false;
 #undef DO_
 }
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 
 void Output::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
@@ -5896,13 +6909,13 @@ void Output::SerializeWithCachedSizes(
   // optional .abb.egm.wrapper.Robot robot = 1;
   if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->robot_, output);
+      1, HasBitSetters::robot(this), output);
   }
 
   // optional .abb.egm.wrapper.External external = 2;
   if (cached_has_bits & 0x00000002u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, *this->external_, output);
+      2, HasBitSetters::external(this), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -5924,14 +6937,14 @@ void Output::SerializeWithCachedSizes(
   if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1, *this->robot_, deterministic, target);
+        1, HasBitSetters::robot(this), deterministic, target);
   }
 
   // optional .abb.egm.wrapper.External external = 2;
   if (cached_has_bits & 0x00000002u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        2, *this->external_, deterministic, target);
+        2, HasBitSetters::external(this), deterministic, target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -5951,26 +6964,29 @@ size_t Output::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (_has_bits_[0 / 32] & 3u) {
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
     // optional .abb.egm.wrapper.Robot robot = 1;
-    if (has_robot()) {
+    if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSize(
-          *this->robot_);
+          *robot_);
     }
 
     // optional .abb.egm.wrapper.External external = 2;
-    if (has_external()) {
+    if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSize(
-          *this->external_);
+          *external_);
     }
 
   }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  SetCachedSize(cached_size);
   return total_size;
 }
 
@@ -5978,7 +6994,7 @@ void Output::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.wrapper.Output)
   GOOGLE_DCHECK_NE(&from, this);
   const Output* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const Output>(
+      ::google::protobuf::DynamicCastToGenerated<Output>(
           &from);
   if (source == NULL) {
   // @@protoc_insertion_point(generalized_merge_from_cast_fail:abb.egm.wrapper.Output)
@@ -5997,7 +7013,7 @@ void Output::MergeFrom(const Output& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 3u) {
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
       mutable_robot()->::abb::egm::wrapper::Robot::MergeFrom(from.robot());
     }
@@ -6031,16 +7047,15 @@ void Output::Swap(Output* other) {
 }
 void Output::InternalSwap(Output* other) {
   using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   swap(robot_, other->robot_);
   swap(external_, other->external_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata Output::GetMetadata() const {
-  protobuf_egm_5fwrapper_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_egm_5fwrapper_2eproto::file_level_metadata[kIndexInFileMessages];
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_egm_5fwrapper_2eproto);
+  return ::file_level_metadata_egm_5fwrapper_2eproto[kIndexInFileMessages];
 }
 
 
@@ -6048,5 +7063,58 @@ void Output::InternalSwap(Output* other) {
 }  // namespace wrapper
 }  // namespace egm
 }  // namespace abb
+namespace google {
+namespace protobuf {
+template<> PROTOBUF_NOINLINE ::abb::egm::wrapper::Header* Arena::CreateMaybeMessage< ::abb::egm::wrapper::Header >(Arena* arena) {
+  return Arena::CreateInternal< ::abb::egm::wrapper::Header >(arena);
+}
+template<> PROTOBUF_NOINLINE ::abb::egm::wrapper::Status* Arena::CreateMaybeMessage< ::abb::egm::wrapper::Status >(Arena* arena) {
+  return Arena::CreateInternal< ::abb::egm::wrapper::Status >(arena);
+}
+template<> PROTOBUF_NOINLINE ::abb::egm::wrapper::Joints* Arena::CreateMaybeMessage< ::abb::egm::wrapper::Joints >(Arena* arena) {
+  return Arena::CreateInternal< ::abb::egm::wrapper::Joints >(arena);
+}
+template<> PROTOBUF_NOINLINE ::abb::egm::wrapper::JointSpace* Arena::CreateMaybeMessage< ::abb::egm::wrapper::JointSpace >(Arena* arena) {
+  return Arena::CreateInternal< ::abb::egm::wrapper::JointSpace >(arena);
+}
+template<> PROTOBUF_NOINLINE ::abb::egm::wrapper::Cartesian* Arena::CreateMaybeMessage< ::abb::egm::wrapper::Cartesian >(Arena* arena) {
+  return Arena::CreateInternal< ::abb::egm::wrapper::Cartesian >(arena);
+}
+template<> PROTOBUF_NOINLINE ::abb::egm::wrapper::Euler* Arena::CreateMaybeMessage< ::abb::egm::wrapper::Euler >(Arena* arena) {
+  return Arena::CreateInternal< ::abb::egm::wrapper::Euler >(arena);
+}
+template<> PROTOBUF_NOINLINE ::abb::egm::wrapper::Quaternion* Arena::CreateMaybeMessage< ::abb::egm::wrapper::Quaternion >(Arena* arena) {
+  return Arena::CreateInternal< ::abb::egm::wrapper::Quaternion >(arena);
+}
+template<> PROTOBUF_NOINLINE ::abb::egm::wrapper::CartesianPose* Arena::CreateMaybeMessage< ::abb::egm::wrapper::CartesianPose >(Arena* arena) {
+  return Arena::CreateInternal< ::abb::egm::wrapper::CartesianPose >(arena);
+}
+template<> PROTOBUF_NOINLINE ::abb::egm::wrapper::CartesianVelocity* Arena::CreateMaybeMessage< ::abb::egm::wrapper::CartesianVelocity >(Arena* arena) {
+  return Arena::CreateInternal< ::abb::egm::wrapper::CartesianVelocity >(arena);
+}
+template<> PROTOBUF_NOINLINE ::abb::egm::wrapper::CartesianSpace* Arena::CreateMaybeMessage< ::abb::egm::wrapper::CartesianSpace >(Arena* arena) {
+  return Arena::CreateInternal< ::abb::egm::wrapper::CartesianSpace >(arena);
+}
+template<> PROTOBUF_NOINLINE ::abb::egm::wrapper::Robot* Arena::CreateMaybeMessage< ::abb::egm::wrapper::Robot >(Arena* arena) {
+  return Arena::CreateInternal< ::abb::egm::wrapper::Robot >(arena);
+}
+template<> PROTOBUF_NOINLINE ::abb::egm::wrapper::External* Arena::CreateMaybeMessage< ::abb::egm::wrapper::External >(Arena* arena) {
+  return Arena::CreateInternal< ::abb::egm::wrapper::External >(arena);
+}
+template<> PROTOBUF_NOINLINE ::abb::egm::wrapper::Feedback* Arena::CreateMaybeMessage< ::abb::egm::wrapper::Feedback >(Arena* arena) {
+  return Arena::CreateInternal< ::abb::egm::wrapper::Feedback >(arena);
+}
+template<> PROTOBUF_NOINLINE ::abb::egm::wrapper::Planned* Arena::CreateMaybeMessage< ::abb::egm::wrapper::Planned >(Arena* arena) {
+  return Arena::CreateInternal< ::abb::egm::wrapper::Planned >(arena);
+}
+template<> PROTOBUF_NOINLINE ::abb::egm::wrapper::Input* Arena::CreateMaybeMessage< ::abb::egm::wrapper::Input >(Arena* arena) {
+  return Arena::CreateInternal< ::abb::egm::wrapper::Input >(arena);
+}
+template<> PROTOBUF_NOINLINE ::abb::egm::wrapper::Output* Arena::CreateMaybeMessage< ::abb::egm::wrapper::Output >(Arena* arena) {
+  return Arena::CreateInternal< ::abb::egm::wrapper::Output >(arena);
+}
+}  // namespace protobuf
+}  // namespace google
 
 // @@protoc_insertion_point(global_scope)
+#include <google/protobuf/port_undef.inc>

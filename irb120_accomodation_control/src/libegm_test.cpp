@@ -12,7 +12,7 @@ int main(int argc, char** argv) {
 	ros::NodeHandle nh;
 	double vals;
 	boost::asio::io_service io_service; //of course, I guess?
-	const unsigned short port_number = 50;
+	const unsigned short port_number = 6510;
 	const abb::egm::BaseConfiguration config = abb::egm::BaseConfiguration();
 	vector<double> fdbk_jnt_state;
 	abb::egm::EGMBaseInterface baseInterfaceObject(io_service, port_number, config);
@@ -46,7 +46,7 @@ int main(int argc, char** argv) {
 		fdbk_jnt_state.push_back(input->feedback().robot().joints().position().values(3));
 		fdbk_jnt_state.push_back(input->feedback().robot().joints().position().values(4));
 		fdbk_jnt_state.push_back(input->feedback().robot().joints().position().values(5));
-		
+		/*
 		for(int i = 0; i < 6; i++) {
 			joints->set_values(i,fdbk_jnt_state[i] + 0.1);
 		}
@@ -54,5 +54,6 @@ int main(int argc, char** argv) {
 		robot->set_allocated_joints(jsp);
 		output->set_allocated_robot(robot);
 		controller.write(*output); //This is very weird, maybe theres a better way, but I just cant see it.
+	*/
 	}	
 }
