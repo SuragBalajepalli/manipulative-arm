@@ -8,8 +8,8 @@ int main(int argc, char** argv) {
 	ros::NodeHandle nh;
 	double vals;
 	char *ip_addr = "192.168.125.1";
-	char *msg = "Respond to me you bloody robot";
-	unsigned char buf[65535];
+	char *msg = "R";
+	unsigned char buf[1024];
 	int recvlen;
 	int fd;
 	int enable = 1;
@@ -17,7 +17,7 @@ int main(int argc, char** argv) {
 	struct sockaddr_in client_addr;
 	socklen_t addrlen = sizeof(client_addr);
 	struct timeval timeout;
-	timeout.tv_sec = 5;
+	timeout.tv_sec = 2;
 	timeout.tv_usec = 0;
 	const unsigned short port_number = 6510;
 	memset((char *)&serv_addr, sizeof(serv_addr), 0);
@@ -29,13 +29,12 @@ int main(int argc, char** argv) {
 	client_addr.sin_family = AF_INET;
 	client_addr.sin_addr.s_addr = inet_addr(ip_addr);
 	client_addr.sin_port = htons(port_number);
-	while(ros::ok()) {
-	
-
 		if((fd = socket(AF_INET,SOCK_DGRAM,0)) < 0) {
-		ROS_WARN("Cannot create socket, go home");
+			ROS_WARN("Cannot create socket, go home");
 		}
 		if(bind(fd,(struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
+	
+
 			ROS_WARN("Cannot bind, go home\n");
 			perror("error is : ");
 		}
@@ -48,6 +47,7 @@ int main(int argc, char** argv) {
 
 
 
+	while(ros::ok()) {
 		ROS_INFO("Waiting for message");
 		recvlen = recvfrom(fd, buf, sizeof(buf), 0, (struct sockaddr *)&client_addr, &addrlen);
 
@@ -58,8 +58,11 @@ int main(int argc, char** argv) {
 		}
 		else { 
 			ROS_INFO("No response");
-			if(sendto(fd, buf, sizeof(buf),0,(struct sockaddr*)&client_addr,addrlen) < 0 ) {ROS_WARN("cannot send too");}		
+			if(sendto(fd, buf, sizeof(buf),0,(struct sockaddr*)&client_addr,addrlen) < 0 ) {
+				ROS_WARN("cannot send too");
+				perror("error is: ");
+			}		
 		}
-		close(fd);
 	}
+		close(fd);
 }
