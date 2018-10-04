@@ -20,6 +20,7 @@ int main(int argc, char** argv) {
 	timeout.tv_sec = 2;
 	timeout.tv_usec = 0;
 	const unsigned short port_number = 6510;
+	const unsigned short port_number_robot = 53652;
 	memset((char *)&serv_addr, sizeof(serv_addr), 0);
 	memset((char *)&serv_addr, sizeof(client_addr), 0);
 	serv_addr.sin_family = AF_INET;
@@ -28,7 +29,7 @@ int main(int argc, char** argv) {
 	//serv_addr.sin_addr.s_addr = inet_addr(ip_addr);
 	client_addr.sin_family = AF_INET;
 	client_addr.sin_addr.s_addr = inet_addr(ip_addr);
-	client_addr.sin_port = htons(port_number);
+	client_addr.sin_port = htons(port_number_robot);
 		if((fd = socket(AF_INET,SOCK_DGRAM,0)) < 0) {
 			ROS_WARN("Cannot create socket, go home");
 		}
@@ -58,11 +59,15 @@ int main(int argc, char** argv) {
 		}
 		else { 
 			ROS_INFO("No response");
-			if(sendto(fd, buf, sizeof(buf),0,(struct sockaddr*)&client_addr,addrlen) < 0 ) {
-				ROS_WARN("cannot send too");
-				perror("error is: ");
-			}		
 		}
+		if(sendto(fd, buf, sizeof(buf),0,(struct sockaddr*)&client_addr,addrlen) < 0 ) {
+			ROS_WARN("cannot send too");
+			perror("error is: ");
+		}
+		else {
+			ROS_INFO("Sent successfully");
+		}		
+		
 	}
 		close(fd);
 }
