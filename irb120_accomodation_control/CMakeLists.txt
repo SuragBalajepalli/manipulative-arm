@@ -150,6 +150,7 @@ add_executable(everything_test src/everything_test.cpp)
 add_executable(transform_test src/transform_test.cpp)
 add_executable(libegm_test src/libegm_test.cpp)
 add_executable(networktest src/networktest.cpp)
+add_executable(custom_egm_test src/custom_egm_test.cpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -172,6 +173,13 @@ target_link_libraries(networktest
 	irb120_accomodation_control
   irb120_fk_ik
  )
+
+target_link_libraries(custom_egm_test
+	${catkin_LIBRARIES}
+	irb120_accomodation_control
+  irb120_fk_ik
+ )
+
 
 target_link_libraries(everything_test
   ${catkin_LIBRARIES}
