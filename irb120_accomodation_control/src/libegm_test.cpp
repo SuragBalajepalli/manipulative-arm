@@ -12,7 +12,7 @@ int main(int argc, char** argv) {
 	ros::NodeHandle nh;
 	double vals;
 	boost::asio::io_service io_service; //of course, I guess?
-	const unsigned short port_number = 53652;
+	const unsigned short port_number = 55967;
 	const abb::egm::BaseConfiguration config = abb::egm::BaseConfiguration();
 	vector<double> fdbk_jnt_state;
 	abb::egm::EGMBaseInterface baseInterfaceObject(io_service, port_number, config);

@@ -4,7 +4,7 @@
 #include <errno.h>
 
 int main(int argc, char** argv) {
-	ros::init(argc, argv, "libegm_interface_test");
+	ros::init(argc, argv, "network_test");
 	ros::NodeHandle nh;
 	double vals;
 	char *ip_addr = "192.168.125.1";
@@ -20,7 +20,7 @@ int main(int argc, char** argv) {
 	timeout.tv_sec = 2;
 	timeout.tv_usec = 0;
 	const unsigned short port_number = 6510;
-	const unsigned short port_number_robot = 53652;
+	const unsigned short port_number_robot = 55967;
 	memset((char *)&serv_addr, sizeof(serv_addr), 0);
 	memset((char *)&serv_addr, sizeof(client_addr), 0);
 	serv_addr.sin_family = AF_INET;
