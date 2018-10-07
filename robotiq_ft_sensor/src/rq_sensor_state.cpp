@@ -43,8 +43,8 @@
 //////////
 //Includes
 #include <string.h>
-#include "robotiq_force_torque_sensor/rq_sensor_state.h"
-#include "robotiq_force_torque_sensor/rq_sensor_com.h"
+#include "robotiq_ft_sensor/rq_sensor_state.h"
+#include "robotiq_ft_sensor/rq_sensor_com.h"
 
 ///////////////////
 //Private variables

@@ -59,7 +59,7 @@
 #include <fcntl.h>
 
 //application specific
-#include "robotiq_force_torque_sensor/rq_sensor_com.h"
+#include "robotiq_ft_sensor/rq_sensor_com.h"
 
 // Definitions
 #define REGISTER_SELECT_OUTPUT 410

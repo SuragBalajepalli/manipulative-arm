@@ -42,8 +42,8 @@
 
 #include "ros/ros.h"
 #include "std_msgs/String.h"
-#include "robotiq_force_torque_sensor/ft_sensor.h"
-#include "robotiq_force_torque_sensor/sensor_accessor.h"
+#include "robotiq_ft_sensor/ft_sensor.h"
+#include "robotiq_ft_sensor/sensor_accessor.h"
 
 #include <sstream>
 
@@ -52,7 +52,7 @@
 	ROS_INFO("I heard: [%s]", msg->data.c_str());
 }*/
 
-void reCallback(const robotiq_force_torque_sensor::ft_sensor& msg)
+void reCallback(const robotiq_ft_sensor::ft_sensor& msg)
 {
 	ROS_INFO("I heard: FX[%f] FY[%f] FZ[%f] MX[%f] MY[%f] MZ[%f]", msg.Fx,msg.Fy,msg.Fz,msg.Mx,msg.My,msg.Mz);
 }
@@ -68,10 +68,10 @@ int main(int argc, char **argv)
 
 	ros::NodeHandle n;
 
-	ros::ServiceClient client = n.serviceClient<robotiq_force_torque_sensor::sensor_accessor>("robotiq_force_torque_sensor_acc");
-	ros::Subscriber sub1 = n.subscribe("robotiq_force_torque_sensor",100,reCallback);
+        ros::ServiceClient client = n.serviceClient<robotiq_ft_sensor::sensor_accessor>("robotiq_ft_sensor_acc");
+        ros::Subscriber sub1 = n.subscribe("robotiq_ft_sensor",100,reCallback);
 
-	robotiq_force_torque_sensor::sensor_accessor srv;
+        robotiq_ft_sensor::sensor_accessor srv;
 
 	int count = 0;
 	while (ros::ok())
