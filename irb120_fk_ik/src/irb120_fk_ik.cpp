@@ -84,7 +84,36 @@ Eigen::MatrixXd Irb120_fwd_solver::jacobian(const Eigen::VectorXd& q_vec) {
   return jacobian;
 }
 
-/*  IN CASE WANT JACOBIAN LATER...
+//Need to change function name, jacobian2 is UGLY
+Eigen::MatrixXd Irb120_fwd_solver::jacobian2(const Eigen::VectorXd& q_vec) {
+    Eigen::MatrixXd J = Eigen::MatrixXd::Zero(6,6);
+    Eigen::MatrixXd J_ang = Eigen::MatrixXd::Zero(3,6);
+    Eigen::MatrixXd J_trans = Eigen::MatrixXd::Zero(3,6);
+    Eigen::MatrixXd zvecs = Eigen::MatrixXd::Zero(3,6);
+    Eigen::MatrixXd rvecs = Eigen::MatrixXd::Zero(3,6);
+    //need to call fwd_kin_solve here
+    fwd_kin_solve_(q_vec);
+    Eigen::Matrix4d A_flange = A_mat_products[5];
+    Eigen::MatrixXd O_flange = A_flange.block<3,1>(0,3); // Origin of end effector
+    Eigen::MatrixXd Ai;
+    Eigen::MatrixXd zvec, rvec; // zvec will contain z axis of i'th frame, rvec will contain origin of i'th frame
+    Eigen::Vector3d t1, t2; //for vector cross product
+    for(int i = 0; i < 6; i++) {
+        Ai = A_mat_products[i]; // considering A_mat_products has already been populated, hence need to call fwd_kin_solve_ 
+        zvec = Ai.block<3,1>(0,2); //Extracting z component from transformation matrix (rotation matrix inside transformation matrix)
+        rvec = O_flange - Ai.block<3,1>(0,3); //Extract origin from transformation matrix
+        J_ang.block<3,1>(0,i) = zvec;
+        t1 = zvec;
+        t2 = rvec;
+        J_trans.block<3,1>(0,i) = t1.cross(t2);
+    }
+    J.block<3,6>(0,0) = J_trans;
+    J.block<3,6>(3,0) = J_ang;
+    return J;
+
+}
+
+/* IN CASE WANT JACOBIAN LATER...
 Eigen::MatrixXd irb120_hand_fwd_solver::get_Jacobian(const Vectorq6x1& q_vec) {
     solve(q_vec);
     Eigen::MatrixXd J = Eigen::MatrixXd::Zero(6, 6);

@@ -151,6 +151,8 @@ add_executable(transform_test src/transform_test.cpp)
 add_executable(libegm_test src/libegm_test.cpp)
 add_executable(networktest src/networktest.cpp)
 add_executable(custom_egm_test src/custom_egm_test.cpp)
+add_executable(compliant_touch src/compliant_touch.cpp)
+add_executable(jacobian_test src/jacobian_test.cpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -205,6 +207,18 @@ target_link_libraries(libegm_test
 	irb120_accomodation_control
 	irb120_fk_ik
 	abb_libegm
+ )
+
+target_link_libraries(compliant_touch
+  ${catkin_LIBRARIES}
+  irb120_accomodation_control
+  irb120_fk_ik
+ )
+
+target_link_libraries(jacobian_test
+  ${catkin_LIBRARIES}
+  irb120_accomodation_control
+  irb120_fk_ik
  )
 #############
 ## Install ##

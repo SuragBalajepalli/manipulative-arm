@@ -1,60 +1,14 @@
-/*#include <ros/ros.h>
-#include <Eigen/Dense>
-#include <Eigen/Eigen>
-#include <geometry_msgs/Wrench.h>
-#include <geometry_msgs/WrenchStamped.h>
-#include <sensor_msgs/JointState.h>
-#include <geometry_msgs/Twist.h>
-#include <std_msgs/Float64.h>
-
-using namespace std;
-
-class Irb120AccomodationControl {
-	public:
-	void findCartVelFromWrench (geometry_msgs::Wrench wrench, geometry_msgs::Twist &twist);
-	void findCartVelFromWrench (geometry_msgs::Wrench wrench, geometry_msgs::Twist &twist, Eigen::MatrixXf accomodation_gain);
-	void findJointVelFromCartVel (geometry_msgs::Twist twist, Eigen::MatrixXf jacobian, vector<float> &joint_vel);
-	void findJointVelFromCartVel (geometry_msgs::Twist twist, vector<float> &joint_vel);
-	void publishJointAngles(vector<float> joint_pos);
-	void publishJointAngles(vector<std_msgs::Float64> joint_pos);
-	void jointStateCallBack (const sensor_msgs::JointState &joint_state); 
-	void ftCallBack (const geometry_msgs::WrenchStamped &wrench_stamped);
-	sensor_msgs::JointState getJointState();
-	geometry_msgs::Wrench getFTSensorValue();
-	Irb120AccomodationControl(ros::NodeHandle &nh);
-
-	private:
-	geometry_msgs::Wrench g_ft_value_;
-	sensor_msgs::JointState g_joint_state_;
-	const Eigen::MatrixXf accomodation_gain = Eigen::MatrixXf::Identity(6,6);
-	const Eigen::MatrixXf jacobian = Eigen::MatrixXf::Zero(6,6); //Need to initialize this
-	const Eigen::MatrixXf jacobian_inverse = jacobian.inverse();
-	const string joint1_topic_name = "/irb120/joint1_position_controller/command";
-	const string joint2_topic_name = "/irb120/joint2_position_controller/command";
-	const string joint3_topic_name = "/irb120/joint3_position_controller/command";
-	const string joint4_topic_name = "/irb120/joint4_position_controller/command";
-	const string joint5_topic_name = "/irb120/joint5_position_controller/command";
-	const string joint6_topic_name = "/irb120/joint6_position_controller/command";
-	const string joint_state_subscriber_topic = "/irb120/joint_states";
-	const string ft_value_subscriber_topic = "/ft_sensor_topic";
-	ros::Publisher joint1_pub, joint2_pub, joint3_pub, joint4_pub, joint5_pub, joint6_pub;
-	ros::Subscriber joint_state_subscriber, ft_value_subscriber;
-	
-
-}; */
-//FIX THIS MESSY LIBRARY!!!
-
 #include <irb120_accomodation_control/irb120_accomodation_control.h>
 	Irb120AccomodationControl::Irb120AccomodationControl(ros::NodeHandle &nh) {
 		
 		
 		initializePublishers(nh);
 		initializeSubscribers(nh);
-		tfListener_ = new tf2_ros::TransformListener(tfBuffer_);
+		//tfListener_ = new tf2_ros::TransformListener(tfBuffer_);
 		//irb120_fwd_solver_ = new Irb120_fwd_solver;
 		
 		//Eigen::MatrixXf jacobian = Eigen::MatrixXf::Zero(6,6); //Need to initialize this// put it somewhere else?
-		warmUp();
+		//warmUp(); Do not block in constructor
 
 		//to prevent massive seg faults in case my subscribers are feeling moody
 		

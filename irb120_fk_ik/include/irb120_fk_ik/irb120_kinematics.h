@@ -94,6 +94,7 @@ public:
     Eigen::Affine3d fwd_kin_solve(const Eigen::VectorXd& q_vec); 
     Eigen::Matrix4d get_wrist_frame();
     Eigen::MatrixXd jacobian(const Eigen::VectorXd& q_vec);
+    Eigen::MatrixXd jacobian2(const Eigen::VectorXd& q_vec);
     //Eigen::MatrixXd get_Jacobian(const Vectorq6x1& q_vec);
 private:
     Eigen::Matrix4d fwd_kin_solve_(const Vectorq6x1& q_vec);
