@@ -25,17 +25,23 @@ void forceCallback(const geometry_msgs::WrenchStamped& ft_sensor) {
 	force_ = ft_sensor.wrench.force.z; 
 
 	vel_ = VEL_CMD_ - K_ * -force_; //changed force to negative
-	pos_ = pos_ + vel_ * DT_;
+	//pos_ = pos_ + vel_ * DT_; //for debugging
+	pos_ = 0.0001;
 
 	sensor_msgs::JointState arm_position_msg;
 	arm_position_msg.header.stamp = ros::Time::now();
 	arm_position_msg.position.resize(6);
-	arm_position_msg.position[0] = 0;
-	arm_position_msg.position[2] = 0;
-	arm_position_msg.position[3] = 0;
-	arm_position_msg.position[4] = 0;
-	arm_position_msg.position[5] = 0;
+	arm_position_msg.position[0] = pos_; //for debugging
+	//arm_position_msg.position[0] = 0;
 	arm_position_msg.position[1] = pos_; // 0 is joing 1; 1 is joint 2 etc.
+	arm_position_msg.position[2] = pos_;
+	//arm_position_msg.position[2] = 0;
+	arm_position_msg.position[3] = pos_;
+	//arm_position_msg.position[3] = 0;
+	arm_position_msg.position[4] = pos_;
+	//arm_position_msg.position[4] = 0;
+	arm_position_msg.position[5] = pos_;
+	//arm_position_msg.position[5] = 0;
 	arm_position_publisher_.publish(arm_position_msg);
 }
 

@@ -7,12 +7,25 @@
 #include <abb_libegm/egm_controller_interface.h>
 #include <sys/socket.h>
 #include <errno.h>
+#include <cmath>
 
 int g_seq_no = 0;
-vector<double> g_desired_joint_angles(6,0);
+vector<double> g_desired_joint_angles;
+vector<double> home_vec{0,0,0,5,5,5};
+int dbg;
+
+vector<double> rad2deg_vect(vector<double> input_vect) {
+	vector<double> output_vect;
+	for(int i = 0; i < input_vect.size(); i++) {
+		output_vect.push_back(input_vect[i] * 180.0 / M_PI);
+	}
+	return output_vect;
+}
+
 
 void JointPosCallBack(const sensor_msgs::JointState::ConstPtr& joint_state_message) {
-	g_desired_joint_angles = joint_state_message->position;
+	g_desired_joint_angles = rad2deg_vect(joint_state_message->position);
+	
 }
 
 
@@ -45,8 +58,8 @@ void CreateEgmSensorMessage(abb::egm::EgmSensor* sensor, vector<double> joint_cm
 int main(int argc, char** argv) {
 	ros::init(argc, argv, "custom_egm_test");
 	ros::NodeHandle nh;
-	ros::Publisher joint_state_publisher = nh.advertise<sensor_msgs::JointState>("abb120_joint_state",100);
-	ros::Subscriber joint_command_subscriber = nh.subscribe<sensor_msgs::JointState>("abb120_joint_angle_command",100,&JointPosCallBack);
+	ros::Publisher joint_state_publisher = nh.advertise<sensor_msgs::JointState>("abb120_joint_state",1);
+	ros::Subscriber joint_command_subscriber = nh.subscribe<sensor_msgs::JointState>("abb120_joint_angle_command",1,&JointPosCallBack);
 	double vals;
 	sensor_msgs::JointState jointstate;
 	jointstate.position.resize(6);
@@ -64,7 +77,7 @@ int main(int argc, char** argv) {
 	timeout.tv_sec = 2;
 	timeout.tv_usec = 0;
 	const unsigned short port_number = 6510;
-	const unsigned short port_number_robot = 62469;
+	const unsigned short port_number_robot = 63962;
 	memset((char *)&serv_addr, sizeof(serv_addr), 0);
 	//memset((char *)&serv_addr, sizeof(client_addr), 0);
 	serv_addr.sin_family = AF_INET;
@@ -95,6 +108,7 @@ int main(int argc, char** argv) {
 
 
 
+	g_desired_joint_angles = home_vec;
 	while(ros::ok()) {
 		ROS_INFO("Waiting for message");
 		recvlen = recvfrom(fd, buf, sizeof(buf), 0, (struct sockaddr *)&client_addr, &addrlen);
@@ -109,7 +123,7 @@ int main(int argc, char** argv) {
 				if(robot_message->has_feedback()) {
 				//next line is just for bs sake
 				//ROS_INFO_STREAM("please work: "<<robot_message->feedback().joints().joints(2));
-					for(int i = 0; i < 6; i++) jointstate.position[i] = robot_message->feedback().joints().joints(i+1);
+					for(int i = 0; i < 6; i++) jointstate.position[i] = robot_message->feedback().joints().joints(i);
 					
 					joint_state_publisher.publish(jointstate);
 					//for(int i =0; i < 6; i++) jointstate.position[i] += 0.05;
@@ -117,7 +131,11 @@ int main(int argc, char** argv) {
 					ROS_INFO("need to keep you interested in me");
 					/* Populate EgmSensor msg with same joint angles under 'planned'*/
 					ros::spinOnce();
+					
+					
+
 					CreateEgmSensorMessage(sensor_message, g_desired_joint_angles);
+					
 					sensor_message->SerializeToString(&send_string);
 					//ROS_WARN("CRASH");
 					if(sendto(fd, send_string.c_str(), send_string.length(),0,(struct sockaddr*)&client_addr,sizeof(client_addr)) < 0 ) {

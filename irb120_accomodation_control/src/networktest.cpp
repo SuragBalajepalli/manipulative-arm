@@ -20,7 +20,7 @@ int main(int argc, char** argv) {
 	timeout.tv_sec = 2;
 	timeout.tv_usec = 0;
 	const unsigned short port_number = 6510;
-	const unsigned short port_number_robot = 62469;
+	const unsigned short port_number_robot = 63962;
 	memset((char *)&serv_addr, sizeof(serv_addr), 0);
 	memset((char *)&serv_addr, sizeof(client_addr), 0);
 	serv_addr.sin_family = AF_INET;

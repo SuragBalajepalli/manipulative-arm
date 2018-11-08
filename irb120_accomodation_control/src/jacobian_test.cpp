@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
 		i++;
 		// initializing random joint disturbance 
 		dq = Eigen::VectorXd::Zero(6);
-		for(int itr = 0; itr < 6;itr++) dq(itr) = (((double)rand() / (double)RAND_MAX)/(double)10000); 
+		for(int itr = 0; itr < 6;itr++) dq(itr) = (((double)rand() / (double)RAND_MAX)/(double)1000); 
 		for(int itr = 0; itr < 6; itr++) {
 			//initializing random but valid joint angles. These are limits of joint 3
 			// ideally should randomize differently for each joint, between its joint limits
@@ -78,6 +78,7 @@ int main(int argc, char **argv) {
 		else {
 			ROS_INFO_STREAM("No error");
 		}
+		cout<<"diff is";
 		cout<<diff<<endl;
 		ROS_INFO_STREAM("Dp ");
 		cout<<dp<<endl;
