@@ -56,14 +56,14 @@ Eigen::Matrix3d vectorHat(Eigen::Vector3d vector) { //for lack of a better name
 	}
 
 
-Eigen::VectorXd transform_wrench(Eigen::VectorXd wrench_body_coords, Eigen::Affine3d flange_transform) {
+Eigen::VectorXd transform_wrench(Eigen::VectorXd wrench_body_coords, Eigen::Affine3d flange_transform) { //from eqn 2.66 in MLS book
 	Eigen::VectorXd wrench_spatial_coords;
 	Eigen::Vector3d O_flange = flange_transform.translation();
 	Eigen::Matrix3d O_flange_hat = vectorHat(O_flange);
 	Eigen::MatrixXd wrench_transformation_matrix = Eigen::MatrixXd::Zero(6,6);
-	wrench_transformation_matrix.block<3,3>(0,0) = flange_transform.linear();
-	wrench_transformation_matrix.block<3,3>(3,3) = flange_transform.linear();
-	wrench_transformation_matrix.block<3,3>(0,3) = O_flange_hat * flange_transform.linear();
+	wrench_transformation_matrix.block<3,3>(0,0) = flange_transform.linear().transpose();
+	wrench_transformation_matrix.block<3,3>(3,3) = flange_transform.linear().transpose();
+	wrench_transformation_matrix.block<3,3>(3,0) = - flange_transform.linear().transpose() * O_flange_hat;
 	wrench_transformation_matrix = wrench_transformation_matrix.inverse();
 	wrench_spatial_coords = wrench_transformation_matrix * wrench_body_coords;
 	return wrench_spatial_coords;
@@ -72,12 +72,13 @@ Eigen::VectorXd transform_wrench(Eigen::VectorXd wrench_body_coords, Eigen::Affi
 void ftSensorCallback(const geometry_msgs::WrenchStamped& ft_sensor) {
 	//subscribe to "robotiq_ft_wrench"
 	//implement low pass filter
-	wrench_body_coords_(0) = std::round(ft_sensor.wrench.force.x * 100) / 100;
-	wrench_body_coords_(1) = std::round(ft_sensor.wrench.force.y * 100) / 100;
-	wrench_body_coords_(2) = std::round(ft_sensor.wrench.force.z * 100) / 100;
-	wrench_body_coords_(3) = std::round(ft_sensor.wrench.torque.x * 100) / 100;
-	wrench_body_coords_(4) = std::round(ft_sensor.wrench.torque.y * 100) / 100;
-	wrench_body_coords_(5) = std::round(ft_sensor.wrench.torque.z * 100) / 100;
+	//need to transform from sensor frame to tool flange frame. Implement a transform, dont do it this way
+	wrench_body_coords_(0) = std::round(ft_sensor.wrench.force.y * 100) / 100;
+	wrench_body_coords_(1) = std::round(ft_sensor.wrench.force.x * 100) / 100;
+	wrench_body_coords_(2) = -std::round(ft_sensor.wrench.force.z * 100) / 100;
+	wrench_body_coords_(3) = std::round(ft_sensor.wrench.torque.y * 100) / 100;
+	wrench_body_coords_(4) = std::round(ft_sensor.wrench.torque.x * 100) / 100;
+	wrench_body_coords_(5) = -std::round(ft_sensor.wrench.torque.z * 100) / 100;
 }
 
 void jointStateCallback(const sensor_msgs::JointState& joint_state) {
@@ -98,21 +99,15 @@ int main(int argc, char **argv) {
 	ros::Publisher arm_publisher = nh.advertise<sensor_msgs::JointState>("abb120_joint_angle_command",1);
 		//ROS_WARN("DEBUG");
 	desired_twist<<0,0,0,0,0,0;
-	accomodation_gain<<5,0,0,0,0,0,
-					0,5,0,0,0,0,
-					0,0,5,0,0,0,
-					0,0,0,5,0,0,
-					0,0,0,0,5,0,
-					0,0,0,0,0,5;
+	accomodation_gain<<1,0,0,0,0,0,
+					0,1,0,0,0,0,
+					0,0,1,0,0,0,
+					0,0,0,1,0,0,
+					0,0,0,0,1,0,
+					0,0,0,0,0,1;
+	accomodation_gain *= 0.1;
+	//accomodation_gain = Eigen::MatrixXd::Ones(6,6) * 0.1;
 
-	/*for(int i = 0; i < 6; i++) desired_joint_state.position[i] = 10;
-	
-		ROS_INFO("MOVING AWAY FROM SINGU");
-	for(int i = 0; i < 2000; i++) {
-		arm_publisher.publish(desired_joint_state);
-		ros::Rate naptime(10000);
-		cin>>dbg;
-	}*/
 	while(ros::ok()) {
 		ros::spinOnce();
 		cout<<"----------------";
@@ -137,10 +132,10 @@ int main(int argc, char **argv) {
 		
 
 		//control law
-		//clip vel command to (-1, 1) and remove nan that might have made their way through jacobian inverse
-		Eigen::MatrixXd des_jnt_vel = jacobian_inv * desired_twist - accomodation_gain * (jacobian_transpose * (wrench_body_coords_* -1)); //PLIZ WORK
+		Eigen::MatrixXd des_jnt_vel = jacobian_inv * (desired_twist - (accomodation_gain * (  (wrench_body_coords_ * -1 ))));
 		//Try implementing damped least squares method for jacobian according to Buss 2004 
 		//cout<<"before clipping"<<des_jnt_vel<<endl;
+		//clip vel command to (-1, 1) and remove nan that might have made their way through jacobian inverse
 		cout<<"--------";
 		for(int i = 0; i < 6; i++) { 
 			if(isnan(des_jnt_vel(i))) {
@@ -162,6 +157,7 @@ int main(int argc, char **argv) {
 		for(int i = 0; i < 6; i++) desired_joint_state.position[i] = std::round(des_jnt_pos(i) * 1000) /1000; //implement low pass filter here instead
 		if(!is_nan) arm_publisher.publish(desired_joint_state);
 		ros::Rate naptime(100);
+		ros::spinOnce();
 		//subscribe to F/T sensor values
 		//subscribe to joint states
 		//publish to egm controller

@@ -45,8 +45,8 @@ Eigen::Matrix4d compute_A_of_DH(int i, double q_abb) {
     double a = DH_a_params[i];
     double d = DH_d_params[i];
     double alpha = DH_alpha_params[i];
-    double q = q_abb + DH_q_offsets[i];
-
+    //double q = q_abb + DH_q_offsets[i];
+    double q = q_abb;
     A = Eigen::Matrix4d::Identity();
     R = Eigen::Matrix3d::Identity();
     //ROS_INFO("compute_A_of_DH: a,d,alpha,q = %f, %f %f %f",a,d,alpha,q);
@@ -91,7 +91,7 @@ Eigen::MatrixXd Irb120_fwd_solver::jacobian2(const Eigen::VectorXd& q_vec) {
     Eigen::MatrixXd J_trans = Eigen::MatrixXd::Zero(3,6);
     Eigen::MatrixXd zvecs = Eigen::MatrixXd::Zero(3,6);
     Eigen::MatrixXd rvecs = Eigen::MatrixXd::Zero(3,6);
-    
+    //Eigen::Matrix4d A_sensor_flange = compute_A_of_DH(0, 0.05,0.0, - M_PI/2);
     //need to call fwd_kin_solve here
     fwd_kin_solve_(q_vec);
     Eigen::Matrix4d A_flange = A_mats[5];
