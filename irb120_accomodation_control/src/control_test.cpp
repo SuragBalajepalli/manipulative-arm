@@ -17,6 +17,7 @@ int dbg;
 double MAX_JNT_VEL_NORM = 1;
 bool is_nan;
 
+Eigen::VectorXd desired_ee_twist(6);
 Eigen::VectorXd desired_twist(6);
 
 Eigen::MatrixXd accomodation_gain(6,6);
@@ -69,16 +70,36 @@ Eigen::VectorXd transform_wrench(Eigen::VectorXd wrench_body_coords, Eigen::Affi
 	return wrench_spatial_coords;
 }
 
+Eigen::VectorXd transform_twist(Eigen::VectorXd twist_spat, Eigen::Affine3d transform) {
+	Eigen::VectorXd twist_body;
+	Eigen::Vector3d origin = transform.translation();
+	Eigen::Matrix3d origin_hat = vectorHat(origin);
+	Eigen::Matrix3d rot_mat = transform.linear();
+	Eigen::MatrixXd twist_tf_matrix = Eigen::MatrixXd::Zero(6,6);
+	twist_tf_matrix.block<3,3>(0,0) = rot_mat.transpose();
+	twist_tf_matrix.block<3,3>(3,3) = rot_mat.transpose();
+	twist_tf_matrix.block<3,3>(0,3) = - rot_mat.transpose() * origin_hat;
+	twist_body = twist_tf_matrix.inverse() * twist_spat;
+
+	return twist_body;
+}
+
 void ftSensorCallback(const geometry_msgs::WrenchStamped& ft_sensor) {
 	//subscribe to "robotiq_ft_wrench"
 	//implement low pass filter
 	//need to transform from sensor frame to tool flange frame. Implement a transform, dont do it this way
-	wrench_body_coords_(0) = std::round(ft_sensor.wrench.force.y * 100) / 100;
-	wrench_body_coords_(1) = std::round(ft_sensor.wrench.force.x * 100) / 100;
-	wrench_body_coords_(2) = -std::round(ft_sensor.wrench.force.z * 100) / 100;
-	wrench_body_coords_(3) = std::round(ft_sensor.wrench.torque.y * 100) / 100;
-	wrench_body_coords_(4) = std::round(ft_sensor.wrench.torque.x * 100) / 100;
-	wrench_body_coords_(5) = -std::round(ft_sensor.wrench.torque.z * 100) / 100;
+	Eigen::Matrix3d rot_mat;
+	rot_mat<<0,1,0,
+			1,0,0,
+			0,0,-1;
+	wrench_body_coords_(0) = -std::round(ft_sensor.wrench.force.x * 100) / 100;
+	wrench_body_coords_(1) = std::round(ft_sensor.wrench.force.y * 100) / 100;
+	wrench_body_coords_(2) = std::round(ft_sensor.wrench.force.z * 100) / 100;
+	wrench_body_coords_(3) = -std::round(ft_sensor.wrench.torque.x * 100) / 100;
+	wrench_body_coords_(4) = std::round(ft_sensor.wrench.torque.y * 100) / 100;
+	wrench_body_coords_(5) = std::round(ft_sensor.wrench.torque.z * 100) / 100;
+	wrench_body_coords_.head(3) = rot_mat * wrench_body_coords_.head(3);
+	wrench_body_coords_.tail(3) = rot_mat * wrench_body_coords_.tail(3);
 }
 
 void jointStateCallback(const sensor_msgs::JointState& joint_state) {
@@ -100,19 +121,35 @@ int main(int argc, char **argv) {
 		//ROS_WARN("DEBUG");
 	desired_twist<<0,0,0,0,0,0;
 	accomodation_gain<<1,0,0,0,0,0,
-					0,1,0,0,0,0,
-					0,0,1,0,0,0,
-					0,0,0,1,0,0,
-					0,0,0,0,1,0,
-					0,0,0,0,0,1;
+						0,1,0,0,0,0,
+						0,0,1,0,0,0,
+						0,0,0,10,0,0,
+						0,0,0,0,10,0,
+						0,0,0,0,0,10;
+
 	accomodation_gain *= 0.1;
-	//accomodation_gain = Eigen::MatrixXd::Ones(6,6) * 0.1;
+
+
+	//static transform for sensor
+	Eigen::Affine3d sensor_transform;
+	Eigen::Matrix3d sensor_rot;
+	Eigen::Vector3d sensor_origin;
+	sensor_origin<<0,0,0.0375;
+	sensor_rot<<1,0,0,
+				0,1,0,
+				0,0,1;
+	sensor_transform.linear() = sensor_rot;
+	sensor_transform.translation() = sensor_origin;
+
+
+
+	
 
 	while(ros::ok()) {
-		ros::spinOnce();
 		cout<<"----------------";
 
 		//initialize jacobians
+		ros::spinOnce();
 		Eigen::MatrixXd jacobian = irb120_fwd_solver.jacobian2(joint_states_);
 		Eigen::MatrixXd jacobian_inv = jacobian.inverse(); //what to do when matrix is non invertible?
 		Eigen::MatrixXd jacobian_transpose = jacobian.transpose();
@@ -126,16 +163,21 @@ int main(int argc, char **argv) {
 		*/ // this is a bad method to calculate jacobian pseudoinverse
 
 
-		//transform wrench to spatial coords
 		Eigen::Affine3d flange_affine = irb120_fwd_solver.fwd_kin_solve(joint_states_);
-		Eigen::MatrixXd wrench_spatial_coords = transform_wrench(wrench_body_coords_, flange_affine);
-		
-
+		//cout<<flange_affine.translation()<<endl;
+		Eigen::Affine3d tool_affine = sensor_transform * flange_affine;
+		Eigen::VectorXd wrench_spatial_coords = transform_wrench(wrench_body_coords_, tool_affine);
+		cout<<wrench_spatial_coords<<endl;
+		//cin>>dbg;
+		//desired_ee_twist = transform_twist(desired_twist, tool_affine);
+		//cout<<desired_ee_twist<<endl;
+		//desired_ee_twist<<-1,0,0,0,0,0;
 		//control law
-		Eigen::MatrixXd des_jnt_vel = jacobian_inv * (desired_twist - (accomodation_gain * (  (wrench_body_coords_ * -1 ))));
-		//Try implementing damped least squares method for jacobian according to Buss 2004 
+		Eigen::MatrixXd des_jnt_vel = jacobian_inv * (desired_twist - (accomodation_gain * (  (wrench_spatial_coords  ))));
+		
+		//cin>>dbg;
 		//cout<<"before clipping"<<des_jnt_vel<<endl;
-		//clip vel command to (-1, 1) and remove nan that might have made their way through jacobian inverse
+		//clip vel command  and remove nan that might have made their way through jacobian inverse
 		cout<<"--------";
 		for(int i = 0; i < 6; i++) { 
 			if(isnan(des_jnt_vel(i))) {
@@ -151,7 +193,8 @@ int main(int argc, char **argv) {
 
 		//cout<<"after clipping"<<des_jnt_vel<<endl;
 		Eigen::MatrixXd des_jnt_pos = joint_states_ + (des_jnt_vel * dt_);
-		cout<<"pos desired"<<des_jnt_pos;
+		des_jnt_pos<<0,0,0,0,0,0; //DEBUG ONLY
+		//cout<<"pos desired"<<des_jnt_pos;
 		cout<<"----------------";
 		//stuff it into Jointstate message and publish
 		for(int i = 0; i < 6; i++) desired_joint_state.position[i] = std::round(des_jnt_pos(i) * 1000) /1000; //implement low pass filter here instead

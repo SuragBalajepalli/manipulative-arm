@@ -192,7 +192,7 @@ Eigen::Matrix4d Irb120_fwd_solver::fwd_kin_solve_(const Vectorq6x1& q_vec) {
     Eigen::Vector3d p;
     for (int i = 0; i < 6; i++) {
         //A_i_iminusi = compute_A_of_DH(DH_a_params[i],DH_d_params[i],DH_alpha_params[i], q_vec[i] + DH_q_offsets[i] );
-        A_i_iminusi = compute_A_of_DH(i, q_vec[i]);
+        A_i_iminusi = compute_A_of_DH(i, q_vec[i] + DH_q_offsets[i]);
         A_mats[i] = A_i_iminusi;
         //std::cout << "A_mats[" << i << "]:" << std::endl;
         //std::cout << A_mats[i] << std::endl;
