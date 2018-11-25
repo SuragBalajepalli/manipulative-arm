@@ -92,12 +92,12 @@ void ftSensorCallback(const geometry_msgs::WrenchStamped& ft_sensor) {
 	rot_mat<<0,1,0,
 			1,0,0,
 			0,0,-1;
-	wrench_body_coords_(0) = -std::round(ft_sensor.wrench.force.x * 100) / 100;
-	wrench_body_coords_(1) = std::round(ft_sensor.wrench.force.y * 100) / 100;
-	wrench_body_coords_(2) = std::round(ft_sensor.wrench.force.z * 100) / 100;
-	wrench_body_coords_(3) = -std::round(ft_sensor.wrench.torque.x * 100) / 100;
-	wrench_body_coords_(4) = std::round(ft_sensor.wrench.torque.y * 100) / 100;
-	wrench_body_coords_(5) = std::round(ft_sensor.wrench.torque.z * 100) / 100;
+	wrench_body_coords_(0) = -std::round(ft_sensor.wrench.force.x * 10) / 10;
+	wrench_body_coords_(1) = std::round(ft_sensor.wrench.force.y * 10) / 10;
+	wrench_body_coords_(2) = std::round(ft_sensor.wrench.force.z * 10) / 10;
+	wrench_body_coords_(3) = -std::round(ft_sensor.wrench.torque.x * 10) / 10;
+	wrench_body_coords_(4) = std::round(ft_sensor.wrench.torque.y * 10) / 10;
+	wrench_body_coords_(5) = std::round(ft_sensor.wrench.torque.z * 10) / 10;
 	wrench_body_coords_.head(3) = rot_mat * wrench_body_coords_.head(3);
 	wrench_body_coords_.tail(3) = rot_mat * wrench_body_coords_.tail(3);
 }
@@ -123,9 +123,9 @@ int main(int argc, char **argv) {
 	accomodation_gain<<1,0,0,0,0,0,
 						0,1,0,0,0,0,
 						0,0,1,0,0,0,
-						0,0,0,10,0,0,
-						0,0,0,0,10,0,
-						0,0,0,0,0,10;
+						0,0,0,1,0,0,
+						0,0,0,0,1,0,
+						0,0,0,0,0,1;
 
 	accomodation_gain *= 0.1;
 
@@ -193,7 +193,7 @@ int main(int argc, char **argv) {
 
 		//cout<<"after clipping"<<des_jnt_vel<<endl;
 		Eigen::MatrixXd des_jnt_pos = joint_states_ + (des_jnt_vel * dt_);
-		des_jnt_pos<<0,0,0,0,0,0; //DEBUG ONLY
+		//des_jnt_pos<<0,0,0,0,0,0; //DEBUG ONLY
 		//cout<<"pos desired"<<des_jnt_pos;
 		cout<<"----------------";
 		//stuff it into Jointstate message and publish

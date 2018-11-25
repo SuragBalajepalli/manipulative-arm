@@ -64,6 +64,7 @@ int main(int argc, char** argv) {
 	sensor_msgs::JointState jointstate;
 	jointstate.position.resize(6);
 	char *ip_addr = "192.168.125.1";
+	char *serv_ip = "192.168.125.3";
 	//char *msg = "R";
 	std::string send_string;
 	unsigned char buf[1024];
@@ -77,15 +78,15 @@ int main(int argc, char** argv) {
 	timeout.tv_sec = 2;
 	timeout.tv_usec = 0;
 	const unsigned short port_number = 6510;
-	const unsigned short port_number_robot = 59124;
+	//const unsigned short port_number_robot = 51265;
 	memset((char *)&serv_addr, sizeof(serv_addr), 0);
-	//memset((char *)&serv_addr, sizeof(client_addr), 0);
+	memset((char *)&client_addr, sizeof(client_addr), 0);
 	serv_addr.sin_family = AF_INET;
-	serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+	serv_addr.sin_addr.s_addr = inet_addr(serv_ip);
 	serv_addr.sin_port = htons(port_number);
 	//serv_addr.sin_addr.s_addr = inet_addr(ip_addr);
-	//client_addr.sin_family = AF_INET;
-	//client_addr.sin_addr.s_addr = inet_addr(ip_addr);
+	client_addr.sin_family = AF_INET;
+	client_addr.sin_addr.s_addr = inet_addr(ip_addr);
 	//client_addr.sin_port = htons(port_number_robot);
 	abb::egm::EgmRobot *robot_message = new abb::egm::EgmRobot();
 	abb::egm::EgmSensor *sensor_message = new abb::egm::EgmSensor();
@@ -112,6 +113,7 @@ int main(int argc, char** argv) {
 	while(ros::ok()) {
 		ROS_INFO("Waiting for message");
 		recvlen = recvfrom(fd, buf, sizeof(buf), 0, (struct sockaddr *)&client_addr, &addrlen);
+		//perror("error is:");
 
 		if(recvlen > 0) {
 			ros::spinOnce();
@@ -124,12 +126,14 @@ int main(int argc, char** argv) {
 				//next line is just for bs sake
 				//ROS_INFO_STREAM("please work: "<<robot_message->feedback().joints().joints(2));
 					for(int i = 0; i < 6; i++) jointstate.position[i] = robot_message->feedback().joints().joints(i);
-					
+					//g_desired_joint_angles = rad2deg_vect(jointstate.position);
 					joint_state_publisher.publish(jointstate);
 					//for(int i =0; i < 6; i++) jointstate.position[i] += 0.05;
 					g_seq_no = robot_message->header().seqno();
 					ROS_INFO("need to keep you interested in me");
 					/* Populate EgmSensor msg with same joint angles under 'planned'*/
+					
+
 					ros::spinOnce();
 					
 					
@@ -152,6 +156,14 @@ int main(int argc, char** argv) {
 		}
 		else { 
 			ROS_INFO("No response");
+			//trying to 'wake' it up
+			if(sendto(fd, buf, sizeof(buf),0,(struct sockaddr*)&client_addr,addrlen) < 0 ) {
+			ROS_WARN("cannot send too");
+			perror("error is: ");
+			}
+			else {
+			ROS_INFO("Sent successfully");
+			}
 		}
 	
 	}
