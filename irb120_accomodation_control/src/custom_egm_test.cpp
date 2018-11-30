@@ -11,7 +11,7 @@
 
 int g_seq_no = 0;
 vector<double> g_desired_joint_angles;
-vector<double> home_vec{0,0,0,5,5,5};
+vector<double> home_vec{0,0,0,0,10,0};
 int dbg;
 
 vector<double> rad2deg_vect(vector<double> input_vect) {
@@ -63,7 +63,7 @@ int main(int argc, char** argv) {
 	double vals;
 	sensor_msgs::JointState jointstate;
 	jointstate.position.resize(6);
-	char *ip_addr = "192.168.125.1";
+	char *robot_ip = "192.168.125.1";
 	char *serv_ip = "192.168.125.3";
 	//char *msg = "R";
 	std::string send_string;
@@ -73,48 +73,60 @@ int main(int argc, char** argv) {
 	int enable = 1;
 	struct sockaddr_in serv_addr;
 	struct sockaddr_in client_addr;
-	socklen_t addrlen = sizeof(client_addr);
 	struct timeval timeout;
 	timeout.tv_sec = 2;
 	timeout.tv_usec = 0;
 	const unsigned short port_number = 6510;
-	//const unsigned short port_number_robot = 51265;
-	memset((char *)&serv_addr, sizeof(serv_addr), 0);
-	memset((char *)&client_addr, sizeof(client_addr), 0);
+	const unsigned short port_number_robot = 63403;
+	memset(&serv_addr, 0, sizeof(serv_addr));
+	
 	serv_addr.sin_family = AF_INET;
-	serv_addr.sin_addr.s_addr = inet_addr(serv_ip);
+	serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 	serv_addr.sin_port = htons(port_number);
-	//serv_addr.sin_addr.s_addr = inet_addr(ip_addr);
+	
 	client_addr.sin_family = AF_INET;
-	client_addr.sin_addr.s_addr = inet_addr(ip_addr);
-	//client_addr.sin_port = htons(port_number_robot);
+	client_addr.sin_addr.s_addr = inet_addr("192.168.125.1");
+	client_addr.sin_port = htons(port_number_robot);
+	
+
+	socklen_t addrlen = sizeof(struct sockaddr_in);
+	
 	abb::egm::EgmRobot *robot_message = new abb::egm::EgmRobot();
 	abb::egm::EgmSensor *sensor_message = new abb::egm::EgmSensor();
 	vector<float> zero_joint_vector(6,0);
-		if((fd = socket(AF_INET,SOCK_DGRAM,0)) < 0) {
-			ROS_WARN("Cannot create socket, go home");
-		}
-		if(bind(fd,(struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
 	
 
-			ROS_WARN("Cannot bind, go home\n");
-			perror("error is : ");
-		}
-		//if(connect(fd,(struct sockaddr*)&serv_addr,sizeof(serv_addr)) <0) { ROS_INFO("error");}
-		if(setsockopt(fd,SOL_SOCKET,SO_RCVTIMEO,(char *)&timeout,sizeof(timeout)) < 0) ROS_INFO("setsockopt failed");
-		if(setsockopt(fd,SOL_SOCKET,SO_REUSEADDR, &enable,sizeof(int)) < 0) ROS_INFO("Set reuse failed");
-		if(setsockopt(fd,SOL_SOCKET,SO_REUSEPORT, &enable,sizeof(int)) < 0) ROS_INFO("Set reuse failed");
-		if(setsockopt(fd,SOL_SOCKET,IP_FREEBIND, &enable,sizeof(int)) < 0) ROS_INFO("Set reuse failed");
+	if((fd = socket(AF_INET,SOCK_DGRAM,0)) < 0) {
+		ROS_WARN("Cannot create socket, go home");
+	}
 
+
+	if(bind(fd,(struct sockaddr *) &serv_addr, addrlen) < 0) {
+		ROS_WARN("Cannot bind, go home\n");
+		perror("error is : ");
+	}
+
+
+		//if(connect(fd,(struct sockaddr*)&serv_addr,sizeof(serv_addr)) <0) { ROS_INFO("error");}
+	if(setsockopt(fd,SOL_SOCKET,SO_RCVTIMEO,(char *)&timeout,sizeof(timeout)) < 0) ROS_INFO("setsockopt failed");
+		//if(setsockopt(fd,SOL_SOCKET,SO_REUSEADDR, &enable,sizeof(int)) < 0) ROS_INFO("Set reuse failed");
+		//if(setsockopt(fd,SOL_SOCKET,SO_REUSEPORT, &enable,sizeof(int)) < 0) ROS_INFO("Set reuse failed");
+		//if(setsockopt(fd,SOL_SOCKET,IP_FREEBIND, &enable,sizeof(int)) < 0) ROS_INFO("Set reuse failed");
+		
 
 
 
 	g_desired_joint_angles = home_vec;
 	while(ros::ok()) {
-		ROS_INFO("Waiting for message");
-		recvlen = recvfrom(fd, buf, sizeof(buf), 0, (struct sockaddr *)&client_addr, &addrlen);
-		//perror("error is:");
+		
 
+
+		//cout<<"test port number is"<<client_addr.sin_port<<endl;
+		ROS_INFO("Waiting for message");
+		
+		recvlen = recvfrom(fd, buf, sizeof(buf), 0, (struct sockaddr *)&client_addr, &addrlen);
+		
+		
 		if(recvlen > 0) {
 			ros::spinOnce();
 			ROS_INFO("recvd something!");
@@ -158,11 +170,11 @@ int main(int argc, char** argv) {
 			ROS_INFO("No response");
 			//trying to 'wake' it up
 			if(sendto(fd, buf, sizeof(buf),0,(struct sockaddr*)&client_addr,addrlen) < 0 ) {
-			ROS_WARN("cannot send too");
-			perror("error is: ");
+				ROS_WARN("cannot send too");
+				perror("error is: ");
 			}
 			else {
-			ROS_INFO("Sent successfully");
+				ROS_INFO("Sent successfully");
 			}
 		}
 	

@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
 	//serv_addr.sin_addr.s_addr = inet_addr(ip_addr);
 	client_addr.sin_family = AF_INET;
 	client_addr.sin_addr.s_addr = inet_addr(ip_addr);
-	client_addr.sin_port = htons(port_number_robot);
+	//client_addr.sin_port = htons(port_number_robot);
 		if((fd = socket(AF_INET,SOCK_DGRAM,0)) < 0) {
 			ROS_WARN("Cannot create socket, go home");
 		}
