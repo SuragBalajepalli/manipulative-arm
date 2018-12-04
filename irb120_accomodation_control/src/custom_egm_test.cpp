@@ -11,7 +11,7 @@
 
 int g_seq_no = 0;
 vector<double> g_desired_joint_angles;
-vector<double> home_vec{0,0,0,0,10,0};
+vector<double> home_vec{0,0,-10,0,-20,0};
 int dbg;
 
 vector<double> rad2deg_vect(vector<double> input_vect) {
@@ -77,7 +77,7 @@ int main(int argc, char** argv) {
 	timeout.tv_sec = 2;
 	timeout.tv_usec = 0;
 	const unsigned short port_number = 6510;
-	const unsigned short port_number_robot = 63403;
+	const unsigned short port_number_robot = 51147;
 	memset(&serv_addr, 0, sizeof(serv_addr));
 	
 	serv_addr.sin_family = AF_INET;
