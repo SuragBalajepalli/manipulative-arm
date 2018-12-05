@@ -11,8 +11,17 @@
 
 int g_seq_no = 0;
 vector<double> g_desired_joint_angles;
-vector<double> home_vec{0,0,-10,0,-20,0};
+vector<double> home_vec{0,0,-10,0,20,0};
+vector<double> zero_vec{0,0,0,0,0,0};
 int dbg;
+sensor_msgs::JointState g_joint_state;
+
+uint32_t get_tick() {
+	struct timespec now;
+  	if (clock_gettime(CLOCK_MONOTONIC, &now))
+    	return 0;
+	return now.tv_sec * 1000 + now.tv_nsec / 1000000;
+}
 
 vector<double> rad2deg_vect(vector<double> input_vect) {
 	vector<double> output_vect;
@@ -24,8 +33,9 @@ vector<double> rad2deg_vect(vector<double> input_vect) {
 
 
 void JointPosCallBack(const sensor_msgs::JointState::ConstPtr& joint_state_message) {
-	g_desired_joint_angles = rad2deg_vect(joint_state_message->position);
-	
+
+	if(joint_state_message->position.size() == 6) g_joint_state.position = rad2deg_vect(joint_state_message->position);
+	if(joint_state_message->velocity.size() == 6) g_joint_state.velocity = rad2deg_vect(joint_state_message->velocity);
 }
 
 
@@ -38,19 +48,30 @@ void ShowRobotMessage(abb::egm::EgmRobot *rob_msg) {
 	//extend it to publish 
 }
 
-void CreateEgmSensorMessage(abb::egm::EgmSensor* sensor, vector<double> joint_cmd) {
+void CreateEgmSensorMessage(abb::egm::EgmSensor* sensor, sensor_msgs::JointState joint_state) {
 	abb::egm::EgmHeader *header = new abb::egm::EgmHeader();
 	header->set_mtype(abb::egm::EgmHeader_MessageType_MSGTYPE_CORRECTION);
-	//header->set_seqno(g_seq_no++);
+	header->set_seqno(g_seq_no++);
+	header->set_tm(get_tick());
 	sensor->set_allocated_header(header);
-	//header->set_tm(GetTickCount());
 	abb::egm::EgmPlanned *planned = new abb::egm::EgmPlanned();
 	abb::egm::EgmJoints *joints = new abb::egm::EgmJoints();
+	abb::egm::EgmCartesianSpeed *cs = new abb::egm::EgmCartesianSpeed();
+	abb::egm::EgmJoints *joint_vel = new abb::egm::EgmJoints();
+	abb::egm::EgmSpeedRef *speedRef = new abb::egm::EgmSpeedRef();
+
 	for(int i = 0; i < 6; i++) {
-		joints->add_joints(joint_cmd[i]);
+		joints->add_joints(joint_state.position[i]);
 	}
 	planned->set_allocated_joints(joints);
 	sensor->set_allocated_planned(planned);
+
+	for(int i = 0; i < 6; i++) {
+		joint_vel->add_joints(joint_state.velocity[i]);
+	}
+	
+	speedRef->set_allocated_joints(joint_vel);
+	sensor->set_allocated_speedref(speedRef);
 
 }
 
@@ -77,7 +98,7 @@ int main(int argc, char** argv) {
 	timeout.tv_sec = 2;
 	timeout.tv_usec = 0;
 	const unsigned short port_number = 6510;
-	const unsigned short port_number_robot = 51147;
+	const unsigned short port_number_robot = 63393;
 	memset(&serv_addr, 0, sizeof(serv_addr));
 	
 	serv_addr.sin_family = AF_INET;
@@ -93,73 +114,50 @@ int main(int argc, char** argv) {
 	
 	abb::egm::EgmRobot *robot_message = new abb::egm::EgmRobot();
 	abb::egm::EgmSensor *sensor_message = new abb::egm::EgmSensor();
-	vector<float> zero_joint_vector(6,0);
+	
 	
 
 	if((fd = socket(AF_INET,SOCK_DGRAM,0)) < 0) {
 		ROS_WARN("Cannot create socket, go home");
 	}
 
-
 	if(bind(fd,(struct sockaddr *) &serv_addr, addrlen) < 0) {
 		ROS_WARN("Cannot bind, go home\n");
 		perror("error is : ");
 	}
-
-
-		//if(connect(fd,(struct sockaddr*)&serv_addr,sizeof(serv_addr)) <0) { ROS_INFO("error");}
+	
 	if(setsockopt(fd,SOL_SOCKET,SO_RCVTIMEO,(char *)&timeout,sizeof(timeout)) < 0) ROS_INFO("setsockopt failed");
-		//if(setsockopt(fd,SOL_SOCKET,SO_REUSEADDR, &enable,sizeof(int)) < 0) ROS_INFO("Set reuse failed");
-		//if(setsockopt(fd,SOL_SOCKET,SO_REUSEPORT, &enable,sizeof(int)) < 0) ROS_INFO("Set reuse failed");
-		//if(setsockopt(fd,SOL_SOCKET,IP_FREEBIND, &enable,sizeof(int)) < 0) ROS_INFO("Set reuse failed");
-		
-
-
-
+	
 	g_desired_joint_angles = home_vec;
+	g_joint_state.position = home_vec;
+	g_joint_state.velocity = zero_vec;
+	
 	while(ros::ok()) {
-		
-
-
-		//cout<<"test port number is"<<client_addr.sin_port<<endl;
-		ROS_INFO("Waiting for message");
-		
+	
 		recvlen = recvfrom(fd, buf, sizeof(buf), 0, (struct sockaddr *)&client_addr, &addrlen);
-		
-		
 		if(recvlen > 0) {
 			ros::spinOnce();
-			ROS_INFO("recvd something!");
-			//buf[recvlen] = 0;
-			ROS_INFO_STREAM("recv message is of length:" <<recvlen);
+			
 			if(robot_message->ParseFromArray(buf,recvlen)) { 
-				ROS_INFO("Successfully parsed string");
+				
 				if(robot_message->has_feedback()) {
-				//next line is just for bs sake
-				//ROS_INFO_STREAM("please work: "<<robot_message->feedback().joints().joints(2));
+				
 					for(int i = 0; i < 6; i++) jointstate.position[i] = robot_message->feedback().joints().joints(i);
-					//g_desired_joint_angles = rad2deg_vect(jointstate.position);
+					
 					joint_state_publisher.publish(jointstate);
-					//for(int i =0; i < 6; i++) jointstate.position[i] += 0.05;
+					
 					g_seq_no = robot_message->header().seqno();
-					ROS_INFO("need to keep you interested in me");
-					/* Populate EgmSensor msg with same joint angles under 'planned'*/
 					
-
+					
+					
 					ros::spinOnce();
-					
-					
-
-					CreateEgmSensorMessage(sensor_message, g_desired_joint_angles);
-					
+					CreateEgmSensorMessage(sensor_message, g_joint_state);
 					sensor_message->SerializeToString(&send_string);
-					//ROS_WARN("CRASH");
+					
 					if(sendto(fd, send_string.c_str(), send_string.length(),0,(struct sockaddr*)&client_addr,sizeof(client_addr)) < 0 ) {
 						ROS_WARN("Could not send");
 					}
-					else {
-						ROS_INFO("Sent Successfully");
-					}
+					
 				}
 			}
 			else {
@@ -177,7 +175,7 @@ int main(int argc, char** argv) {
 				ROS_INFO("Sent successfully");
 			}
 		}
-	
+
 	}
-		close(fd);
+	close(fd);
 }

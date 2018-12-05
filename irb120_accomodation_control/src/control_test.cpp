@@ -12,11 +12,11 @@ Eigen::VectorXd wrench_body_coords_ = Eigen::VectorXd::Zero(6);
 Eigen::VectorXd joint_states_ = Eigen::VectorXd::Zero(6);
 
 
-double dt_ = 0.01;
+double dt_ = 0.1;
 int dbg;
-double MAX_JNT_VEL_NORM = 1;
+double MAX_JNT_VEL_NORM = 0.05;
 bool is_nan;
-double K_virt = 2;
+double K_virt = 0.1;
 
 Eigen::VectorXd desired_ee_twist(6);
 Eigen::VectorXd desired_twist(6);
@@ -63,7 +63,7 @@ Eigen::VectorXd transform_wrench(Eigen::VectorXd wrench_wrt_a, Eigen::Affine3d b
 	wrench_transformation_matrix.block<3,3>(0,0) = b_wrt_a.linear().transpose();
 	wrench_transformation_matrix.block<3,3>(3,3) = b_wrt_a.linear().transpose();
 	wrench_transformation_matrix.block<3,3>(3,0) = - b_wrt_a.linear().transpose() * O_b_hat; 
-	//wrench_transformation_matrix = wrench_transformation_matrix.transpose();
+	
 	wrench_wrt_b = wrench_transformation_matrix * wrench_wrt_a;
 	return wrench_wrt_b;
 }
@@ -118,7 +118,7 @@ int main(int argc, char **argv) {
 	
 	sensor_msgs::JointState desired_joint_state;
 	desired_joint_state.position.resize(6);
-	
+	desired_joint_state.velocity.resize(6);
 	desired_twist<<0,0,0,0,0,0;
 	accomodation_gain<<1,0,0,0,0,0,
 						0,1,0,0,0,0,
@@ -127,11 +127,11 @@ int main(int argc, char **argv) {
 						0,0,0,0,1,0,
 						0,0,0,0,0,1;
 
-	accomodation_gain *= -0.03;
+	accomodation_gain *= -0.001;
 
 
 	//where to? Make this whole thing a function
-	desired_ee_pos<<1,0,0.4,0,1,0;
+	desired_ee_pos<<0.3,0,09,0,1,0;
 
 	//static transform for sensor
 	Eigen::Affine3d sensor_wrt_flange;
@@ -165,48 +165,37 @@ int main(int argc, char **argv) {
 		Eigen::MatrixXd jacobian = irb120_fwd_solver.jacobian2(joint_states_);
 		Eigen::MatrixXd jacobian_inv = jacobian.inverse(); //what to do when matrix is non invertible?
 		Eigen::MatrixXd jacobian_transpose = jacobian.transpose();
-		//cout<<"jac inv"<<jacobian_inv<<endl;
+		
 		
 		
 		
 		Eigen::Affine3d flange_wrt_robot = irb120_fwd_solver.fwd_kin_solve(joint_states_);
 
-		//cout<<flange_wrt_robot.linear()<<endl;
+		
 		Eigen::Affine3d sensor_wrt_robot = flange_wrt_robot * sensor_wrt_flange;
 		Eigen::VectorXd wrench_tool_coords = transform_wrench(wrench_body_coords_, tool_wrt_sensor);
 		
 		Eigen::Affine3d tool_wrt_robot = sensor_wrt_robot * tool_wrt_sensor;
 
 		Eigen::VectorXd wrench_spatial_coords = transform_wrench(wrench_tool_coords,tool_wrt_robot.inverse());
-		//wrench_spatial_coords = transform_wrench(wrench_body_coords_,sensor_wrt_robot.inverse());
+		
 		//find current end effector pose
 		current_ee_pos = pose_from_transform(tool_wrt_robot);
+		
+
 		//desired_ee_pos = current_ee_pos;
 		
 		desired_twist = K_virt *  ( desired_ee_pos - current_ee_pos);
 		
-		cout<<"current_ee_pos:"<<endl<<current_ee_pos<<endl;
-		cout<<"desired_ee_pos"<<endl<<desired_ee_pos<<endl;
-		cout<<"desired_twist"<<endl<<desired_twist<<endl;
-		//cout<<"currrent_sensor_pos"<<endl<<sensor_wrt_robot.translation()<<endl;
-		//cout<<"current flange pos"<<endl<<flange_wrt_robot.translation()<<endl;
-		
-		
-		//cout<<"desired sensor twist"<<endl<<desired_twist_sensor<<endl;
-		//cout<<"wrench body"<<endl<<wrench_body_coords_<<endl;
-		//cout<<"wrench tool"<<endl<<wrench_tool_coords<<endl;
-		cout<<"wrench base"<<endl<<wrench_spatial_coords<<endl;
-
-
-
 		
 		//control law
 		//HERE! NEED TO CONVERT DESIRED TWIST TO FLANGE FRAME BEFORE PUTTING IN CONTROL LAW!
 		//DESIRED TWIST IS CURRENTLY IN EE FRAME iE, TOOL FRAME
 		//TO DO: MONDAY 12/03
 		//Eigen::MatrixXd des_jnt_vel = jacobian_inv * desired_twist - accomodation_gain * jacobian_transpose * wrench_spatial_coords  ;
-		cout<<"calc twist"<<endl<<desired_twist - (accomodation_gain * wrench_spatial_coords)<<endl;
-		Eigen::MatrixXd des_jnt_vel = jacobian_inv * (desired_twist - (accomodation_gain * wrench_spatial_coords));
+		Eigen::MatrixXd result_twist = desired_twist - accomodation_gain * wrench_spatial_coords;
+		Eigen::MatrixXd des_jnt_vel = jacobian_inv * result_twist;
+		
 		//cin>>dbg;
 		//cin>>dbg;
 		
@@ -228,16 +217,14 @@ int main(int argc, char **argv) {
 		
 		Eigen::MatrixXd des_jnt_pos = joint_states_ + (des_jnt_vel * dt_);
 		//des_jnt_pos<<0,0,0,0,0,0; //DEBUG ONLY
-		//cout<<"pos desired"<<des_jnt_pos;
-		cout<<"----------------";
+		
 		//stuff it into Jointstate message and publish
 		for(int i = 0; i < 6; i++) desired_joint_state.position[i] = std::round(des_jnt_pos(i) * 1000) /1000; //implement low pass filter here instead
+		for(int i = 0; i < 6; i++) desired_joint_state.velocity[i] = std::round(des_jnt_vel(i) * 1000) /1000;
 		if(!is_nan) arm_publisher.publish(desired_joint_state);
-		ros::Rate naptime(100);
+		//ros::Rate naptime(0);
 		ros::spinOnce();
-		//subscribe to F/T sensor values
-		//subscribe to joint states
-		//publish to egm controller
+		
 
 	}
 }
