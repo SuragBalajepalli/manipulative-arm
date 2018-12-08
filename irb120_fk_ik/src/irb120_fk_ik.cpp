@@ -115,6 +115,7 @@ Eigen::MatrixXd Irb120_fwd_solver::jacobian2(const Eigen::VectorXd& q_vec) {
         t2 = rvec;
         J_trans.block<3, 1>(0, i) = t1.cross(t2);
     }
+    
     J.block<3,6>(0,0) = J_trans;
     J.block<3,6>(3,0) = J_ang;
     return J;
@@ -192,7 +193,7 @@ Eigen::Matrix4d Irb120_fwd_solver::fwd_kin_solve_(const Vectorq6x1& q_vec) {
     Eigen::Vector3d p;
     for (int i = 0; i < 6; i++) {
         //A_i_iminusi = compute_A_of_DH(DH_a_params[i],DH_d_params[i],DH_alpha_params[i], q_vec[i] + DH_q_offsets[i] );
-        A_i_iminusi = compute_A_of_DH(i, q_vec[i] + DH_q_offsets[i]);
+        A_i_iminusi = compute_A_of_DH(i, q_vec[i] + DH_q_offsets[i] );
         A_mats[i] = A_i_iminusi;
         //std::cout << "A_mats[" << i << "]:" << std::endl;
         //std::cout << A_mats[i] << std::endl;
@@ -296,8 +297,8 @@ bool Irb120_IK_solver::compute_q123_solns(Eigen::Affine3d const& desired_hand_po
     double q1b = q1a + M_PI; // given q1, q1+pi is also a soln
     Eigen::Matrix4d A1a, A1b;
     //compute_A_of_DH(double a,double d,double q, double alpha); use q_vec(i) + DH_q_offsets(i)
-    A1a = compute_A_of_DH(0, q1a); //compute_A_of_DH(DH_a_params[0],DH_d_params[0],DH_alpha_params[0], q1a+ DH_q_offsets[0] );
-    A1b = compute_A_of_DH(0, q1b); //compute_A_of_DH(DH_a_params[0],DH_d_params[0],DH_alpha_params[0], q1b+ DH_q_offsets[0] );    
+    A1a = compute_A_of_DH(0, q1a ); //compute_A_of_DH(DH_a_params[0],DH_d_params[0],DH_alpha_params[0], q1a+ DH_q_offsets[0] );
+    A1b = compute_A_of_DH(0, q1b ); //compute_A_of_DH(DH_a_params[0],DH_d_params[0],DH_alpha_params[0], q1b+ DH_q_offsets[0] );    
     double q2a_solns[2];
     double q2b_solns[2];
 

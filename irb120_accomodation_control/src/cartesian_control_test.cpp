@@ -1,6 +1,9 @@
-//10/31/2018
-//Surag Balajepalli
-//Scratch pad for cwru_lib_abb (for lack of a better name)
+//cartesian control test
+//publishes to /abb_cartesian_command
+//subscribes to /abb_joint_state
+//subscribes to /robotiq_ft_wrench
+
+
 #include <irb120_accomodation_control/irb120_accomodation_control.h>
 #include <cmath>
 #include <Eigen/QR>
@@ -14,19 +17,14 @@ Eigen::VectorXd joint_states_ = Eigen::VectorXd::Zero(6);
 
 double dt_ = 0.1;
 int dbg;
-double MAX_JNT_VEL_NORM = 0.5;
-double MAX_JNT_VEL_NORM_WRIST = 10;
-bool is_nan;
 double K_virt = 0.1;
+double MAX_TWIST_NORM = 0.1;
 
 Eigen::VectorXd desired_ee_twist(6);
 Eigen::VectorXd desired_twist(6);
-Eigen::VectorXd desired_twist_sensor(6);
 Eigen::VectorXd desired_ee_pos(6);
 Eigen::MatrixXd accomodation_gain(6,6);
 Eigen::VectorXd current_ee_pos(6);
-
-
 
 Eigen::Matrix3d vectorHat(Eigen::Vector3d vector) { //for lack of a better name
 		Eigen::Matrix3d hat_of_vector;
@@ -109,30 +107,29 @@ void jointStateCallback(const sensor_msgs::JointState& joint_state) {
 
 
 int main(int argc, char **argv) {
-	ros::init(argc, argv, "control_test");
+	ros::init(argc, argv, "cartesian_control_test");
 	ros::NodeHandle nh;
 	ros::Subscriber joint_state_sub = nh.subscribe("abb120_joint_state",1,jointStateCallback);
 	ros::Subscriber ft_sub = nh.subscribe("robotiq_ft_wrench", 1, ftSensorCallback);
-	ros::Publisher arm_publisher = nh.advertise<sensor_msgs::JointState>("abb120_joint_angle_command",1);
-	
+	ros::Publisher cart_pub = nh.advertise<geometry_msgs::Pose>("abb_cartesian_command",1);
+	ros::Publisher twist_pub = nh.advertise<geometry_msgs::Twist>("abb_twist_command",1);
+
+	geometry_msgs::Pose pose;
+	geometry_msgs::Twist twist;
+
 	Irb120_fwd_solver irb120_fwd_solver;
-	
-	sensor_msgs::JointState desired_joint_state;
-	desired_joint_state.position.resize(6);
-	desired_joint_state.velocity.resize(6);
-	//desired_twist<<0.1,0,-0.1,0,0,0;
+
 	accomodation_gain<<1,0,0,0,0,0,
 						0,1,0,0,0,0,
 						0,0,1,0,0,0,
-						0,0,0,1,0,0,
-						0,0,0,0,1,0,
-						0,0,0,0,0,1;
+						0,0,0,0.1,0,0,
+						0,0,0,0,0.1,0,
+						0,0,0,0,0,0.1;
 
-	accomodation_gain *= -0.001;
+	accomodation_gain *= -0.005;
 
-
-	//where to? Make this whole thing a function
-	desired_ee_pos<<0.5,0,0.85,0,1,0;
+	
+	desired_ee_pos<<500,0,300,0,1,0; //in MM
 
 	//static transform for sensor
 	Eigen::Affine3d sensor_wrt_flange;
@@ -153,26 +150,12 @@ int main(int argc, char **argv) {
 	tool_wrt_sensor_trans<<0,0,0.05;
 	tool_wrt_sensor.linear() = tool_wrt_sensor_rot;
 	tool_wrt_sensor.translation() = tool_wrt_sensor_trans;
-	
 
 	while(ros::ok()) {
-		//cout<<"----------------";
 
 		ros::spinOnce();
 
-
-		
-		//initialize jacobians
-		Eigen::MatrixXd jacobian = irb120_fwd_solver.jacobian2(joint_states_);
-		Eigen::MatrixXd jacobian_inv = jacobian.inverse(); //what to do when matrix is non invertible?
-		Eigen::MatrixXd jacobian_transpose = jacobian.transpose();
-		
-		
-		
-		
 		Eigen::Affine3d flange_wrt_robot = irb120_fwd_solver.fwd_kin_solve(joint_states_);
-
-		
 		Eigen::Affine3d sensor_wrt_robot = flange_wrt_robot * sensor_wrt_flange;
 		Eigen::VectorXd wrench_tool_coords = transform_wrench(wrench_body_coords_, tool_wrt_sensor);
 		
@@ -182,55 +165,40 @@ int main(int argc, char **argv) {
 		
 		//find current end effector pose
 		current_ee_pos = pose_from_transform(tool_wrt_robot);
+		current_ee_pos.head(3) = current_ee_pos.head(3) * 1000; //To convert to MM
 		
-
-		//desired_ee_pos = current_ee_pos;
-		//desired_ee_pos.tail(3)<<0,0,1;
+		desired_ee_pos = current_ee_pos;
 		desired_twist = K_virt *  ( desired_ee_pos - current_ee_pos);
 		
 		Eigen::VectorXd desired_flange_twist = transform_twist(desired_twist, tool_wrt_sensor);
 
-		//desired_flange_twist = desired_flange_twist * 0.000000001; //Jacobain musnt fail
-
-		//control law
-		//HERE! NEED TO CONVERT DESIRED TWIST TO FLANGE FRAME BEFORE PUTTING IN CONTROL LAW!
-		//DESIRED TWIST IS CURRENTLY IN EE FRAME iE, TOOL FRAME
-		//TO DO: MONDAY 12/03
-		//Eigen::MatrixXd des_jnt_vel = jacobian_inv * desired_twist - accomodation_gain * jacobian_transpose * wrench_spatial_coords  ;
-		Eigen::VectorXd result_twist = desired_flange_twist - accomodation_gain * wrench_spatial_coords;
-		result_twist = result_twist * 0.05; //Jacobian only works well at very small angles
-		Eigen::VectorXd des_jnt_vel = jacobian_inv * result_twist;
+		Eigen::VectorXd result_twist = desired_twist - accomodation_gain * wrench_spatial_coords;
 		cout<<"result_twist"<<endl<<result_twist<<endl;
 		cout<<"----------"<<endl;
 		cout<<"current_ee_pos"<<endl<<current_ee_pos<<endl;
-		//cin>>dbg;
-		//cin>>dbg;
-		
 
-		//clip vel command  and remove nan that might have made their way through jacobian inverse
-		//cout<<"--------";
-		for(int i = 0; i < 6; i++) { 
-			if(isnan(des_jnt_vel(i))) {
-				is_nan = true;
-				//ROS_WARN("At SINGU");
-			}
-			else { is_nan = false;}
-		}
+		if(result_twist.norm() > MAX_TWIST_NORM) result_twist = (result_twist / result_twist.norm()) * MAX_TWIST_NORM;
 
-		if(des_jnt_vel.head(3).norm() > MAX_JNT_VEL_NORM) des_jnt_vel.head(3) = (des_jnt_vel.head(3) / des_jnt_vel.head(3).norm()) * MAX_JNT_VEL_NORM;
-		if(des_jnt_vel.tail(3).norm() > MAX_JNT_VEL_NORM_WRIST) des_jnt_vel.tail(3) = (des_jnt_vel.tail(3) / des_jnt_vel.tail(3).norm()) * MAX_JNT_VEL_NORM_WRIST;
+		Eigen::VectorXd next_pos = current_ee_pos + result_twist * dt_;
 
-		
-		Eigen::MatrixXd des_jnt_pos = joint_states_ + (des_jnt_vel * dt_);
-		//des_jnt_pos<<0,0,0,0,0,0; //DEBUG ONLY
-		
-		//stuff it into Jointstate message and publish
-		for(int i = 0; i < 6; i++) desired_joint_state.position[i] = std::round(des_jnt_pos(i) * 1000) /1000; //implement low pass filter here instead
-		for(int i = 0; i < 6; i++) desired_joint_state.velocity[i] = std::round(des_jnt_vel(i) * 1000) /1000;
-		if(!is_nan) arm_publisher.publish(desired_joint_state);
-		//ros::Rate naptime(0);
+		pose.position.x = next_pos(0);
+		pose.position.y = next_pos(1);
+		pose.position.z = next_pos(2);
+		pose.orientation.x = next_pos(3);
+		pose.orientation.y = next_pos(4);
+		pose.orientation.z = next_pos(5);
+
+
+		twist.linear.x = result_twist(0);
+		twist.linear.y = result_twist(1);
+		twist.linear.z = result_twist(2);
+		twist.angular.x = result_twist(3);
+		twist.angular.y = result_twist(4);
+		twist.angular.z = result_twist(5);
+
+		cart_pub.publish(pose);
+		twist_pub.publish(twist);
+
 		ros::spinOnce();
-		
-
 	}
 }
