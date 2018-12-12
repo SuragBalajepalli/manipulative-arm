@@ -11,6 +11,7 @@
 
 
 #include <irb120_accomodation_control/irb120_accomodation_control.h>
+//#include <Eigen/FullPivLU.h>
 
 Eigen::VectorXd dq,q0,q1,p1,p0;
 Eigen::Affine3d p1_affine, p0_affine;
@@ -42,6 +43,8 @@ int main(int argc, char **argv) {
 			q0(itr) = rand() /((double)RAND_MAX + 1) * ((1.22173 - (-1.91986)) + (-1.91986));
 		}
 		
+
+
 		//ROS_INFO_STREAM("For testing q0");
 		//cout<<q0<<endl;
 		//cin>>a;
@@ -58,8 +61,16 @@ int main(int argc, char **argv) {
 		dp.block<3,1>(0,0) = dp_origin;
 		dp.block<3,1>(3,0) = dp_rot; 
 		//testing function jacobian2
+		//q0<<0,0,0,0,0,0;
 		Eigen::MatrixXd jacobian = irb120_fwd_solver.jacobian2(q0);
-		Eigen::VectorXd exp_dp = jacobian * dq;
+		//cout<<"jacobian at 0"<<endl<<jacobian<<endl;
+		Eigen::FullPivLU<Eigen::MatrixXd> lu_jac(jacobian);
+		cin>>a;
+		Eigen::VectorXd exp_dp = jacobian * dp;
+		
+		Eigen::MatrixXd result = jacobian * lu_jac.inverse();
+		cout<<"Should be identity"<<endl<<result<<endl;
+		//cin>>a;
 		/* Obsolete
 		Eigen::Vector3d exp_dp_origin;
 		Eigen::Vector3d exp_dp_rot;
@@ -86,7 +97,7 @@ int main(int argc, char **argv) {
 		cout<<exp_dp<<endl;
 		ROS_INFO_STREAM("jacobian");
 		cout<<jacobian<<endl;
-	}		
-
+			
+	}
 
 }

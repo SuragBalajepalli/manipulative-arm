@@ -14,7 +14,7 @@ vector<double> g_desired_joint_angles;
 bool jnt_cmd, cart_cmd;
 geometry_msgs::Pose g_des_pose;
 geometry_msgs::Twist g_des_twist;
-vector<double> home_vec{0,-10,-40,0,60,0};
+vector<double> home_vec{0,-10,-20,0,35,0};
 vector<double> zero_vec{0,0,0,0,0,0};
 int dbg;
 sensor_msgs::JointState g_joint_state;
@@ -155,7 +155,7 @@ int main(int argc, char** argv) {
 	timeout.tv_sec = 2;
 	timeout.tv_usec = 0;
 	const unsigned short port_number = 6510;
-	const unsigned short port_number_robot = 52076;
+	const unsigned short port_number_robot = 54847;
 	memset(&serv_addr, 0, sizeof(serv_addr));
 	
 	serv_addr.sin_family = AF_INET;

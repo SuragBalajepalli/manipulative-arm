@@ -25,6 +25,7 @@ The sensor driver node can be run by "rosrun robotiq_ft_sensor rq_sensor". This 
 	2. The F/T sensor could (and for the first attempt, definitely would) get stuck in a loop of "Waiting for sensor connection". When this happens, input this command to the terminal "sudo usermod -a -G dialout <username>" and reboot the system.
 
 	Commands:
+
 	rostopic echo -b test08.bag -p /robotiq_ft_wrench > wrench.txt
 	rosbag record -O subset /abb120_joint_angle_command /robotiq_ft_wrench /K_value /V_value
 
