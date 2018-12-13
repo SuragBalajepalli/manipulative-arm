@@ -199,6 +199,17 @@ int main(int argc, char **argv) {
 		
 		//initialize jacobians
 		Eigen::MatrixXd jacobian = irb120_fwd_solver.jacobian2(joint_states_);
+		Eigen::Affine3d flange_wrt_robot = irb120_fwd_solver.fwd_kin_solve(joint_states_);
+		Eigen::Affine3d sensor_wrt_robot = flange_wrt_robot * sensor_wrt_flange;
+		Eigen::Affine3d tool_wrt_robot = sensor_wrt_robot * tool_wrt_sensor;
+		/*
+		Eigen::MatrixXd adj_inv_g(6,6);
+		Eigen::Matrix3d tool_rot = tool_wrt_robot.linear();
+		adj_inv_g.block<3,3>(0,0) = tool_rot.transpose();
+		adj_inv_g.block<3,3>(3,3) = tool_rot.transpose();
+		adj_inv_g.block<3,3>(3,0) = -1 * vectorHat(tool_rot.transpose() * tool_wrt_robot.translation()) * tool_rot.transpose();
+		jacobian = adj_inv_g * jacobian; 
+		*/
 		Eigen::FullPivLU<Eigen::MatrixXd> lu_jac(jacobian);
 
 		Eigen::MatrixXd jacobian_inv = lu_jac.inverse(); //what to do when matrix is non invertible?
@@ -206,9 +217,6 @@ int main(int argc, char **argv) {
 		
 		
 		//Current ee transform
-		Eigen::Affine3d flange_wrt_robot = irb120_fwd_solver.fwd_kin_solve(joint_states_);
-		Eigen::Affine3d sensor_wrt_robot = flange_wrt_robot * sensor_wrt_flange;
-		Eigen::Affine3d tool_wrt_robot = sensor_wrt_robot * tool_wrt_sensor;
 		
 		//Current ee pose
 		Eigen::VectorXd current_ee_pos(6);
@@ -244,7 +252,7 @@ int main(int argc, char **argv) {
 		//desired_twist.tail(3) = ang_vel_from_rot_mats(current_ee_rot, desired_ee_rot); 
 		//desired_twist = desired_twist * K_virt; // this is wrong for now!
 		desired_twist = K_virt * (desired_ee_pos - current_ee_pos);
-		desired_twist<<0.0,0,0,0,-0.1,0;
+		//desired_twist<<0.0,0,0,0,-0.1,0;
 		 
 		//Method 1 applies force feedback in joint space.
 		//Measured force is converted to joint torques, which is converted to joint vels using acc gain

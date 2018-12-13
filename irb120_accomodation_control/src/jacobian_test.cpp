@@ -61,16 +61,17 @@ int main(int argc, char **argv) {
 		dp.block<3,1>(0,0) = dp_origin;
 		dp.block<3,1>(3,0) = dp_rot; 
 		//testing function jacobian2
-		//q0<<0,0,0,0,0,0;
+		q0<<0,-M_PI/3,-M_PI/4,0,M_PI/3,0;
 		Eigen::MatrixXd jacobian = irb120_fwd_solver.jacobian2(q0);
-		//cout<<"jacobian at 0"<<endl<<jacobian<<endl;
+		cout<<"jacobian at 0"<<endl<<jacobian<<endl;
 		Eigen::FullPivLU<Eigen::MatrixXd> lu_jac(jacobian);
 		cin>>a;
 		Eigen::VectorXd exp_dp = jacobian * dp;
 		
 		Eigen::MatrixXd result = jacobian * lu_jac.inverse();
-		cout<<"Should be identity"<<endl<<result<<endl;
-		//cin>>a;
+		cout<<"inverse lu jac"<<endl<<lu_jac.inverse()<<endl;
+		cin>>a;
+		cout<<"inverse"<<endl<<jacobian.inverse()<<endl;
 		/* Obsolete
 		Eigen::Vector3d exp_dp_origin;
 		Eigen::Vector3d exp_dp_rot;

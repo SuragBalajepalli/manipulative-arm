@@ -94,7 +94,7 @@ Eigen::MatrixXd Irb120_fwd_solver::jacobian2(const Eigen::VectorXd& q_vec) {
     //Eigen::Matrix4d A_sensor_flange = compute_A_of_DH(0, 0.05,0.0, - M_PI/2);
     //need to call fwd_kin_solve here
     fwd_kin_solve_(q_vec);
-    Eigen::Matrix4d A_flange = A_mats[5];
+    Eigen::Matrix4d A_flange = A_mat_products[5];
     Eigen::MatrixXd O_flange = A_flange.block<3,1>(0,3); // Origin of end effector
     Eigen::MatrixXd Ai;
     Eigen::MatrixXd zvec, rvec; // zvec will contain z axis of i'th frame, rvec will contain rotation to origin of i'th frame
