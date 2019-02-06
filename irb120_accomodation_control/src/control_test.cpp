@@ -6,6 +6,7 @@
 #include <cmath>
 #include <Eigen/QR>
 #include <Eigen/Dense>
+#include <std_msgs/Float64.h>
 
 //global vars for subscribers
 //Eigen::VectorXd wrench_spatial_coords_;
@@ -18,9 +19,10 @@ int dbg;
 double MAX_JNT_VEL_NORM = 0.1;
 double MAX_JNT_VEL_NORM_WRIST = 1;
 bool is_nan;
-double K_virt = 0.5;
+double K_virt = 0.1;
 double _int = 0.001;
 double K_lag_int = 0.1;
+double X_FORCE_THRESH = 1.0;
 
 Eigen::VectorXd desired_ee_twist(6);
 Eigen::VectorXd desired_twist(6);
@@ -130,7 +132,7 @@ Eigen::Vector3d ang_vel_from_rot_mats(Eigen::Matrix3d a_wrt_world, Eigen::Matrix
 	// From eqn 2.48 of MLS book
 	//Given b_wrt_a, find ang vel from a to b
 	//Here we have a_wrt_world, b_wrt_world
-	//b_wrt_a is basical dR? Apparently not!
+	//b_wrt_a is basically dR? Apparently not!
 	Eigen::Vector3d ang_vel;
 	Eigen::Matrix3d b_wrt_a = a_wrt_world.inverse() * b_wrt_world;
 	ang_vel(0) = b_wrt_a(1,2);
@@ -146,27 +148,32 @@ int main(int argc, char **argv) {
 	ros::Subscriber joint_state_sub = nh.subscribe("abb120_joint_state",1,jointStateCallback);
 	ros::Subscriber ft_sub = nh.subscribe("robotiq_ft_wrench", 1, ftSensorCallback);
 	ros::Publisher arm_publisher = nh.advertise<sensor_msgs::JointState>("abb120_joint_angle_command",1);
-	ros::Publisher log_pub = nh.advertise<sensor_msgs::JointState>("cartesian_logger",1); //Wrong message type, but I can differentiate
+	ros::Publisher cart_log_pub = nh.advertise<sensor_msgs::JointState>("cartesian_logger",1); //Wrong message type, but I can differentiate
+	ros::Publisher virt_attr_pub = nh.advertise<geometry_msgs::Pose>("virt_attr",1);
+	ros::Publisher K_virt_pub = nh.advertise<std_msgs::Float64>("K_virt",1);
 	Irb120_fwd_solver irb120_fwd_solver;
 	
 	sensor_msgs::JointState desired_joint_state;
 	sensor_msgs::JointState cartesian_log;
+	geometry_msgs::Pose virt_attr;
 	cartesian_log.position.resize(6);
 	desired_joint_state.position.resize(6);
 	desired_joint_state.velocity.resize(6);
+	std_msgs::Float64 K_virt_log;
+	K_virt_log.data = K_virt;
 	//desired_twist<<0.1,0,-0.1,0,0,0;
 	accomodation_gain<<1,0,0,0,0,0,
-						0,1,0,0,0,0,
-						0,0,1,0,0,0,
-						0,0,0,50,0,0,
-						0,0,0,0,50,0,
-						0,0,0,0,0,50;
+						0,0.1,0,0,0,0,
+						0,0,0.1,0,0,0,
+						0,0,0,0,0,0,
+						0,0,0,0,0,0,
+						0,0,0,0,0,0;
 
 	accomodation_gain *= -0.0005;
 
 
 	//where to? Make this whole thing a function
-	desired_ee_pos<<0.6,0.05,0.74,1.57,0,1.57;
+	desired_ee_pos<<0.32,0.0,0.84,1.57,0,1.57;
 
 	//static transform for sensor
 	Eigen::Affine3d sensor_wrt_flange;
@@ -239,8 +246,8 @@ int main(int argc, char **argv) {
 
 		//wrench_wrt_robot.head(3) =  force_robot_frame.head(3);
 		//wrench_wrt_robot.tail(3) = momemnt_robot_frame.tail(3);
-		cout<<"current ee pos"<<endl<<current_ee_pos<<endl;
-		cout<<"resulting wrench"<<endl<<wrench_wrt_robot<<endl;
+		//cout<<"current ee pos"<<endl<<current_ee_pos<<endl;
+		//cout<<"resulting wrench"<<endl<<wrench_wrt_robot<<endl;
 
 
 		//find current end effector pose
@@ -251,9 +258,12 @@ int main(int argc, char **argv) {
 		//desired_twist.head(3) =  desired_ee_origin - current_ee_origin;
 		//desired_twist.tail(3) = ang_vel_from_rot_mats(current_ee_rot, desired_ee_rot); 
 		//desired_twist = desired_twist * K_virt; // this is wrong for now!
+		
 		desired_twist = K_virt * (desired_ee_pos - current_ee_pos);
 		//desired_twist<<0.0,0,0,0,-0.1,0;
-		 
+		cout<<"------------"<<endl;
+		cout<<current_ee_pos<<endl;
+		cout<<"------------"<<endl;
 		//Method 1 applies force feedback in joint space.
 		//Measured force is converted to joint torques, which is converted to joint vels using acc gain
 		//Desired twist is converted to joint vels using jacobian inverse
@@ -265,9 +275,9 @@ int main(int argc, char **argv) {
 		
 	
 		//Method 1.5
-		Eigen::VectorXd result_twist =  K_lag_int * desired_twist - accomodation_gain * wrench_wrt_robot;
+		Eigen::VectorXd result_twist =  desired_twist - accomodation_gain * wrench_wrt_robot;
 		Eigen::VectorXd des_jnt_vel = jacobian_inv * result_twist;
-		cout<<"resulting twist is"<<endl<<result_twist<<endl;
+		//cout<<"resulting twist is"<<endl<<result_twist<<endl;
 		//Eigen::VectorXd des_jnt_vel = jacobian_inv * desired_twist;
 	
 
@@ -294,8 +304,18 @@ int main(int argc, char **argv) {
 		//Use jacobian inverse to convert twist to joint vel cmd
 		Eigen::VectorXd des_jnt_vel = jacobian_inv * result_twist;
 		*/
-
-
+		//Method for retracting virtual attractor to surface
+		if(abs(wrench_wrt_robot(0)) > X_FORCE_THRESH) {
+		//ROS_INFO("Virtual attractor X set to %f", current_ee_pos(0));
+			desired_ee_pos = current_ee_pos;
+			desired_ee_pos(0) = current_ee_pos(0) + 0.01; // low attraction into the surface, to keep contact
+			desired_ee_pos(2) = current_ee_pos(2) - 0.02; // high(er) attraction to a point on the surface but offset in the y axis by 5cm, a primitive search method, since we already know where the "goal" is
+		}
+		else {
+			//ROS_INFO("Force in X is %f , no problem", wrench_wrt_robot(0));
+			desired_ee_pos = current_ee_pos;
+			desired_ee_pos(0) += 0.05;
+		}
 
 		//clip vel command  and remove nan that might have made their way through jacobian inverse
 		//nan in jnt vel means Jacobian is losing rank - Fix 1: Stop moving - Make vels 0;
@@ -322,7 +342,14 @@ int main(int argc, char **argv) {
 		for(int i = 0; i < 6; i++) desired_joint_state.velocity[i] = std::round(des_jnt_vel(i) * 1000) /1000;
 		arm_publisher.publish(desired_joint_state);
 		for(int i = 0; i < 6; i++) cartesian_log.position[i] = std::round(current_ee_pos(i) * 1000) /1000;
-		log_pub.publish(cartesian_log);
+		cart_log_pub.publish(cartesian_log);
+		
+		//Populating this message for logging. 
+		virt_attr.position.x = desired_ee_pos(0);
+		virt_attr.position.y = desired_ee_pos(1);
+		virt_attr.position.z = desired_ee_pos(2);
+		virt_attr_pub.publish(virt_attr);
+		K_virt_pub.publish(K_virt_log);
 		naptime.sleep();
 		ros::spinOnce();
 		

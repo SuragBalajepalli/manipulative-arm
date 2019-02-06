@@ -11,10 +11,10 @@
 
 int g_seq_no = 0;
 vector<double> g_desired_joint_angles;
-bool jnt_cmd, cart_cmd;
+bool jnt_cmd = true, cart_cmd = false;
 geometry_msgs::Pose g_des_pose;
 geometry_msgs::Twist g_des_twist;
-vector<double> home_vec{0,-10,-25,0,40,0};
+vector<double> home_vec{0,-20,-40,0,60,0};
 vector<double> zero_vec{0,0,0,0,0,0};
 int dbg;
 sensor_msgs::JointState g_joint_state;
@@ -155,7 +155,7 @@ int main(int argc, char** argv) {
 	timeout.tv_sec = 2;
 	timeout.tv_usec = 0;
 	const unsigned short port_number = 6510;
-	const unsigned short port_number_robot = 52502;
+	const unsigned short port_number_robot = 64007;
 	memset(&serv_addr, 0, sizeof(serv_addr));
 	
 	serv_addr.sin_family = AF_INET;
@@ -164,7 +164,7 @@ int main(int argc, char** argv) {
 	
 	client_addr.sin_family = AF_INET;
 	client_addr.sin_addr.s_addr = inet_addr("192.168.125.1");
-	client_addr.sin_port = htons(port_number_robot);
+	//client_addr.sin_port = htons(port_number_robot);
 	
 
 	socklen_t addrlen = sizeof(struct sockaddr_in);
