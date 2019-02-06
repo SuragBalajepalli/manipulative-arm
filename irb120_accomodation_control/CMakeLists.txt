@@ -155,10 +155,10 @@ add_executable(networktest src/networktest.cpp)
 add_executable(custom_egm_test src/custom_egm_test.cpp)
 add_executable(compliant_touch src/compliant_touch.cpp)
 add_executable(jacobian_test src/jacobian_test.cpp)
-add_executable(control_test src/control_test.cpp)
+#add_executable(control_test src/control_test.cpp)
 add_executable(cartesian_control_test src/cartesian_control_test.cpp)
 add_executable(accommodation_server src/accommodation_server.cpp)
-
+add_executable(accommodation_controller src/accommodation_controller.cpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -227,7 +227,13 @@ target_link_libraries(jacobian_test
   irb120_fk_ik
  )
 
-target_link_libraries(control_test
+#target_link_libraries(control_test
+#  ${catkin_LIBRARIES}
+#  irb120_accomodation_control
+#  irb120_fk_ik
+# )
+
+target_link_libraries(accommodation_controller
   ${catkin_LIBRARIES}
   irb120_accomodation_control
   irb120_fk_ik

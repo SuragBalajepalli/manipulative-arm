@@ -1,7 +1,7 @@
-//10/31/2018
+//6/2/2018
 //Surag Balajepalli
-//Scratch pad for cwru_lib_abb (for lack of a better name)
-//TODO! FIX BY LOOKING AT NASA DIAGRAM
+//subscribers to a 'virtual attractor' pose
+//Performs accommodation control 
 #include <irb120_accomodation_control/irb120_accomodation_control.h>
 #include <cmath>
 #include <Eigen/QR>
@@ -22,9 +22,8 @@ bool is_nan;
 double K_virt = 0.1;
 double _int = 0.001;
 double K_lag_int = 0.1;
-double X_FORCE_THRESH = 1.0;
-double has_hit = false;
-ATTRACTOR_DISTANCE = 0.02;
+
+
 
 Eigen::VectorXd desired_ee_twist(6);
 Eigen::VectorXd desired_twist(6);
@@ -144,6 +143,34 @@ Eigen::Vector3d ang_vel_from_rot_mats(Eigen::Matrix3d a_wrt_world, Eigen::Matrix
 	return ang_vel;
 }
 
+void virt_attr_CB(const geometry_msgs::Pose& des_pose) {
+	desired_ee_pos(0) = des_pose.position.x;
+	desired_ee_pos(1) = des_pose.position.y;
+	desired_ee_pos(2) = des_pose.position.z;
+	//How to convert quaternion to euler angles?
+	//method to convert quaternion orientation to rotation matrix
+	float a = des_pose.orientation.w;
+	float b = des_pose.orientation.x;
+	float c = des_pose.orientation.y;
+	float d = des_pose.orientation.z;
+		
+	//seperately filling out the 3x3 rotation matrix
+	Eigen::Matrix3d rotation_matrix;
+	rotation_matrix(0,0) = pow(a,2) + pow(b,2) - pow(c,2) - pow(d,2);
+	rotation_matrix(0,1) = 2 * (b * c - a * d);
+	rotation_matrix(0,2) = 2 * (b * d + a * c);
+	rotation_matrix(1,0) = 2 * (b * c + a * d);
+	rotation_matrix(1,1) = pow(a,2) - pow(b,2) + pow(c,2) - pow(d,2);
+	rotation_matrix(1,2) = 2 * (c * d - a * b);
+	rotation_matrix(2,0) = 2 * (b * d - a * c);
+	rotation_matrix(2,1) = 2 * (c * d + a * b);
+	rotation_matrix(2,2) = pow(a,2) - pow(b,2) - pow(c,2) + pow(d,2); 
+
+	Eigen::Vector3d angles = decompose_rot_mat(rotation_matrix);
+	desired_ee_pos.tail(3) = angles;
+
+}
+
 
 int main(int argc, char **argv) {
 	ros::init(argc, argv, "control_test");
@@ -152,7 +179,7 @@ int main(int argc, char **argv) {
 	ros::Subscriber ft_sub = nh.subscribe("robotiq_ft_wrench", 1, ftSensorCallback);
 	ros::Publisher arm_publisher = nh.advertise<sensor_msgs::JointState>("abb120_joint_angle_command",1);
 	ros::Publisher cart_log_pub = nh.advertise<sensor_msgs::JointState>("cartesian_logger",1); //Wrong message type, but I can differentiate
-	ros::Publisher virt_attr_pub = nh.advertise<geometry_msgs::Pose>("virt_attr",1);
+	ros::Subscriber virt_attr_sub = nh.subscribe("virt_attr",1,virt_attr_CB);
 	ros::Publisher K_virt_pub = nh.advertise<std_msgs::Float64>("K_virt",1);
 	Irb120_fwd_solver irb120_fwd_solver;
 	
@@ -309,7 +336,7 @@ int main(int argc, char **argv) {
 		*/
 
 
-		//Method for retracting virtual attractor to surface
+		//Method for retracting virtual attractor to surface - Now implemented in an outside node
 		/*
 		if(abs(wrench_wrt_robot(0)) > X_FORCE_THRESH) {
 		//ROS_INFO("Virtual attractor X set to %f", current_ee_pos(0));
@@ -323,32 +350,7 @@ int main(int argc, char **argv) {
 			desired_ee_pos(0) += 0.05;
 		*/
 
-		//Method for a calculation intensive spiral search, CCW
-		if(abs(wrench_wrt_robot(0)) > X_FORCE_THRESH) {
-		//ROS_INFO("Virtual attractor X set to %f", current_ee_pos(0));
-			if(has_hit == false) {
-				hit_point = current_ee_pos;
-				has_hit = true;
-			}
-			else {
-				dist_from_hit = sqrt((hit_point(1)-current_ee_pos(1))^2 + (hit_point(2)-current_ee_pos(2))^2); //TODO declare
-				theta = atan2(dist_from_hit,ATTRACTOR_DISTANCE);//TODO declare
-				attractor_angle = theta - 0.1; //TO DO magic number
-				desired_ee_pos = current_ee_pos;
-				desired_ee_pos(0) = current_ee_pos(0) + 0.01; // low attraction into the surface, to keep contact
-				desired_ee_pos(1) = current_ee_pos(1) + ATTRACTOR_DISTANCE*cos(attractor_angle);
-				desired_ee_pos(2) = current_ee_pos(2) + ATTRACTOR_DISTANCE*sin(attractor_angle);
-			}
-			
-
-		}
-		else {
-			//ROS_INFO("Force in X is %f , no problem", wrench_wrt_robot(0));
-			desired_ee_pos = current_ee_pos;
-			desired_ee_pos(0) += 0.05;
-		}
-
-		//clip vel command  and remove nan that might have made their way through jacobian inverse
+				//clip vel command  and remove nan that might have made their way through jacobian inverse
 		//nan in jnt vel means Jacobian is losing rank - Fix 1: Stop moving - Make vels 0;
 		//cout<<"--------";
 
@@ -380,7 +382,7 @@ int main(int argc, char **argv) {
 		virt_attr.position.x = desired_ee_pos(0);
 		virt_attr.position.y = desired_ee_pos(1);
 		virt_attr.position.z = desired_ee_pos(2);
-		virt_attr_pub.publish(virt_attr);
+		
 		K_virt_pub.publish(K_virt_log);
 		naptime.sleep();
 		ros::spinOnce();
