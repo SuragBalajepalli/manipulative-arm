@@ -22,6 +22,7 @@ bool is_nan;
 double K_virt = 0.1;
 double _int = 0.001;
 double K_lag_int = 0.1;
+bool cmd = false;
 
 
 
@@ -36,7 +37,6 @@ Eigen::MatrixXd accomodation_gain(6,6);
 Eigen::VectorXd current_ee_origin(3);
 Eigen::Matrix3d current_ee_rot;
 Eigen::Matrix3d desired_ee_rot;
-Eigen::VectorXd hit_point(6);
 
 
 
@@ -144,6 +144,7 @@ Eigen::Vector3d ang_vel_from_rot_mats(Eigen::Matrix3d a_wrt_world, Eigen::Matrix
 }
 
 void virt_attr_CB(const geometry_msgs::Pose& des_pose) {
+	cmd = true;
 	desired_ee_pos(0) = des_pose.position.x;
 	desired_ee_pos(1) = des_pose.position.y;
 	desired_ee_pos(2) = des_pose.position.z;
@@ -193,17 +194,29 @@ int main(int argc, char **argv) {
 	K_virt_log.data = K_virt;
 	//desired_twist<<0.1,0,-0.1,0,0,0;
 	accomodation_gain<<1,0,0,0,0,0,
-						0,0.1,0,0,0,0,
-						0,0,0.1,0,0,0,
+						0,1,0,0,0,0,
+						0,0,0,0,0,0,
 						0,0,0,0,0,0,
 						0,0,0,0,0,0,
 						0,0,0,0,0,0;
 
 	accomodation_gain *= -0.0005;
+	
+	//Begin tool description. Think of another way to make this happen
+	double tool_mass = 0.5;
+	double tool_length = 0.1;
+	Eigen::Vector3d tool_length_vector;
+	tool_length_vector<<0,0,tool_length; //For easier math, length vector described in tool frame
+	Eigen::Vector3d f_g_r; //gravity vector in robot base frame
+	f_g_r<<tool_mass*9.8,0,0;
+	//gravity in tool frame, to be computer for every new joint state
+	Eigen::Vector3d f_g_t;
 
+	//compensation wrench 
+	Eigen::VectorXd f_comp(6);
 
 	//where to? Make this whole thing a function
-	desired_ee_pos<<0.32,0.0,0.84,1.57,0,1.57;
+	//esired_ee_pos<<0.32,0.0,0.84,1.57,0,1.57;
 
 	//static transform for sensor
 	Eigen::Affine3d sensor_wrt_flange;
@@ -239,14 +252,7 @@ int main(int argc, char **argv) {
 		Eigen::Affine3d flange_wrt_robot = irb120_fwd_solver.fwd_kin_solve(joint_states_);
 		Eigen::Affine3d sensor_wrt_robot = flange_wrt_robot * sensor_wrt_flange;
 		Eigen::Affine3d tool_wrt_robot = sensor_wrt_robot * tool_wrt_sensor;
-		/*
-		Eigen::MatrixXd adj_inv_g(6,6);
-		Eigen::Matrix3d tool_rot = tool_wrt_robot.linear();
-		adj_inv_g.block<3,3>(0,0) = tool_rot.transpose();
-		adj_inv_g.block<3,3>(3,3) = tool_rot.transpose();
-		adj_inv_g.block<3,3>(3,0) = -1 * vectorHat(tool_rot.transpose() * tool_wrt_robot.translation()) * tool_rot.transpose();
-		jacobian = adj_inv_g * jacobian; 
-		*/
+		
 		Eigen::FullPivLU<Eigen::MatrixXd> lu_jac(jacobian);
 
 		Eigen::MatrixXd jacobian_inv = lu_jac.inverse(); //what to do when matrix is non invertible?
@@ -261,25 +267,36 @@ int main(int argc, char **argv) {
 		current_ee_pos.tail(3) = decompose_rot_mat(tool_wrt_robot.linear()); 
 		//Update and transform force sensor output
 		ros::spinOnce();
-		Eigen::Vector3d force_tool_frame =  wrench_body_coords_.head(3);
 		
-		Eigen::Vector3d moment_tool_frame =  wrench_body_coords_.tail(3);
-		
+		//to find gravity compensation force - make this more reusable
+		f_g_t = tool_wrt_robot.linear().transpose() * f_g_r;
+		cout<<"f_g_t"<<endl<<f_g_t<<endl;
+		cout<<"------";
+		f_comp.head(3) = f_g_t;
+		f_comp.tail(3) = tool_length_vector.cross(f_g_t);
+		//f_comp(1) += 0.9; //There is a random inexplicable force on the Y direction of the sensor on attaching the tool. Probably due to attachment?
 
+		Eigen::Vector3d force_tool_frame =  wrench_body_coords_.head(3) - f_comp.head(3);
+		
+		Eigen::Vector3d moment_tool_frame =  wrench_body_coords_.tail(3) - f_comp.tail(3);
+		cout<<"---------"<<endl;
+		cout<<"f after compensation"<<endl<<force_tool_frame<<endl;
+		cout<<"-------"<<endl;
 		
 		Eigen::VectorXd wrench_wrt_robot(6);
 		wrench_wrt_robot.head(3) = sensor_wrt_robot.linear() * force_tool_frame;
 		wrench_wrt_robot.tail(3) = (sensor_wrt_robot.linear() * moment_tool_frame);
-
+		for(int i = 0; i < wrench_wrt_robot.size(); i++) wrench_wrt_robot(i) =  std::round(wrench_wrt_robot(i) * 10) / 10;
 		//Eigen::Vector3d force_robot_frame = sensor_wrt_robot * force_tool_frame;
 		//Eigen::Vector3d momemnt_robot_frame = sensor_wrt_robot * moment_tool_frame;
 
 		//wrench_wrt_robot.head(3) =  force_robot_frame.head(3);
 		//wrench_wrt_robot.tail(3) = momemnt_robot_frame.tail(3);
 		//cout<<"current ee pos"<<endl<<current_ee_pos<<endl;
-		//cout<<"resulting wrench"<<endl<<wrench_wrt_robot<<endl;
-
-
+		cout<<"compensation values"<<endl<<f_comp<<endl;
+		cout<<"---------------";
+		cout<<"resulting wrench"<<endl<<wrench_wrt_robot<<endl;
+		cout<<"----------------";
 		//find current end effector pose
 		current_ee_origin = tool_wrt_robot.translation();
 		current_ee_rot = tool_wrt_robot.linear();
@@ -288,8 +305,12 @@ int main(int argc, char **argv) {
 		//desired_twist.head(3) =  desired_ee_origin - current_ee_origin;
 		//desired_twist.tail(3) = ang_vel_from_rot_mats(current_ee_rot, desired_ee_rot); 
 		//desired_twist = desired_twist * K_virt; // this is wrong for now!
+		if(!cmd) desired_ee_pos = current_ee_pos;
 		
+		desired_ee_pos.tail(3) =current_ee_pos.tail(3) ;
+
 		desired_twist = K_virt * (desired_ee_pos - current_ee_pos);
+		
 		//desired_twist<<0.0,0,0,0,-0.1,0;
 		cout<<"------------"<<endl;
 		cout<<current_ee_pos<<endl;
@@ -374,16 +395,16 @@ int main(int argc, char **argv) {
 		//stuff it into Jointstate message and publish
 		for(int i = 0; i < 6; i++) desired_joint_state.position[i] = std::round(des_jnt_pos(i) * 1000) /1000; //implement low pass filter here instead
 		for(int i = 0; i < 6; i++) desired_joint_state.velocity[i] = std::round(des_jnt_vel(i) * 1000) /1000;
-		arm_publisher.publish(desired_joint_state);
+		//arm_publisher.publish(desired_joint_state);
 		for(int i = 0; i < 6; i++) cartesian_log.position[i] = std::round(current_ee_pos(i) * 1000) /1000;
 		cart_log_pub.publish(cartesian_log);
 		
 		//Populating this message for logging. 
-		virt_attr.position.x = desired_ee_pos(0);
-		virt_attr.position.y = desired_ee_pos(1);
-		virt_attr.position.z = desired_ee_pos(2);
+		//virt_attr.position.x = desired_ee_pos(0);
+		//virt_attr.position.y = desired_ee_pos(1);
+		//virt_attr.position.z = desired_ee_pos(2);
 		
-		K_virt_pub.publish(K_virt_log);
+		//K_virt_pub.publish(K_virt_log);
 		naptime.sleep();
 		ros::spinOnce();
 		

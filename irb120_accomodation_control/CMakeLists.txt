@@ -231,7 +231,6 @@ target_link_libraries(jacobian_test
 #  ${catkin_LIBRARIES}
 #  irb120_accomodation_control
 #  irb120_fk_ik
-# )
 
 target_link_libraries(accommodation_controller
   ${catkin_LIBRARIES}
