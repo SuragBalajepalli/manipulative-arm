@@ -1,31 +1,19 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(irb120_accomodation_control)
+project(behavior_algorithms)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-add_compile_options(-std=c++11)
+# add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  geometry_msgs
   roscpp
-  std_msgs
-	tf2_ros
-  irb120_fk_ik
- actionlib_msgs
-  abb_libegm
-  
 )
 
 ## System dependencies are found with CMake's conventions
-find_package(Boost REQUIRED COMPONENTS system)
-find_package(Eigen3 REQUIRED)
-find_package(cmake_modules REQUIRED)
-include_directories(${EIGEN3_INCLUDE_DIR}
-  irb120_fk_ik/include
-	abb_libegm/include )
-add_definitions(${EIGEN_DEFINITIONS})
+# find_package(Boost REQUIRED COMPONENTS system)
+
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -42,17 +30,17 @@ add_definitions(${EIGEN_DEFINITIONS})
 ##   your messages/services/actions (e.g. std_msgs, actionlib_msgs, ...).
 ## * In the file package.xml:
 ##   * add a build_depend tag for "message_generation"
-##   * add a build_depend and a run_depend tag for each package in MSG_DEP_SET
+##   * add a build_depend and a exec_depend tag for each package in MSG_DEP_SET
 ##   * If MSG_DEP_SET isn't empty the following dependency has been pulled in
 ##     but can be declared for certainty nonetheless:
-##     * add a run_depend tag for "message_runtime"
+##     * add a exec_depend tag for "message_runtime"
 ## * In this file (CMakeLists.txt):
 ##   * add "message_generation" and every package in MSG_DEP_SET to
 ##     find_package(catkin REQUIRED COMPONENTS ...)
 ##   * add "message_runtime" and every package in MSG_DEP_SET to
 ##     catkin_package(CATKIN_DEPENDS ...)
 ##   * uncomment the add_*_files sections below as needed
-##     and list every . msg/.srv/.action file to be processed
+##     and list every .msg/.srv/.action file to be processed
 ##   * uncomment the generate_messages entry below
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
@@ -71,17 +59,17 @@ add_definitions(${EIGEN_DEFINITIONS})
 # )
 
 ## Generate actions in the 'action' folder
-add_action_files(
-   
-   FILES Accommodation.action
+# add_action_files(
+#   FILES
+#   Action1.action
 #   Action2.action
- )
+# )
 
 ## Generate added messages and services with any dependencies listed here
-generate_messages(
-  DEPENDENCIES
-   geometry_msgs   std_msgs   actionlib_msgs 
- )
+# generate_messages(
+#   DEPENDENCIES
+#   std_msgs  # Or other packages containing msgs
+# )
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -90,7 +78,7 @@ generate_messages(
 ## To declare and build dynamic reconfigure parameters within this
 ## package, follow these steps:
 ## * In the file package.xml:
-##   * add a build_depend and a run_depend tag for "dynamic_reconfigure"
+##   * add a build_depend and a exec_depend tag for "dynamic_reconfigure"
 ## * In this file (CMakeLists.txt):
 ##   * add "dynamic_reconfigure" to
 ##     find_package(catkin REQUIRED COMPONENTS ...)
@@ -113,11 +101,10 @@ generate_messages(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-  INCLUDE_DIRS include
-  LIBRARIES irb120_accomodation_control irb120_fk_ik abb_libegm
-  CATKIN_DEPENDS geometry_msgs roscpp std_msgs
-  DEPENDS system_lib
-  CATKIN_DEPENDS actionlib_msgs
+#  INCLUDE_DIRS include
+#  LIBRARIES behavior_algorithms
+ CATKIN_DEPENDS roscpp
+#  DEPENDS system_lib
 )
 
 ###########
@@ -127,15 +114,14 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
- include
+# include
   ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
-add_library(irb120_accomodation_control
-   src/irb120_accomodation_control.cpp
-)
-
+# add_library(${PROJECT_NAME}
+#   src/${PROJECT_NAME}/behavior_algorithms.cpp
+# )
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -145,20 +131,9 @@ add_library(irb120_accomodation_control
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/ABB_accomodation_control_node.cpp)
-add_executable(publish_test src/publish_test.cpp)
-add_executable(subscribe_test src/subscribe_test.cpp)
-add_executable(everything_test src/everything_test.cpp)
-add_executable(transform_test src/transform_test.cpp)
-add_executable(libegm_test src/libegm_test.cpp)
-add_executable(networktest src/networktest.cpp)
-add_executable(custom_egm_test src/custom_egm_test.cpp)
-add_executable(compliant_touch src/compliant_touch.cpp)
-add_executable(jacobian_test src/jacobian_test.cpp)
-add_executable(control_test src/control_test.cpp)
-add_executable(cartesian_control_test src/cartesian_control_test.cpp)
-add_executable(accommodation_server src/accommodation_server.cpp)
-add_executable(accommodation_controller src/accommodation_controller.cpp)
+# add_executable(${PROJECT_NAME}_node src/behavior_algorithms_node.cpp)
+add_executable(peg_hole_linear_search src/peg_hole_linear_search.cpp)
+add_executable(peg_hole_spiral_search src/peg_hole_spiral_search.cpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -170,83 +145,12 @@ add_executable(accommodation_controller src/accommodation_controller.cpp)
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(publish_test 
+ target_link_libraries(peg_hole_linear_search
    ${catkin_LIBRARIES}
-	irb120_accomodation_control
-  irb120_fk_ik
  )
 
-target_link_libraries(networktest 
+target_link_libraries(peg_hole_spiral_search
    ${catkin_LIBRARIES}
-	irb120_accomodation_control
-  irb120_fk_ik
- )
-
-target_link_libraries(custom_egm_test
-	${catkin_LIBRARIES}
-	irb120_accomodation_control
-  irb120_fk_ik
- )
-
-
-target_link_libraries(everything_test
-  ${catkin_LIBRARIES}
-  irb120_accomodation_control
-  irb120_fk_ik
-  )
-
-target_link_libraries(subscribe_test 
-   ${catkin_LIBRARIES}
-	irb120_accomodation_control
-	irb120_fk_ik 
-)
-
-target_link_libraries(transform_test
-	${catkin_LIBRARIES}
-	irb120_accomodation_control
-	irb120_fk_ik
-	abb_libegm
- )
-
-target_link_libraries(libegm_test
-	${catkin_LIBRARIES}
-	irb120_accomodation_control
-	irb120_fk_ik
-	abb_libegm
- )
-
-target_link_libraries(compliant_touch
-  ${catkin_LIBRARIES}
-  irb120_accomodation_control
-  irb120_fk_ik
- )
-
-target_link_libraries(jacobian_test
-  ${catkin_LIBRARIES}
-  irb120_accomodation_control
-  irb120_fk_ik
- )
-
-target_link_libraries(control_test
-  ${catkin_LIBRARIES}
-  irb120_accomodation_control
-  irb120_fk_ik)
-
-target_link_libraries(accommodation_controller
-  ${catkin_LIBRARIES}
-  irb120_accomodation_control
-  irb120_fk_ik
- )
-
- target_link_libraries(cartesian_control_test
-  ${catkin_LIBRARIES}
-  irb120_accomodation_control
-  irb120_fk_ik
- )
- target_link_libraries(accommodation_server
- ${catkin_LIBRARIES}
-  irb120_accomodation_control
-  irb120_fk_ik
  )
 #############
 ## Install ##
@@ -288,7 +192,7 @@ target_link_libraries(accommodation_controller
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_ABB_accomodation_control.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_behavior_algorithms.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

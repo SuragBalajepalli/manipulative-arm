@@ -23,8 +23,17 @@ double K_virt = 0.1;
 double _int = 0.001;
 double K_lag_int = 0.1;
 double X_FORCE_THRESH = 1.0;
-double has_hit = false;
-ATTRACTOR_DISTANCE = 0.02;
+double has_hit = 0;
+double ATTRACTOR_DISTANCE = 0.02;
+double theta;
+double theta_two;
+double dist_from_hit;
+double THETA_OFFSET = M_PI /90 ;
+double attractor_angle;
+double r = 0.01;
+double D_THETA = 0.01;
+double D_R = 0.01; // 5 mm
+bool snapback;
 
 Eigen::VectorXd desired_ee_twist(6);
 Eigen::VectorXd desired_twist(6);
@@ -152,13 +161,14 @@ int main(int argc, char **argv) {
 	ros::Subscriber ft_sub = nh.subscribe("robotiq_ft_wrench", 1, ftSensorCallback);
 	ros::Publisher arm_publisher = nh.advertise<sensor_msgs::JointState>("abb120_joint_angle_command",1);
 	ros::Publisher cart_log_pub = nh.advertise<sensor_msgs::JointState>("cartesian_logger",1); //Wrong message type, but I can differentiate
-	ros::Publisher virt_attr_pub = nh.advertise<geometry_msgs::Pose>("virt_attr",1);
+	ros::Publisher virt_attr_pub = nh.advertise<geometry_msgs::PoseStamped>("virt_attr_log",1);
 	ros::Publisher K_virt_pub = nh.advertise<std_msgs::Float64>("K_virt",1);
 	Irb120_fwd_solver irb120_fwd_solver;
 	
 	sensor_msgs::JointState desired_joint_state;
 	sensor_msgs::JointState cartesian_log;
-	geometry_msgs::Pose virt_attr;
+	geometry_msgs::PoseStamped virt_attr;
+	virt_attr.header.frame_id = "map";
 	cartesian_log.position.resize(6);
 	desired_joint_state.position.resize(6);
 	desired_joint_state.velocity.resize(6);
@@ -176,7 +186,7 @@ int main(int argc, char **argv) {
 
 
 	//where to? Make this whole thing a function
-	desired_ee_pos<<0.32,0.0,0.84,1.57,0,1.57;
+	desired_ee_pos<<0.42,0.0,0.72,1.57,0,1.57;
 
 	//static transform for sensor
 	Eigen::Affine3d sensor_wrt_flange;
@@ -204,7 +214,7 @@ int main(int argc, char **argv) {
 		//cout<<"----------------";
 
 		ros::spinOnce();
-
+		
 
 		
 		//initialize jacobians
@@ -262,8 +272,68 @@ int main(int argc, char **argv) {
 		//desired_twist.tail(3) = ang_vel_from_rot_mats(current_ee_rot, desired_ee_rot); 
 		//desired_twist = desired_twist * K_virt; // this is wrong for now!
 		
+		
+		//ROS_INFO("Virtual attractor X set to %f", current_ee_pos(0));
+		/*
+		if(abs(wrench_wrt_robot(0)) > X_FORCE_THRESH){
+			if(has_hit <= 10) {
+				hit_point = current_ee_pos;
+				cout<<"Hit point"<<endl<<hit_point<<endl;
+			//has_hit = true;
+				theta = 0;
+				has_hit = has_hit + 1;
+				desired_ee_pos = current_ee_pos;
+				}
+			else {
+				theta = theta + D_THETA;
+				if(theta >= 2*M_PI){
+					r = r + D_R;
+					theta = 0;
+				}
+				desired_ee_pos = current_ee_pos;
+				desired_ee_pos(0) = current_ee_pos(0) + 0.01;//current_ee_pos(0); 
+				desired_ee_pos(1) = hit_point(1) + r*cos(theta);
+				desired_ee_pos(2) = hit_point(2) + r*sin(theta);
+				cout<<"desired ee pos"<<endl<<desired_ee_pos<<endl;
+				}
+			}
+			else {
+			//ROS_INFO("Force in X is %f , no problem", wrench_wrt_robot(0));
+				desired_ee_pos = current_ee_pos;
+				desired_ee_pos(0) += 0.05;
+			}
+				*/
+/*				
+				dist_from_hit = sqrt(pow((hit_point(1)-current_ee_pos(1)),2) + pow((hit_point(2)-current_ee_pos(2)),2)); 
+				theta = atan2(dist_from_hit,ATTRACTOR_DISTANCE);
+				theta_two = 90 - theta;
+				attractor_angle = theta_two - THETA_OFFSET;
+				desired_ee_pos = current_ee_pos;
+				desired_ee_pos(0) = current_ee_pos(0); //+ 0.02; // low attraction into the surface, to keep contact
+				desired_ee_pos(1) = current_ee_pos(1) + ATTRACTOR_DISTANCE*cos(attractor_angle);
+				desired_ee_pos(2) = current_ee_pos(2) + ATTRACTOR_DISTANCE*sin(attractor_angle);
+				*/
+			
+		if((abs(wrench_wrt_robot(0)) > X_FORCE_THRESH)) {
+		//ROS_INFO("Virtual attractor X set to %f", current_ee_pos(0));
+			snapback = true;
+			desired_ee_pos = current_ee_pos;
+			desired_ee_pos(0) = current_ee_pos(0) + 0.02; // low attraction into the surface, to keep contact
+			//desired_ee_pos(2) = current_ee_pos(2) - 0.02; // high(er) attraction to a point on the surface but offset in the y axis by 5cm, a primitive search method, since we already know where the "goal" is
+		}
+		else if (!snapback){
+			//ROS_INFO("Force in X is %f , no problem", wrench_wrt_robot(0));
+				desired_ee_pos = current_ee_pos;
+				desired_ee_pos(0) += 0.05;
+			}
+
+
+
+
+
+
 		desired_twist = K_virt * (desired_ee_pos - current_ee_pos);
-		//desired_twist<<0.0,0,0,0,-0.1,0;
+		//desired_twist<<0.01,0,0,0,0,0;
 		cout<<"------------"<<endl;
 		cout<<current_ee_pos<<endl;
 		cout<<"------------"<<endl;
@@ -311,43 +381,13 @@ int main(int argc, char **argv) {
 
 		//Method for retracting virtual attractor to surface
 		/*
-		if(abs(wrench_wrt_robot(0)) > X_FORCE_THRESH) {
-		//ROS_INFO("Virtual attractor X set to %f", current_ee_pos(0));
-			desired_ee_pos = current_ee_pos;
-			desired_ee_pos(0) = current_ee_pos(0) + 0.01; // low attraction into the surface, to keep contact
-			desired_ee_pos(2) = current_ee_pos(2) - 0.02; // high(er) attraction to a point on the surface but offset in the y axis by 5cm, a primitive search method, since we already know where the "goal" is
-		}
-		else {
-			//ROS_INFO("Force in X is %f , no problem", wrench_wrt_robot(0));
-			desired_ee_pos = current_ee_pos;
-			desired_ee_pos(0) += 0.05;
-		*/
+		
+				*/
 
 		//Method for a calculation intensive spiral search, CCW
-		if(abs(wrench_wrt_robot(0)) > X_FORCE_THRESH) {
-		//ROS_INFO("Virtual attractor X set to %f", current_ee_pos(0));
-			if(has_hit == false) {
-				hit_point = current_ee_pos;
-				has_hit = true;
-			}
-			else {
-				dist_from_hit = sqrt((hit_point(1)-current_ee_pos(1))^2 + (hit_point(2)-current_ee_pos(2))^2); //TODO declare
-				theta = atan2(dist_from_hit,ATTRACTOR_DISTANCE);//TODO declare
-				attractor_angle = theta - 0.1; //TO DO magic number
-				desired_ee_pos = current_ee_pos;
-				desired_ee_pos(0) = current_ee_pos(0) + 0.01; // low attraction into the surface, to keep contact
-				desired_ee_pos(1) = current_ee_pos(1) + ATTRACTOR_DISTANCE*cos(attractor_angle);
-				desired_ee_pos(2) = current_ee_pos(2) + ATTRACTOR_DISTANCE*sin(attractor_angle);
-			}
-			
+		//if(abs(wrench_wrt_robot(0)) > 0) {
 
-		}
-		else {
-			//ROS_INFO("Force in X is %f , no problem", wrench_wrt_robot(0));
-			desired_ee_pos = current_ee_pos;
-			desired_ee_pos(0) += 0.05;
-		}
-
+		
 		//clip vel command  and remove nan that might have made their way through jacobian inverse
 		//nan in jnt vel means Jacobian is losing rank - Fix 1: Stop moving - Make vels 0;
 		//cout<<"--------";
@@ -377,9 +417,9 @@ int main(int argc, char **argv) {
 		cart_log_pub.publish(cartesian_log);
 		
 		//Populating this message for logging. 
-		virt_attr.position.x = desired_ee_pos(0);
-		virt_attr.position.y = desired_ee_pos(1);
-		virt_attr.position.z = desired_ee_pos(2);
+		virt_attr.pose.position.x = desired_ee_pos(0);
+		virt_attr.pose.position.y = desired_ee_pos(1);
+		virt_attr.pose.position.z = desired_ee_pos(2);
 		virt_attr_pub.publish(virt_attr);
 		K_virt_pub.publish(K_virt_log);
 		naptime.sleep();

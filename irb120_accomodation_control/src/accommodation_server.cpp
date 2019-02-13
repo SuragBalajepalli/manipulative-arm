@@ -335,5 +335,5 @@ int main(int argc,char** argv){
 	ros::init(argc,argv,"accommodation_as");
 	AccommodationActionServer accommodation_as_object;
 	ros::spin();
-	return 0;
+	//return 0;
 }
