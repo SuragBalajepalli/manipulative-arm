@@ -27,6 +27,7 @@ include_directories(${EIGEN3_INCLUDE_DIR}
 	abb_libegm/include )
 add_definitions(${EIGEN_DEFINITIONS})
 
+
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
@@ -159,6 +160,7 @@ add_executable(control_test src/control_test.cpp)
 add_executable(cartesian_control_test src/cartesian_control_test.cpp)
 add_executable(accommodation_server src/accommodation_server.cpp)
 add_executable(accommodation_controller src/accommodation_controller.cpp)
+add_executable(hc_acc_interface src/hand_controller_accommodation_interface.cpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -244,6 +246,11 @@ target_link_libraries(accommodation_controller
   irb120_fk_ik
  )
  target_link_libraries(accommodation_server
+ ${catkin_LIBRARIES}
+  irb120_accomodation_control
+  irb120_fk_ik
+ )
+ target_link_libraries(hc_acc_interface
  ${catkin_LIBRARIES}
   irb120_accomodation_control
   irb120_fk_ik

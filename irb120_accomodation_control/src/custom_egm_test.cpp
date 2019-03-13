@@ -14,7 +14,7 @@ vector<double> g_desired_joint_angles;
 bool jnt_cmd = true, cart_cmd = false;
 geometry_msgs::Pose g_des_pose;
 geometry_msgs::Twist g_des_twist;
-vector<double> home_vec{0,-30,0,0,32,0};
+vector<double> home_vec{0,-40,7,0,30,0};
 vector<double> zero_vec{0,0,0,0,0,0};
 int dbg;
 sensor_msgs::JointState g_joint_state;

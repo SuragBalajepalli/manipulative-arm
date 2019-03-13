@@ -40,16 +40,18 @@ int main(int argc, char** argv) {
 	std_msgs::Float64MultiArray acc_gain_vec;
 	acc_gain_vec.data.resize(6);
 	double VIRT_ATTR_DIST_MOVE = 0.05, VIRT_ATTR_DIST_SEARCH = 0.02, VIRT_ATTR_DIST_CONTACT = 0.01, VIRT_ATTR_DIST_SLIDE = 0.01;
-	double X_THRESHOLD_CONTACT, X_THRESHOLD_SLIDE;
+	double X_THRESHOLD_CONTACT = 100.0, X_THRESHOLD_SLIDE = 1.0;
 
 	while(ros::ok()) {
+		ros::spinOnce();
 		switch (state) {
 			case 0:
 				if(abs(ft_robot_frame.force.x) < X_THRESHOLD_CONTACT) {
-				
+					ROS_INFO("In state 1");
 					//Until a force in X is felt, keep pulling the virtual attractor away from the current pose 
 					virt_attr = curr_pose;
-					virt_attr.position.x = curr_pose.position.x + VIRT_ATTR_DIST_MOVE;
+					//virt_attr.position.x = curr_pose.position.x + VIRT_ATTR_DIST_MOVE;
+					virt_attr.position.x = 0.385;
 					//Set accommodation gain here. Since We're moving in X axis until touch, the diagonal would be (1,0,0,0,0,0)
 					acc_gain_vec.data[0] = 1;
 					acc_gain_vec.data[1] = 0;
@@ -59,17 +61,17 @@ int main(int argc, char** argv) {
 					acc_gain_vec.data[5] = 0;
 					}
 				else {
-					state = 1; //Going to state 1, linear search, after feeling a force greater than a threshold
+					state = 3; //Going to state 1, linear search, after feeling a force greater than a threshold
 				}
 				break;
 			case 1:
 				if(abs(ft_robot_frame.force.x) > X_THRESHOLD_CONTACT) {
-				
+					ROS_INFO("In state 2");
 					//search in either Y or Z direction until as long as theres a force felt in X
 					virt_attr = curr_pose;
 					virt_attr.position.z = curr_pose.position.z + VIRT_ATTR_DIST_SEARCH;
 					//virt_attr.position.y = curr_pose.position.y + VIRT_ATTR_DIST_SEARCH;
-					virt_attr.position.x = curr_pose.position.z + VIRT_ATTR_DIST_CONTACT;
+					virt_attr.position.x = curr_pose.position.x + VIRT_ATTR_DIST_CONTACT;
 					//set accommodation gain of (1,0,0,0,0,0)
 					acc_gain_vec.data[0] = 1;
 					acc_gain_vec.data[1] = 0;
@@ -87,6 +89,7 @@ int main(int argc, char** argv) {
 				//slide down the peg while actively correcting the orientation to prevent jamming
 				//can the accommodation gains be used to emulate a remote center of compliance?
 				//force threshold needs to be higher too?
+				ROS_INFO("In state 3");
 				if(abs(ft_robot_frame.force.x) < X_THRESHOLD_SLIDE) {
 					virt_attr = curr_pose; // also need to emulate remote center of compliance. WORK TODO
 					virt_attr.position.x = curr_pose.position.x + VIRT_ATTR_DIST_SLIDE; //move in X slowly
@@ -100,6 +103,7 @@ int main(int argc, char** argv) {
 			case 3:
 				//softly press against the surface
 				virt_attr = curr_pose;
+				ROS_INFO("In state 4");
 				virt_attr.position.x = curr_pose.position.x + VIRT_ATTR_DIST_CONTACT;
 				//set accommodation gain to be (1,0,0,0,0,0)
 					acc_gain_vec.data[0] = 1;

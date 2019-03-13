@@ -12,14 +12,15 @@
 //Eigen::VectorXd wrench_spatial_coords_;
 Eigen::VectorXd wrench_body_coords_ = Eigen::VectorXd::Zero(6);
 Eigen::VectorXd joint_states_ = Eigen::VectorXd::Zero(6);
-
+Eigen::MatrixXd wrench_filter = Eigen::MatrixXd::Zero(15,6);
+Eigen::MatrixXd joint_states_filter = Eigen::MatrixXd::Zero(15,6);
 
 double dt_ = 0.1;
 int dbg;
 double MAX_JNT_VEL_NORM = 0.1;
 double MAX_JNT_VEL_NORM_WRIST = 1;
 bool is_nan;
-double K_virt = 0.1;
+double K_virt = 1000;
 double _int = 0.001;
 double K_lag_int = 0.1;
 double X_FORCE_THRESH = 1.0;
@@ -34,6 +35,8 @@ double r = 0.01;
 double D_THETA = 0.01;
 double D_R = 0.01; // 5 mm
 bool snapback;
+int filter_counter = 0;
+int j_filter_counter = 0;
 
 Eigen::VectorXd desired_ee_twist(6);
 Eigen::VectorXd desired_twist(6);
@@ -47,6 +50,7 @@ Eigen::VectorXd current_ee_origin(3);
 Eigen::Matrix3d current_ee_rot;
 Eigen::Matrix3d desired_ee_rot;
 Eigen::VectorXd hit_point(6);
+
 
 
 
@@ -121,8 +125,7 @@ Eigen::VectorXd transform_twist(Eigen::VectorXd twist_b, Eigen::Affine3d transfo
 
 void ftSensorCallback(const geometry_msgs::WrenchStamped& ft_sensor) {
 	//subscribe to "robotiq_ft_wrench"
-	//implement low pass filter - TODO
-	
+	//implement low pass filter
 	
 	wrench_body_coords_(0) = std::round(ft_sensor.wrench.force.x * 10) / 10;
 	wrench_body_coords_(1) = std::round(ft_sensor.wrench.force.y * 10) / 10;
@@ -131,11 +134,47 @@ void ftSensorCallback(const geometry_msgs::WrenchStamped& ft_sensor) {
 	wrench_body_coords_(4) = std::round(ft_sensor.wrench.torque.y * 10) / 10;
 	wrench_body_coords_(5) = std::round(ft_sensor.wrench.torque.z * 10) / 10;
 	
+	if (filter_counter > 14) { //if last 15 readings are recorded
+		//low pass filter
+		//Block of size (p,q), starting at (i,j); so block(i,j,p,q)
+		wrench_filter.block(1,0,14,6) = wrench_filter.block(0,0,14,6); //move everything down
+		wrench_filter.block(0,0,1,6) = wrench_body_coords_.transpose(); // top row is the new coordinates - do I have to transpose it?
+
+		wrench_body_coords_ = wrench_filter.colwise().sum(); // sums up the columns into an array
+		wrench_body_coords_ /= 15; // now we have an average
+	}
+	else {
+		filter_counter++;
+		wrench_filter.block(1,0,14,6) = wrench_filter.block(0,0,14,6);
+		ROS_INFO("HERE");
+		wrench_filter.block(0,0,1,6) = wrench_body_coords_.transpose(); 
+		// and then wrench_body_coords_ is just exactly what the sensor reads
+	}
+
 }
 
 void jointStateCallback(const sensor_msgs::JointState& joint_state) {
 	//subscribe to "abb120_joint_state"
 	for(int i = 0; i < 6; i++) joint_states_(i) = joint_state.position[i] ; //implement low pass filter- TODO
+ 
+	// another low pass filter, enable if desired:
+	/*
+	if (j_filter_counter > 14) { //if last 15 readings are recorded
+		//low pass filter
+		//Block of size (p,q), starting at (i,j); so block(i,j,p,q)
+		joint_states_filter.block(1,0,14,6) = joint_states_filter.block(0,0,14,6); //move everything down
+		joint_states_filter.block(0,0,1,6) = joint_states_; // top row is the new coordinates - do I have to transpose it?
+
+		joint_states_ = joint_states_filter.colwise().sum(); // sums up the columns into an array
+		joint_states_ /= 15; // now we have an average
+	}
+	else {
+		j_filter_counter++;
+		joint_states_filter.block(1,0,14,6) = joint_states_filter.block(0,0,14,6);
+		joint_states_filter.block(0,0,1,6) = joint_states_; 
+		// and then wrench_body_coords_ is just exactly what the sensor reads
+	}
+	*/
 
 }
 
@@ -163,8 +202,12 @@ int main(int argc, char **argv) {
 	ros::Publisher cart_log_pub = nh.advertise<sensor_msgs::JointState>("cartesian_logger",1); //Wrong message type, but I can differentiate
 	ros::Publisher virt_attr_pub = nh.advertise<geometry_msgs::PoseStamped>("virt_attr_log",1);
 	ros::Publisher K_virt_pub = nh.advertise<std_msgs::Float64>("K_virt",1);
+	ros::Publisher ft_pub = nh.advertise<geometry_msgs::Wrench>("transformed_ft_wrench",1);
+
 	Irb120_fwd_solver irb120_fwd_solver;
 	
+	geometry_msgs::Wrench transformed_wrench;
+
 	sensor_msgs::JointState desired_joint_state;
 	sensor_msgs::JointState cartesian_log;
 	geometry_msgs::PoseStamped virt_attr;
@@ -176,17 +219,16 @@ int main(int argc, char **argv) {
 	K_virt_log.data = K_virt;
 	//desired_twist<<0.1,0,-0.1,0,0,0;
 	accomodation_gain<<1,0,0,0,0,0,
-						0,0.1,0,0,0,0,
-						0,0,0.1,0,0,0,
-						0,0,0,0,0,0,
-						0,0,0,0,0,0,
-						0,0,0,0,0,0;
+						0,1,0,0,0,0,
+						0,0,1,0,0,0,
+						0,0,0,1,0,0,
+						0,0,0,0,1,0,
+						0,0,0,0,0,1;
 
-	accomodation_gain *= -0.0005;
-
+	accomodation_gain *= 0.00001;
 
 	//where to? Make this whole thing a function
-	desired_ee_pos<<0.42,0.0,0.72,1.57,0,1.57;
+	desired_ee_pos<<0.35,0.0,0.72,1.57,0,1.57;
 
 	//static transform for sensor
 	Eigen::Affine3d sensor_wrt_flange;
@@ -206,6 +248,8 @@ int main(int argc, char **argv) {
 	Eigen::Vector3d tool_wrt_sensor_trans;
 	tool_wrt_sensor_trans<<0,0,0.05;
 	tool_wrt_sensor.linear() = tool_wrt_sensor_rot;
+	double MAX_TWIST_NORM = 0.1;
+
 	tool_wrt_sensor.translation() = tool_wrt_sensor_trans;
 	ros::Rate naptime(50);
 	
@@ -274,7 +318,7 @@ int main(int argc, char **argv) {
 		
 		
 		//ROS_INFO("Virtual attractor X set to %f", current_ee_pos(0));
-		/*
+/*		
 		if(abs(wrench_wrt_robot(0)) > X_FORCE_THRESH){
 			if(has_hit <= 10) {
 				hit_point = current_ee_pos;
@@ -291,7 +335,7 @@ int main(int argc, char **argv) {
 					theta = 0;
 				}
 				desired_ee_pos = current_ee_pos;
-				desired_ee_pos(0) = current_ee_pos(0) + 0.01;//current_ee_pos(0); 
+				desired_ee_pos(0) = current_ee_pos(0) + 0.05;//current_ee_pos(0); 
 				desired_ee_pos(1) = hit_point(1) + r*cos(theta);
 				desired_ee_pos(2) = hit_point(2) + r*sin(theta);
 				cout<<"desired ee pos"<<endl<<desired_ee_pos<<endl;
@@ -302,7 +346,7 @@ int main(int argc, char **argv) {
 				desired_ee_pos = current_ee_pos;
 				desired_ee_pos(0) += 0.05;
 			}
-				*/
+*/				
 /*				
 				dist_from_hit = sqrt(pow((hit_point(1)-current_ee_pos(1)),2) + pow((hit_point(2)-current_ee_pos(2)),2)); 
 				theta = atan2(dist_from_hit,ATTRACTOR_DISTANCE);
@@ -313,20 +357,20 @@ int main(int argc, char **argv) {
 				desired_ee_pos(1) = current_ee_pos(1) + ATTRACTOR_DISTANCE*cos(attractor_angle);
 				desired_ee_pos(2) = current_ee_pos(2) + ATTRACTOR_DISTANCE*sin(attractor_angle);
 				*/
-			
+		/*	
 		if((abs(wrench_wrt_robot(0)) > X_FORCE_THRESH)) {
 		//ROS_INFO("Virtual attractor X set to %f", current_ee_pos(0));
 			snapback = true;
 			desired_ee_pos = current_ee_pos;
 			desired_ee_pos(0) = current_ee_pos(0) + 0.02; // low attraction into the surface, to keep contact
-			//desired_ee_pos(2) = current_ee_pos(2) - 0.02; // high(er) attraction to a point on the surface but offset in the y axis by 5cm, a primitive search method, since we already know where the "goal" is
+			desired_ee_pos(2) = current_ee_pos(2) + 0.02; // high(er) attraction to a point on the surface but offset in the y axis by 5cm, a primitive search method, since we already know where the "goal" is
 		}
 		else if (!snapback){
 			//ROS_INFO("Force in X is %f , no problem", wrench_wrt_robot(0));
 				desired_ee_pos = current_ee_pos;
 				desired_ee_pos(0) += 0.05;
 			}
-
+		*/
 
 
 
@@ -348,7 +392,12 @@ int main(int argc, char **argv) {
 		
 	
 		//Method 1.5
-		Eigen::VectorXd result_twist =  desired_twist - accomodation_gain * wrench_wrt_robot;
+		Eigen::VectorXd result_twist =   accomodation_gain * (desired_force + wrench_wrt_robot);
+		
+		//twist into joint vels
+		if(result_twist.norm() > MAX_TWIST_NORM) result_twist = (result_twist / result_twist.norm()) * MAX_TWIST_NORM;
+
+
 		Eigen::VectorXd des_jnt_vel = jacobian_inv * result_twist;
 		//cout<<"resulting twist is"<<endl<<result_twist<<endl;
 		//Eigen::VectorXd des_jnt_vel = jacobian_inv * desired_twist;
@@ -402,6 +451,7 @@ int main(int argc, char **argv) {
 			
 		}
 
+		//prevents from going too fast
 		if(des_jnt_vel.head(3).norm() > MAX_JNT_VEL_NORM) des_jnt_vel.head(3) = (des_jnt_vel.head(3) / des_jnt_vel.head(3).norm()) * MAX_JNT_VEL_NORM;
 		if(des_jnt_vel.tail(3).norm() > MAX_JNT_VEL_NORM_WRIST) des_jnt_vel.tail(3) = (des_jnt_vel.tail(3) / des_jnt_vel.tail(3).norm()) * MAX_JNT_VEL_NORM_WRIST;
 
@@ -417,9 +467,18 @@ int main(int argc, char **argv) {
 		cart_log_pub.publish(cartesian_log);
 		
 		//Populating this message for logging. 
+		virt_attr.header.stamp = ros::Time::now();
 		virt_attr.pose.position.x = desired_ee_pos(0);
 		virt_attr.pose.position.y = desired_ee_pos(1);
 		virt_attr.pose.position.z = desired_ee_pos(2);
+
+		transformed_wrench.force.x = wrench_wrt_robot(0);
+		transformed_wrench.force.y = wrench_wrt_robot(1);
+		transformed_wrench.force.z = wrench_wrt_robot(2);
+		transformed_wrench.torque.x = wrench_wrt_robot(3);
+		transformed_wrench.torque.y = wrench_wrt_robot(4);
+		transformed_wrench.torque.z = wrench_wrt_robot(5);
+		ft_pub.publish(transformed_wrench);
 		virt_attr_pub.publish(virt_attr);
 		K_virt_pub.publish(K_virt_log);
 		naptime.sleep();

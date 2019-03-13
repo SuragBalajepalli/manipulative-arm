@@ -10,6 +10,9 @@ project(behavior_algorithms)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
 )
+find_package(Eigen3 REQUIRED)
+include_directories(${EIGEN3_INCLUDE_DIR})
+add_definitions(${EIGEN_DEFINITIONS})
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
