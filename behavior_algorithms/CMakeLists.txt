@@ -137,6 +137,7 @@ include_directories(
 # add_executable(${PROJECT_NAME}_node src/behavior_algorithms_node.cpp)
 add_executable(peg_hole_linear_search src/peg_hole_linear_search.cpp)
 add_executable(peg_hole_spiral_search src/peg_hole_spiral_search.cpp)
+add_executable(cap_off src/cap_off.cpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -153,6 +154,10 @@ add_executable(peg_hole_spiral_search src/peg_hole_spiral_search.cpp)
  )
 
 target_link_libraries(peg_hole_spiral_search
+   ${catkin_LIBRARIES}
+ )
+
+target_link_libraries(cap_off
    ${catkin_LIBRARIES}
  )
 #############

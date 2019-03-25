@@ -23,7 +23,7 @@ Eigen::MatrixXd accomodation_gain(6,6);
 bool cmd = false; // this is spaghetti. Fix it!
 bool jnt_state_update = false;
 Eigen::Quaterniond virt_quat;
-
+double SMALL_ANGLE_THRES = 0.5;
 
 Eigen::Matrix3d vectorHat(Eigen::Vector3d vector) { //for lack of a better name
 		Eigen::Matrix3d hat_of_vector;
@@ -97,8 +97,6 @@ void virt_attr_CB(const geometry_msgs::PoseStamped& des_pose) {
 	virt_attr_delta(0) = des_pose.pose.position.x;
 	virt_attr_delta(1) = des_pose.pose.position.y;
 	virt_attr_delta(2) = des_pose.pose.position.z;
-	//How to convert quaternion to euler angles?
-	//method to convert quaternion orientation to rotation matrix
 
 	
 	virt_quat.w() = des_pose.pose.orientation.w;
@@ -108,20 +106,6 @@ void virt_attr_CB(const geometry_msgs::PoseStamped& des_pose) {
 			
 	//seperately filling out the 3x3 rotation matrix
 	virt_attr_rot = virt_quat.normalized().toRotationMatrix();
-	/*
-	rotation_matrix(0,0) = pow(a,2) + pow(b,2) - pow(c,2) - pow(d,2);
-	rotation_matrix(0,1) = 2 * (b * c - a * d);
-	rotation_matrix(0,2) = 2 * (b * d + a * c);
-	rotation_matrix(1,0) = 2 * (b * c + a * d);
-	rotation_matrix(1,1) = pow(a,2) - pow(b,2) + pow(c,2) - pow(d,2);
-	rotation_matrix(1,2) = 2 * (c * d - a * b);
-	rotation_matrix(2,0) = 2 * (b * d - a * c);
-	rotation_matrix(2,1) = 2 * (c * d + a * b);
-	rotation_matrix(2,2) = pow(a,2) - pow(b,2) - pow(c,2) + pow(d,2); 
-	*/
-	//this is a bad way to do this due to loss of information
-
-	//cin>>dbg;
 
 }
 
@@ -134,12 +118,36 @@ void acc_gain_Cb(const std_msgs::Float64MultiArray& acc_gain_diag) {
 		//cout<<"acc gain"<<accomodation_gain<<endl;
 }
 
+Eigen::Vector3d delta_phi_from_rots(Eigen::Matrix3d source_rot, Eigen::Matrix3d dest_rot) {
+	//Takes the source and destination orientations as rotation matrices
+	//Computes angle of rotation required in each of X, Y, and Z axes to reconcile these rotations
+	//Important: Useful for small angle approximation only
+
+
+	//Todo: Implement method to check whether small angle approximation is appropriate. 
+
+	//This is to ensure that it is 
+
+	Eigen::Vector3d delta_phi;
+	Eigen::Matrix3d delta_rot = dest_rot * source_rot.inverse();
+	Eigen::AngleAxisd ang_ax(delta_rot);
+	if (ang_ax.angle() > SMALL_ANGLE_THRES) {
+		float d_ang = ang_ax.angle() / 10;
+		Eigen::AngleAxisd detla_ang_ax(d_ang, ang_ax.axis());
+		delta_rot = detla_ang_ax.toRotationMatrix();
+	}
+	delta_phi(0) = (delta_rot(2,1) - delta_rot(1,2)) / 2;
+	delta_phi(1) = (delta_rot(0,2) - delta_rot(2,0)) / 2;
+	delta_phi(2) = (delta_rot(1,0) - delta_rot(0,1)) / 2;
+	return delta_phi;
+}
+
 int main(int argc, char **argv) {
 	ros::init(argc, argv, "hc_acc_interface");
 	ros::NodeHandle nh;
-	ros::Subscriber virt_attr_sub = nh.subscribe("Virt_attr_pose",1,virt_attr_CB);
+	ros::Subscriber virt_attr_sub = nh.subscribe("virt_attr",1,virt_attr_CB);
 	ros::Subscriber ft_sub = nh.subscribe("robotiq_ft_wrench", 1, ftSensorCallback);
-	ros::Subscriber Ka_sub = nh.subscribe("Ka_diagonal",1, acc_gain_Cb);
+	//ros::Subscriber Ka_sub = nh.subscribe("Ka_diagonal",1, acc_gain_Cb);
 	ros::Subscriber joint_state_sub = nh.subscribe("abb120_joint_state",1,jointStateCallback);
 	ros::Publisher arm_publisher = nh.advertise<sensor_msgs::JointState>("abb120_joint_angle_command",1);
 	ros::Publisher cart_log_pub = nh.advertise<geometry_msgs::PoseStamped>("cartesian_logger",1); 
@@ -152,13 +160,13 @@ int main(int argc, char **argv) {
 	Eigen::VectorXd desired_force(6);
 	Eigen::VectorXd result_twist(6);
 	Eigen::VectorXd virt_attr_pos(6);
-	double dt_ = 0.1;
+	double dt_ = 0.001;
 	int dbg;
 	double MAX_JNT_VEL_NORM = 1;
 	
 	double MAX_TWIST_NORM = 0.01;
 	bool is_nan;
-	double K_virt = 10000;
+	double K_virt = 1000; //10000
 	
 
 	sensor_msgs::JointState desired_joint_state;
@@ -175,9 +183,9 @@ int main(int argc, char **argv) {
 	accomodation_gain<<1,0,0,0,0,0,
 						0,1,0,0,0,0,
 						0,0,1,0,0,0,
-						0,0,0,0,0,0,
-						0,0,0,0,0,0,
-						0,0,0,0,0,0;
+						0,0,0,1,0,0,
+						0,0,0,0,1,0,
+						0,0,0,0,0,1;
 
 	accomodation_gain *= 0.0001;
 	
@@ -207,8 +215,8 @@ int main(int argc, char **argv) {
 	sensor_wrt_flange.linear() = sensor_rot;
 	sensor_wrt_flange.translation() = sensor_origin;
 
-	Eigen::Matrix3d hc_wrt_robot;
-	hc_wrt_robot<<0,0,1,
+	Eigen::Matrix3d hc_wrt_robot, hc_wrt_robot_linear;
+	hc_wrt_robot_linear<<0,0,1,
 				0,-1,0,
 				1,0,0;
 
@@ -231,7 +239,7 @@ int main(int argc, char **argv) {
 	Eigen::VectorXd initial_ee_pos = Eigen::VectorXd::Zero(6); 
 	initial_ee_pos.head(3) = tool_wrt_robot.translation();
 	initial_ee_pos.tail(3) = decompose_rot_mat(tool_wrt_robot.linear());
-	cout<<"init pos calcd as"<<endl<<initial_ee_pos<<endl;
+	hc_wrt_robot = tool_wrt_robot.linear();
 	//virt_attr_pos.tail(3) = decompose_rot_mat(tool_wrt_robot.linear());
 	ros::Rate naptime(1/dt_);
 	
@@ -280,15 +288,20 @@ int main(int argc, char **argv) {
 		
 		//safety until I figure out how to quaternion effectively
 		//virt_attr_pos.tail(3) =current_ee_pos.tail(3) ;
-		cout<<"current ee"<<endl<<current_ee_pos<<endl;
-		virt_attr_pos.head(3) = initial_ee_pos.head(3) + hc_wrt_robot * virt_attr_delta;
 		
-		Eigen::Matrix3d tf_virt_attr_rot = hc_wrt_robot * virt_attr_rot;
-		virt_attr_pos.tail(3) = decompose_rot_mat(tf_virt_attr_rot);
-		cout<<"Virt_attr_pose"<<endl<<virt_attr_pos<<endl;
+		virt_attr_pos.head(3) = initial_ee_pos.head(3) + hc_wrt_robot_linear * virt_attr_delta;
+		
+		Eigen::Matrix3d tf_virt_attr_rot_mat = hc_wrt_robot * virt_attr_rot;
+		
+		
 		
 		//effect of virtual attractor
-		desired_force = K_virt * (virt_attr_pos - current_ee_pos);
+		desired_force.head(3) = K_virt * (virt_attr_pos.head(3) - current_ee_pos.head(3));
+		//Representing rotations with 3 vals loses info
+		//Instead, 
+		//Find delta phi_x, phi_y, and phi_z  from source and destination rotation
+		//Multiply with stiffness 
+		desired_force.tail(3) = K_virt * (delta_phi_from_rots(tool_wrt_robot.linear(), tf_virt_attr_rot_mat));
 		
 		//control law. Simple accommodation again
 		Eigen::VectorXd result_twist =   accomodation_gain * (desired_force + wrench_wrt_robot);
@@ -329,6 +342,7 @@ int main(int argc, char **argv) {
 		cartesian_log.pose.orientation.x = flange_quat.x();
 		cartesian_log.pose.orientation.y = flange_quat.y();
 		cartesian_log.pose.orientation.z = flange_quat.z();
+		cartesian_log.header.stamp = ros::Time::now();
 		cart_log_pub.publish(cartesian_log);
 
 		virt_attr_log.pose.position.x = virt_attr_pos(0);
@@ -340,6 +354,7 @@ int main(int argc, char **argv) {
 		virt_attr_log.pose.orientation.x = virt_quat.x();
 		virt_attr_log.pose.orientation.y = virt_quat.y();
 		virt_attr_log.pose.orientation.z = virt_quat.z();
+		virt_attr_log.header.stamp = ros::Time::now();
 		virt_attr_after_tf.publish(virt_attr_log);
 		
 		//publishing force torque values transformed into robot frame
