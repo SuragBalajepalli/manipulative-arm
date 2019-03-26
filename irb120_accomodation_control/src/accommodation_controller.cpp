@@ -17,7 +17,7 @@ Eigen::MatrixXd wrench_filter = Eigen::MatrixXd::Zero(10,6);
 int filter_counter = 0;
 
 Eigen::VectorXd joint_states_ = Eigen::VectorXd::Zero(6);
-Eigen::VectorXd virt_attr_delta(3);
+Eigen::VectorXd virt_attr_pos(3);
 Eigen::Matrix3d virt_attr_rot;
 Eigen::MatrixXd accomodation_gain(6,6);
 bool cmd = false; // this is spaghetti. Fix it!
@@ -93,10 +93,9 @@ void jointStateCallback(const sensor_msgs::JointState& joint_state) {
 
 void virt_attr_CB(const geometry_msgs::PoseStamped& des_pose) {
 	cmd = true;
-
-	virt_attr_delta(0) = des_pose.pose.position.x;
-	virt_attr_delta(1) = des_pose.pose.position.y;
-	virt_attr_delta(2) = des_pose.pose.position.z;
+	virt_attr_pos(0) = des_pose.pose.position.x;
+	virt_attr_pos(1) = des_pose.pose.position.y;
+	virt_attr_pos(2) = des_pose.pose.position.z;
 
 	
 	virt_quat.w() = des_pose.pose.orientation.w;
@@ -105,8 +104,8 @@ void virt_attr_CB(const geometry_msgs::PoseStamped& des_pose) {
 	virt_quat.z() = des_pose.pose.orientation.z;
 			
 	//seperately filling out the 3x3 rotation matrix
-	virt_attr_rot = virt_quat.normalized().toRotationMatrix();
 
+	virt_attr_rot = virt_quat.normalized().toRotationMatrix();
 }
 
 void acc_gain_Cb(const std_msgs::Float64MultiArray& acc_gain_diag) {
@@ -159,12 +158,11 @@ int main(int argc, char **argv) {
 	Eigen::VectorXd wrench_wrt_robot(6);
 	Eigen::VectorXd desired_force(6);
 	Eigen::VectorXd result_twist(6);
-	Eigen::VectorXd virt_attr_pos(6);
 	double dt_ = 0.001;
 	int dbg;
-	double MAX_JNT_VEL_NORM = 1;
+	double MAX_JNT_VEL_NORM = 2;
 	
-	double MAX_TWIST_NORM = 0.01;
+	double MAX_TWIST_NORM = 0.1;
 	bool is_nan;
 	double K_virt = 1000; //10000
 	
@@ -283,28 +281,36 @@ int main(int argc, char **argv) {
 		//safety until I figure out how to quaternion effectively
 		//virt_attr_pos.tail(3) =current_ee_pos.tail(3) ;
 		
-		virt_attr_pos.head(3) = initial_ee_pos.head(3) + virt_attr_delta;
-		
-		Eigen::Matrix3d tf_virt_attr_rot_mat =  virt_attr_rot;
+		//virt_attr_pos.head(3) = current_ee_pos.head(3) + virt_attr_delta;
 		
 		
-		
+			
+
+			
+				
 		//effect of virtual attractor
-		desired_force.head(3) = K_virt * (virt_attr_pos.head(3) - current_ee_pos.head(3));
+		desired_force.head(3) = K_virt * (virt_attr_pos - current_ee_pos.head(3));
 		//Representing rotations with 3 vals loses info
 		//Instead, 
 		//Find delta phi_x, phi_y, and phi_z  from source and destination rotation
 		//Multiply with stiffness 
-		desired_force.tail(3) = K_virt * (delta_phi_from_rots(tool_wrt_robot.linear(), tf_virt_attr_rot_mat));
+		desired_force.tail(3) = K_virt * (delta_phi_from_rots(tool_wrt_robot.linear(), virt_attr_rot));
 		
 		//control law. Simple accommodation again
 		Eigen::VectorXd result_twist =   accomodation_gain * (desired_force + wrench_wrt_robot);
 		
+		if(!cmd) result_twist<<0,0,0,0,0,0;
+			
+
+		
+		
 		
 		if(result_twist.norm() > MAX_TWIST_NORM) result_twist = (result_twist / result_twist.norm()) * MAX_TWIST_NORM;
 		//result_twist<<0,0.001,0,0,0,0;
+		cout<<"result_twist"<<endl<<result_twist<<endl;
 
 		Eigen::VectorXd des_jnt_vel = jacobian_inv * result_twist;
+		
 		
 		
 		//clip vel command  and remove nan that might have made their way through jacobian inverse

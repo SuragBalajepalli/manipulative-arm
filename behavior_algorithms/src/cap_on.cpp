@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
     std_msgs::Float64MultiArray acc_gain_vec;
     acc_gain_vec.data.resize(6);
     double VIRT_ATTR_DIST_MOVE = 0.1, VIRT_ATTR_DIST_SEARCH = 0.02, VIRT_ATTR_DIST_CONTACT = 0.075, VIRT_ATTR_DIST_SLIDE = 0.05;
-    double X_THRESHOLD_CONTACT = 1, X_THRESHOLD_SLIDE = -10, WIGGLE_OFFSET = 0.01, X_THRESHOLD_PUSH = 50, X_THRESHOLD_TORQUE = 0.425, VIRT_ATTR_ROT_MOVE = 0.8;
+    double X_THRESHOLD_CONTACT = 1, X_THRESHOLD_SLIDE = -10, WIGGLE_OFFSET = 0.01, X_THRESHOLD_PUSH = 50, X_THRESHOLD_TORQUE = -0.425, VIRT_ATTR_ROT_MOVE = 0.8;
     double has_hit = 0;
     Eigen::VectorXd hit_point(6);
     double theta;
@@ -81,7 +81,7 @@ int main(int argc, char** argv) {
                 break;
             case 1:
                 //TODO fix torque
-                if(ft_robot_frame.torque.x < X_THRESHOLD_TORQUE) { //  Check if the torque would be positive
+                if(ft_robot_frame.torque.x > X_THRESHOLD_TORQUE) { //  Check if the torque would be positive
                     ROS_INFO("State 2");
                     //Until enough torque in X is felt, keep rotatING
 					
@@ -89,7 +89,7 @@ int main(int argc, char** argv) {
                     //virt_attr.ROTATION??.x = curr_pose.ROTATION?.x + VIRT_ATTR_ROT_MOVE;
 					//and what should this constant be? 0.8?
                     Eigen::Matrix3d ROT_MAT; // about 45 degrees
-                    double ang = -0.8;
+                    double ang = 0.8;
                     ROT_MAT(0,0) = cos(ang);
                     ROT_MAT(0,1) = -sin(ang);
                     ROT_MAT(0,2) = 0;
