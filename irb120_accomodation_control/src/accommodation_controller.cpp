@@ -117,27 +117,42 @@ void acc_gain_Cb(const std_msgs::Float64MultiArray& acc_gain_diag) {
 		//cout<<"acc gain"<<accomodation_gain<<endl;
 }
 
+/*
 Eigen::Vector3d delta_phi_from_rots(Eigen::Matrix3d source_rot, Eigen::Matrix3d dest_rot) {
 	//Takes the source and destination orientations as rotation matrices
 	//Computes angle of rotation required in each of X, Y, and Z axes to reconcile these rotations
 	//Important: Useful for small angle approximation only
 
-
-	//Todo: Implement method to check whether small angle approximation is appropriate. 
-
 	//This is to ensure that it is 
 
 	Eigen::Vector3d delta_phi;
-	Eigen::Matrix3d delta_rot = dest_rot * source_rot.inverse();
+	Eigen::Matrix3d delta_rot = source_rot.inverse() * dest_rot;
 	Eigen::AngleAxisd ang_ax(delta_rot);
 	if (ang_ax.angle() > SMALL_ANGLE_THRES) {
 		float d_ang = ang_ax.angle() / 10;
-		Eigen::AngleAxisd detla_ang_ax(d_ang, ang_ax.axis());
-		delta_rot = detla_ang_ax.toRotationMatrix();
+		Eigen::AngleAxisd delta_ang_ax(d_ang, ang_ax.axis());
+		delta_rot = delta_ang_ax.toRotationMatrix();
 	}
 	delta_phi(0) = (delta_rot(2,1) - delta_rot(1,2)) / 2;
 	delta_phi(1) = (delta_rot(0,2) - delta_rot(2,0)) / 2;
 	delta_phi(2) = (delta_rot(1,0) - delta_rot(0,1)) / 2;
+	return delta_phi;
+}
+*/
+
+Eigen::Vector3d delta_phi_from_rots(Eigen::Matrix3d source_rot, Eigen::Matrix3d dest_rot) {
+	//Takes source rotation matrix and dest rotation matrix
+	//Computes the angular disp required to reconcile the two rotations
+
+	// R_reqd = R_rob.inv * R_des
+
+	Eigen::Matrix3d desired_rotation = source_rot.inverse() * dest_rot;
+	Eigen::AngleAxisd desired_ang_ax(desired_rotation);
+	Eigen::Vector3d delta_phi;
+	Eigen::Vector3d axis = desired_ang_ax.axis();
+	delta_phi(0) = axis(0)*desired_ang_ax.angle();
+	delta_phi(1) = axis(1)*desired_ang_ax.angle();
+	delta_phi(2) = axis(2)*desired_ang_ax.angle();
 	return delta_phi;
 }
 
@@ -154,17 +169,19 @@ int main(int argc, char **argv) {
 	ros::Publisher virt_attr_after_tf = nh.advertise<geometry_msgs::PoseStamped>("tfd_virt_attr",1);
 	Irb120_fwd_solver irb120_fwd_solver;
 	
+	Eigen::MatrixXd robot_inertia_matrix(6,6);
 	Eigen::VectorXd current_ee_pos(6);
 	Eigen::VectorXd wrench_wrt_robot(6);
-	Eigen::VectorXd desired_force(6);
+	Eigen::VectorXd virtual_force(6);
 	Eigen::VectorXd result_twist(6);
+	Eigen::VectorXd des_jnt_vel = Eigen::VectorXd::Zero(6);
 	double dt_ = 0.001;
-	int dbg;
-	double MAX_JNT_VEL_NORM = 2;
-	
+	double MAX_JNT_VEL_NORM = 100;
+	double B_virt = 6;
 	double MAX_TWIST_NORM = 0.1;
 	bool is_nan;
 	double K_virt = 1000; //10000
+	double K_virt_ang = 1000;
 	
 
 	sensor_msgs::JointState desired_joint_state;
@@ -186,6 +203,15 @@ int main(int argc, char **argv) {
 						0,0,0,0,0,1;
 
 	accomodation_gain *= 0.0001;
+
+	robot_inertia_matrix<<1,0,0,0,0,0,
+						  0,1,0,0,0,0,
+						  0,0,1,0,0,0,
+						  0,0,0,1,0,0,
+						  0,0,0,0,1,0,
+						  0,0,0,0,0,1;
+
+	robot_inertia_matrix *= 1;
 	
 	//Begin tool description. Think of another way to make this happen
 	double tool_mass = 0.5;
@@ -278,47 +304,35 @@ int main(int argc, char **argv) {
 		
 
 		
-		//safety until I figure out how to quaternion effectively
-		//virt_attr_pos.tail(3) =current_ee_pos.tail(3) ;
-		
-		//virt_attr_pos.head(3) = current_ee_pos.head(3) + virt_attr_delta;
 		
 		
 			
 
-			
+		
 				
 		//effect of virtual attractor
-		desired_force.head(3) = K_virt * (virt_attr_pos - current_ee_pos.head(3));
+		virtual_force.head(3) = K_virt * (virt_attr_pos - current_ee_pos.head(3));
+		virtual_force.tail(3) = K_virt_ang * (delta_phi_from_rots(tool_wrt_robot.linear(), virt_attr_rot));
 		//Representing rotations with 3 vals loses info
 		//Instead, 
 		//Find delta phi_x, phi_y, and phi_z  from source and destination rotation
 		//Multiply with stiffness 
-		desired_force.tail(3) = K_virt * (delta_phi_from_rots(tool_wrt_robot.linear(), virt_attr_rot));
 		
-		//control law. Simple accommodation again
-		Eigen::VectorXd result_twist =   accomodation_gain * (desired_force + wrench_wrt_robot);
-		
+		//control law 1. Simple accommodation again
+		/*
+		Eigen::VectorXd result_twist =   accomodation_gain * (virtual_force + wrench_wrt_robot);
 		if(!cmd) result_twist<<0,0,0,0,0,0;
-			
-
-		
-		
-		
 		if(result_twist.norm() > MAX_TWIST_NORM) result_twist = (result_twist / result_twist.norm()) * MAX_TWIST_NORM;
-		//result_twist<<0,0.001,0,0,0,0;
-		cout<<"result_twist"<<endl<<result_twist<<endl;
-
-		Eigen::VectorXd des_jnt_vel = jacobian_inv * result_twist;
-		
-		
-		
+		des_jnt_vel = jacobian_inv * result_twist;
 		//clip vel command  and remove nan that might have made their way through jacobian inverse
 		//nan in jnt vel means Jacobian is losing rank - Fix 1: Stop moving - Make vels 0;
 		for(int i = 0; i < 6; i++) { if(isnan(des_jnt_vel(i))) des_jnt_vel<<0,0,0,0,0,0; }
 			//if at singularity - just dont move. Redundant test
 			//FullPivLu decomposition always provides an inverse - I think?
+		*/
 			
+		//control law 2: NASA compliance controller
+		des_jnt_vel = des_jnt_vel + (robot_inertia_matrix.inverse()*(-B_virt*des_jnt_vel + jacobian_transpose*(virtual_force + wrench_wrt_robot)))*dt_;
 						
 		//ensure that desired joint vel is within set limits
 		if(des_jnt_vel.norm() > MAX_JNT_VEL_NORM) des_jnt_vel = (des_jnt_vel / des_jnt_vel.norm()) * MAX_JNT_VEL_NORM;
@@ -329,6 +343,8 @@ int main(int argc, char **argv) {
 		Eigen::MatrixXd des_jnt_pos = joint_states_ + (des_jnt_vel * dt_);
 		
 		
+
+
 		//stuff vel and pos command into Jointstate message and publish
 		for(int i = 0; i < 6; i++) desired_joint_state.position[i] = std::round(des_jnt_pos(i) * 1000) /1000; //implement low pass filter here instead
 		for(int i = 0; i < 6; i++) desired_joint_state.velocity[i] = std::round(des_jnt_vel(i) * 1000) /1000;
