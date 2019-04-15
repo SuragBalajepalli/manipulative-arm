@@ -146,7 +146,7 @@ Eigen::Vector3d delta_phi_from_rots(Eigen::Matrix3d source_rot, Eigen::Matrix3d 
 
 	// R_reqd = R_rob.inv * R_des
 
-	Eigen::Matrix3d desired_rotation = source_rot.inverse() * dest_rot;
+	Eigen::Matrix3d desired_rotation =  dest_rot * source_rot.inverse();
 	Eigen::AngleAxisd desired_ang_ax(desired_rotation);
 	Eigen::Vector3d delta_phi;
 	Eigen::Vector3d axis = desired_ang_ax.axis();
@@ -175,13 +175,13 @@ int main(int argc, char **argv) {
 	Eigen::VectorXd virtual_force(6);
 	Eigen::VectorXd result_twist(6);
 	Eigen::VectorXd des_jnt_vel = Eigen::VectorXd::Zero(6);
-	double dt_ = 0.001;
-	double MAX_JNT_VEL_NORM = 100;
-	double B_virt = 6;
+	double dt_ = 0.01;
+	double MAX_JNT_VEL_NORM = 10;
+	double B_virt = 400;
 	double MAX_TWIST_NORM = 0.1;
 	bool is_nan;
-	double K_virt = 1000; //10000
-	double K_virt_ang = 1000;
+	double K_virt = 100; //10000
+	double K_virt_ang = 500;
 	
 
 	sensor_msgs::JointState desired_joint_state;
@@ -211,7 +211,7 @@ int main(int argc, char **argv) {
 						  0,0,0,0,1,0,
 						  0,0,0,0,0,1;
 
-	robot_inertia_matrix *= 1;
+	robot_inertia_matrix *= 400;
 	
 	//Begin tool description. Think of another way to make this happen
 	double tool_mass = 0.5;
@@ -313,6 +313,7 @@ int main(int argc, char **argv) {
 		//effect of virtual attractor
 		virtual_force.head(3) = K_virt * (virt_attr_pos - current_ee_pos.head(3));
 		virtual_force.tail(3) = K_virt_ang * (delta_phi_from_rots(tool_wrt_robot.linear(), virt_attr_rot));
+		if(!cmd) virtual_force<<0,0,0,0,0,0;
 		//Representing rotations with 3 vals loses info
 		//Instead, 
 		//Find delta phi_x, phi_y, and phi_z  from source and destination rotation
@@ -321,7 +322,6 @@ int main(int argc, char **argv) {
 		//control law 1. Simple accommodation again
 		/*
 		Eigen::VectorXd result_twist =   accomodation_gain * (virtual_force + wrench_wrt_robot);
-		if(!cmd) result_twist<<0,0,0,0,0,0;
 		if(result_twist.norm() > MAX_TWIST_NORM) result_twist = (result_twist / result_twist.norm()) * MAX_TWIST_NORM;
 		des_jnt_vel = jacobian_inv * result_twist;
 		//clip vel command  and remove nan that might have made their way through jacobian inverse
@@ -330,13 +330,24 @@ int main(int argc, char **argv) {
 			//if at singularity - just dont move. Redundant test
 			//FullPivLu decomposition always provides an inverse - I think?
 		*/
-			
+		//virtual_force<<10,0,0,0,0,0;
+		cout<<"Virtual force"<<endl<<virtual_force<<endl;
+		//wrench_wrt_robot<<0,0,0,0,0,0;	
 		//control law 2: NASA compliance controller
-		des_jnt_vel = des_jnt_vel + (robot_inertia_matrix.inverse()*(-B_virt*des_jnt_vel + jacobian_transpose*(virtual_force + wrench_wrt_robot)))*dt_;
+		/*
+		Eigen::VectorXd feed_forward_vel = Eigen::VectorXd::Zero(6);
+		ROS_INFO("here");
+		feed_forward_vel(0) = 0.0001;
+		Eigen::VectorXd feed_forward_joint_vel;
+		feed_forward_joint_vel = jacobian_inv * feed_forward_vel; 
+		*/
+		des_jnt_vel = des_jnt_vel + (robot_inertia_matrix.inverse()*(-B_virt*des_jnt_vel + jacobian_inv*(virtual_force + wrench_wrt_robot)))*dt_;
 						
 		//ensure that desired joint vel is within set limits
 		if(des_jnt_vel.norm() > MAX_JNT_VEL_NORM) des_jnt_vel = (des_jnt_vel / des_jnt_vel.norm()) * MAX_JNT_VEL_NORM;
-				
+		cout<<"des_jnt_vel"<<endl<<des_jnt_vel<<endl;
+
+		//des_jnt_vel<<0,0,0,0,0,0;		
 		
 
 		//euler one step integration to calculate position from velocities
