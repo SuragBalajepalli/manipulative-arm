@@ -175,6 +175,8 @@ int main(int argc, char **argv) {
 	Eigen::VectorXd virtual_force(6);
 	Eigen::VectorXd result_twist(6);
 	Eigen::VectorXd des_jnt_vel = Eigen::VectorXd::Zero(6);
+	Eigen::VectorXd des_cart_acc(6);
+	Eigen::VectorXd des_twist=Eigen::VectorXd::Zero(6);
 	double dt_ = 0.01;
 	double MAX_JNT_VEL_NORM = 10;
 	double B_virt = 400;
@@ -212,7 +214,8 @@ int main(int argc, char **argv) {
 						  0,0,0,0,0,1;
 
 	robot_inertia_matrix *= 400;
-	
+	Eigen::FullPivLU<Eigen::MatrixXd> lu_inertia_mat(robot_inertia_matrix);
+	Eigen::MatrixXd inertia_mat_inv = lu_inertia_mat.inverse();
 	//Begin tool description. Think of another way to make this happen
 	double tool_mass = 0.5;
 	double tool_length = 0.1;
@@ -275,7 +278,7 @@ int main(int argc, char **argv) {
 		tool_wrt_robot = sensor_wrt_robot * tool_wrt_sensor;
 		Eigen::FullPivLU<Eigen::MatrixXd> lu_jac(jacobian);
 
-		Eigen::MatrixXd jacobian_inv = jacobian.inverse(); //what to do when matrix is non invertible?
+		Eigen::MatrixXd jacobian_inv = lu_jac.inverse(); //what to do when matrix is non invertible?
 		Eigen::MatrixXd jacobian_transpose = jacobian.transpose();
 		
 		
@@ -341,7 +344,10 @@ int main(int argc, char **argv) {
 		Eigen::VectorXd feed_forward_joint_vel;
 		feed_forward_joint_vel = jacobian_inv * feed_forward_vel; 
 		*/
-		des_jnt_vel = des_jnt_vel + (robot_inertia_matrix.inverse()*(-B_virt*des_jnt_vel + jacobian_inv*(virtual_force + wrench_wrt_robot)))*dt_;
+		des_cart_acc = inertia_mat_inv*(-B_virt * des_twist + wrench_wrt_robot + virtual_force);
+		des_twist += des_cart_acc*dt_;
+		des_jnt_vel = jacobian_inv*des_twist;
+		//des_jnt_vel = des_jnt_vel + (robot_inertia_matrix.inverse()*(-B_virt*des_jnt_vel + jacobian_inv*(virtual_force + wrench_wrt_robot)))*dt_;
 						
 		//ensure that desired joint vel is within set limits
 		if(des_jnt_vel.norm() > MAX_JNT_VEL_NORM) des_jnt_vel = (des_jnt_vel / des_jnt_vel.norm()) * MAX_JNT_VEL_NORM;
