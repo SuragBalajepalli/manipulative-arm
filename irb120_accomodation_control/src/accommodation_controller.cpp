@@ -73,6 +73,7 @@ void ftSensorCallback(const geometry_msgs::WrenchStamped& ft_sensor) {
 
 		wrench_body_coords_ = wrench_filter.colwise().sum(); // sums up the columns into an array
 		wrench_body_coords_ /= 10; // now we have an average
+
 	}
 	else {
 		filter_counter++;
@@ -179,11 +180,11 @@ int main(int argc, char **argv) {
 	Eigen::VectorXd des_twist=Eigen::VectorXd::Zero(6);
 	double dt_ = 0.01;
 	double MAX_JNT_VEL_NORM = 10;
-	double B_virt = 400;
+	double B_virt = 4000;
 	double MAX_TWIST_NORM = 0.1;
 	bool is_nan;
-	double K_virt = 100; //10000
-	double K_virt_ang = 500;
+	double K_virt = 1000; //10000
+	double K_virt_ang = 100;
 	
 
 	sensor_msgs::JointState desired_joint_state;
@@ -213,7 +214,7 @@ int main(int argc, char **argv) {
 						  0,0,0,0,1,0,
 						  0,0,0,0,0,1;
 
-	robot_inertia_matrix *= 400;
+	robot_inertia_matrix *= 100;
 	Eigen::FullPivLU<Eigen::MatrixXd> lu_inertia_mat(robot_inertia_matrix);
 	Eigen::MatrixXd inertia_mat_inv = lu_inertia_mat.inverse();
 	//Begin tool description. Think of another way to make this happen

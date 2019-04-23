@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
     std_msgs::Float64MultiArray acc_gain_vec;
     acc_gain_vec.data.resize(6);
     double VIRT_ATTR_DIST_MOVE = 0.2, VIRT_ATTR_DIST_SEARCH = 0.02, VIRT_ATTR_DIST_CONTACT = 0.1, VIRT_ATTR_DIST_SLIDE = 0.05;
-    double X_THRESHOLD_CONTACT = 1, X_THRESHOLD_SLIDE = -10, WIGGLE_OFFSET = 0.01, X_THRESHOLD_PUSH = 5, X_THRESHOLD_TORQUE = 0.2, VIRT_ATTR_ROT_MOVE = 0.8;
+    double X_THRESHOLD_CONTACT = 1, X_THRESHOLD_SLIDE = -10, WIGGLE_OFFSET = 0.01, X_THRESHOLD_PUSH = 500, X_THRESHOLD_TORQUE = 0.2, VIRT_ATTR_ROT_MOVE = 0.8;
     double has_hit = 0;
     Eigen::VectorXd hit_point(6);
     double theta;
@@ -67,7 +67,8 @@ int main(int argc, char** argv) {
                     //Until enough force in X is felt, keep pulling the virtual attractor away from the current pose 
                     virt_attr.pose = curr_pose;
                     //VIRT_ATTR_DIST_MOVE+= 0.0001;
-                    virt_attr.pose.position.x = curr_pose.position.x + VIRT_ATTR_DIST_MOVE;
+                    //virt_attr.pose.position.x = curr_pose.position.x + VIRT_ATTR_DIST_MOVE;
+                    virt_attr.pose.position.x = 0.45;
                     //Set accommodation gain here. Since We're moving in X axis until enough force, the diagonal would be (1,0,0,0,0,0)
                     acc_gain_vec.data[0] = 1;
                     acc_gain_vec.data[1] = 0;

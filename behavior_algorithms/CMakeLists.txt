@@ -139,6 +139,7 @@ add_executable(peg_hole_linear_search src/peg_hole_linear_search.cpp)
 add_executable(peg_hole_spiral_search src/peg_hole_spiral_search.cpp)
 add_executable(cap_off src/cap_off.cpp)
 add_executable(cap_on src/cap_on.cpp)
+add_executable(quat_to_euler_ang_converter src/quat_to_euler_ang_converter.cpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -163,6 +164,9 @@ target_link_libraries(cap_off
  )
 
 target_link_libraries(cap_on
+   ${catkin_LIBRARIES}
+ )
+target_link_libraries(quat_to_euler_ang_converter
    ${catkin_LIBRARIES}
  )
 #############
