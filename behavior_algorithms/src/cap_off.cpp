@@ -127,7 +127,7 @@ int main(int argc, char** argv) {
                     acc_gain_vec.data[0] = 1;
                     acc_gain_vec.data[1] = 0;
                     acc_gain_vec.data[2] = 0;
-                    acc_gain_vec.data[3] = 0; // DO WE WANT IT TO ACCOMODATE IN THE WAY WE ROTATE?
+                    acc_gain_vec.data[3] = 0; 
                     acc_gain_vec.data[4] = 0;
                     acc_gain_vec.data[5] = 0;
                     }

@@ -161,6 +161,7 @@ add_executable(cartesian_control_test src/cartesian_control_test.cpp)
 add_executable(accommodation_server src/accommodation_server.cpp)
 add_executable(accommodation_controller src/accommodation_controller.cpp)
 add_executable(hc_acc_interface src/hand_controller_accommodation_interface.cpp)
+add_executable(accommodation_controller_stand_alone src/accommodation_controller_stand_alone.cpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -246,6 +247,11 @@ target_link_libraries(accommodation_controller
   irb120_fk_ik
  )
  target_link_libraries(accommodation_server
+ ${catkin_LIBRARIES}
+  irb120_accomodation_control
+  irb120_fk_ik
+ )
+  target_link_libraries(accommodation_controller_stand_alone
  ${catkin_LIBRARIES}
   irb120_accomodation_control
   irb120_fk_ik
